@@ -18,6 +18,7 @@ public class Cond extends Statement {
 		expr.printParseTree(indent1);
 		IO.displayln(indent1 + indent1.length() + " )");
 		statement.printParseTree(indent1);
+		IO.displayln(indent1 + indent1.length() + "else");
 		statement.printParseTree(indent1);
 	}
 
