@@ -7,7 +7,7 @@ public class ArrayConstructor extends RightSide {
 	public ArrayConstructor(EList eList) {
 		this.eList = eList;
 	}
-
+	
 	void printParseTree(String indent) {
 		IO.display(indent + indent.length() + " <array constructor>");
 		IO.display(indent + indent.length() + " new ");
