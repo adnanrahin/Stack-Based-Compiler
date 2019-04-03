@@ -1,23 +1,23 @@
 package assignment_2;
 
+import java.util.LinkedList;
+
 public class Expr {
-	String id;
-	E e;
 
-	public Expr(String id, E e) {
+	LinkedList<BoolTerm> boolTerms;
 
-		this.e = e;
-		this.id = id;
+	public Expr(LinkedList<BoolTerm> boolTerms) {
+		this.boolTerms = boolTerms;
 
 	}
 
 	public void printParseTree(String indent) {
-		String indent1 = indent + " ";
 
-		IO.displayln(indent + indent.length() + " <expr>");
-		IO.displayln(indent1 + indent1.length() + " " + id);
-		IO.displayln(indent1 + indent1.length() + " ,");
-		e.printParseTree(indent1);
+		IO.displayln(indent + indent.length() + "<boolTerm>");
+
+		for (BoolTerm b : boolTerms)
+			b.printParseTree(indent + " ");
+
 	}
 
 }
