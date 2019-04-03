@@ -5,3 +5,14 @@ public abstract class Primary {
 		IO.display(indent + indent.length() + " <primary>");
 	}
 }
+
+
+/**
+
+<assignment list> --> { <assignment> }+
+<assignment> --> <id> = <E> ";"
+<E> --> <term> { (+|-) <term> }
+<term> --> <primary> { (*|/) <primary> }
+<primary> --> <id> | <int> | <float> | <floatE> | "(" <E> ")"
+
+**/

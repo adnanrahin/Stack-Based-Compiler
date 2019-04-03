@@ -6,17 +6,11 @@ public class EList {
 
 	LinkedList<E> eList;
 
-	public EList() {
-
-		// default constructor
-
-	}
-
 	public EList(LinkedList<E> eList) {
 		this.eList = eList;
 	}
 	
-	public void eprintParseTree(String indent) {
+	public void printParseTree(String indent) {
 		
 		IO.displayln(indent + indent.length() + " <E List>");
 		for (E a : eList)
