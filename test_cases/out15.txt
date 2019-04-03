@@ -1,0 +1,106 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> fact
+   3 <parameter list>
+    4 <parameter> n
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> i
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 0
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> fact
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 1
+    4 <statement>
+     5 <while>
+      6 while
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> i
+         9 <
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> n
+      6 <statement>
+       7 <block>
+        8 <s list>
+         9 <statement>
+          10 <assignment>
+           11 <var>
+            12 <id var> i
+           11 =
+           11 <right side>
+            12 <expr right side>
+             13 <expr>
+              14 <boolTerm>
+               15 <boolPrimary>
+                16 <E>
+                 17 <term>
+                  18 <primary>
+                   19 <var>
+                    20 <id var> i
+                 17 +
+                 17 <term>
+                  18 <primary> 1
+         9 <statement>
+          10 <assignment>
+           11 <var>
+            12 <id var> fact
+           11 =
+           11 <right side>
+            12 <expr right side>
+             13 <expr>
+              14 <boolTerm>
+               15 <boolPrimary>
+                16 <E>
+                 17 <term>
+                  18 <primary>
+                   19 <var>
+                    20 <id var> i
+                  18 *
+                  18 <primary>
+                   19 <var>
+                    20 <id var> fact
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 returnVal
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> fact

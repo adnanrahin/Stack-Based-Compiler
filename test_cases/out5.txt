@@ -1,0 +1,40 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <fun call statement>
+      6 <fun call>
+       7 <fun name> function
+       7 <expr list>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> cs316
+            12 +
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <array var>
+                16 <array name> A
+                16 <E list>
+                 17 <E>
+                  18 <term>
+                   19 <primary> 1
+                 17 <E>
+                  18 <term>
+                   19 <primary> 2
+                 17 <E>
+                  18 <term>
+                   19 <primary> 3
+            12 -
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 returnVal

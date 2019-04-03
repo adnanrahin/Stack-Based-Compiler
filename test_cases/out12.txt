@@ -1,0 +1,36 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <while>
+      6 while
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> x
+         9 <=
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> y
+      6 <statement>
+       7 <assignment>
+        8 <var>
+         9 <id var> a
+        8 =
+        8 <right side>
+         9 <expr right side>
+          10 <expr>
+           11 <boolTerm>
+            12 <boolPrimary>
+             13 <E>
+              14 <term>
+               15 <primary> 3

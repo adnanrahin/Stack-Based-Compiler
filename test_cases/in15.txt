@@ -1,0 +1,11 @@
+fact(n)
+{
+ i = 0;
+ fact = 1;
+ while ( i < n )
+ {
+	i = i+1;
+	fact = i*fact;
+ }
+ returnVal = fact;
+}

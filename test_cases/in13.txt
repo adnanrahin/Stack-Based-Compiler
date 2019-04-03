@@ -1,0 +1,6 @@
+test()
+{
+	a = 3;
+	b = x/y;
+	print a-b;
+}

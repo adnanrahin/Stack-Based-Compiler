@@ -1,0 +1,23 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> a
+      6 =
+      6 <right side>
+       7 <array constructor>
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 10
+         9 <E>
+          10 <term>
+           11 <primary> 20
+         9 <E>
+          10 <term>
+           11 <primary> 30
