@@ -1,39 +1,39 @@
 This project is a continuation of Project 1. Implement a top-down parser for the following EBNF for our project language. 
 
-⟨fun def list⟩ → { ⟨fun def⟩ }+ 
-⟨fun def⟩ → ⟨header⟩ ⟨body⟩ 
-⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")" 
-⟨fun name⟩ → ⟨id⟩ 
-⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ } 
-⟨parameter⟩ → ⟨id⟩ 
-⟨body⟩ → "{" ⟨s list⟩ "}" 
-⟨s list⟩ → { ⟨statement⟩ } 
-⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
-⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";" 
-⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal" 
-⟨id var⟩ → ⟨id⟩ 
-⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]" 
-⟨array name⟩ → ⟨id⟩ 
-⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
-⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
-⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
-⟨expr right side⟩ → ⟨expr⟩ 
-⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
-⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
-⟨block⟩ → "{" ⟨s list⟩ "}" 
-⟨fun call statement⟩ → ⟨fun call⟩ ";" 
-⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
-⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
-⟨print⟩ → "print" ⟨expr⟩ ";" 
-⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
-⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
-⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
-⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
-⟨E⟩ → ⟨term⟩ { (+|−) ⟨term⟩ } 
-⟨term⟩ → ⟨primary⟩ { (*|/) ⟨primary⟩ } 
-⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" | − ⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩ 
-⟨var primary⟩ → ⟨var⟩ 
-⟨fun call primary⟩ → ⟨fun call⟩ 
+# ⟨fun def list⟩ → { ⟨fun def⟩ }+ 
+# ⟨fun def⟩ → ⟨header⟩ ⟨body⟩ 
+# ⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")" 
+# ⟨fun name⟩ → ⟨id⟩ 
+# ⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ } 
+# ⟨parameter⟩ → ⟨id⟩ 
+# ⟨body⟩ → "{" ⟨s list⟩ "}" 
+# ⟨s list⟩ → { ⟨statement⟩ } 
+# ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
+# ⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";" 
+# ⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal" 
+# ⟨id var⟩ → ⟨id⟩ 
+# ⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]" 
+# ⟨array name⟩ → ⟨id⟩ 
+# ⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
+# ⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
+# ⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
+# ⟨expr right side⟩ → ⟨expr⟩ 
+# ⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
+# ⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
+# ⟨block⟩ → "{" ⟨s list⟩ "}" 
+# ⟨fun call statement⟩ → ⟨fun call⟩ ";" 
+# ⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
+# ⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
+# ⟨print⟩ → "print" ⟨expr⟩ ";" 
+# ⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
+# ⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
+# ⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
+# ⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
+# ⟨E⟩ → ⟨term⟩ { (+|−) ⟨term⟩ } 
+# ⟨term⟩ → ⟨primary⟩ { (*|/) ⟨primary⟩ } 
+# ⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" | − # ⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩ 
+# ⟨var primary⟩ → ⟨var⟩ 
+# ⟨fun call primary⟩ → ⟨fun call⟩ 
 
 NOTE: In the 2-branch conditionals, each "else" matches the closest preceding unmatched "if". 
 NOTE: The binary operators +, −, *, /, ||, && associate to left. 
