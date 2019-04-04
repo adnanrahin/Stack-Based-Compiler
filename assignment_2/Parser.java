@@ -41,11 +41,10 @@ import java.util.*;
 public abstract class Parser extends LexArithArray {
 	static boolean errorFound = false;
 
-	public static AssignmentList assignmentList()
+	public static AssignmentList assignmentList() {
 
-	// <assignment list> --> { <assignment> }+
+		// <assignment list> --> { <assignment> }+
 
-	{
 		LinkedList<Assignment> assignmentList = new LinkedList<Assignment>();
 
 		Assignment assignment = assignment();
@@ -69,7 +68,7 @@ public abstract class Parser extends LexArithArray {
 
 	public static void SList() {
 		statement();
-		while (state == state.Id || state == state.LBrace) {
+		while (state == State.Id || state == State.LBrace) {
 			statement();
 		}
 
@@ -77,27 +76,127 @@ public abstract class Parser extends LexArithArray {
 
 	public static void statement() {
 
-		if (state == state.Id)
+		if (state == State.Id)
 			assignment();
 
-		else if (state == state.Keyword_if || state == state.Keyword_else)
+		else if (state == State.Keyword_if || state == State.Keyword_else)
 			cond();
 
-		else if (state == state.Keyword_print)
+		else if (state == State.Keyword_print)
 			print();
 
-		else if (state == state.LBrace)
+		else if (state == State.LBrace)
 			block();
-		
-		else if(state == state.Keyword_while)
+
+		else if (state == State.Keyword_while)
 			While();
 
-		else 
+		else
 			System.out.println("Error: <Id> or <while> or { or <cond> or <']>");
-		
+
 	}
 
 	public static void While() {
+		if (state == State.Keyword_while) {
+			getToken();
+			if (state == State.LParen) {
+				getToken();
+				expr();
+				if (state == State.RParen) {
+					getToken();
+					statement();
+				}
+			}
+		}
+	}
+
+	public static FunDefList funDefList() {
+		return null;
+	}
+
+	public static void fundef() {
+
+	}
+
+	public static void header() {
+
+	}
+
+	public static void funname() {
+
+	}
+
+	public static ParameterList parameterList() {
+		return null;
+	}
+
+	public static void body() {
+
+	}
+
+	public static void var() {
+
+	}
+
+	public static void idVar() {
+
+	}
+
+	public static void arraVar() {
+
+	}
+
+	public static void arrayName() {
+
+	}
+
+	public static EList eList() {
+		return null;
+	}
+
+	public static void rightside() {
+
+	}
+
+	public static void arrayconstructor() {
+
+	}
+
+	public static void exprrightside() {
+
+	}
+
+	public static void funCallStatement() {
+
+	}
+
+	public static void funCall() {
+
+	}
+
+	public static ExprList exprList() {
+		return null;
+	}
+
+	public static Expr expr() {
+
+		return null;
+
+	}
+
+	public static BoolTerm boolTerm() {
+		return null;
+	}
+
+	public static void compOp() {
+
+	}
+
+	public static void varPrimary() {
+
+	}
+
+	public static void funCallPrimary() {
 
 	}
 
@@ -105,19 +204,14 @@ public abstract class Parser extends LexArithArray {
 
 	}
 
-	public static void funcallstatement() {
-
-	}
-
 	public static void print() {
 
 	}
 
-	public static Assignment assignment()
+	public static Assignment assignment() {
 
-	// <assignment> --> <id> = <E> ";"
+		// <assignment> --> <id> = <E> ";"
 
-	{
 		if (state == State.Id) {
 			String id = t;
 			getToken();
@@ -136,11 +230,10 @@ public abstract class Parser extends LexArithArray {
 		return null;
 	}
 
-	public static E E()
+	public static E E() {
 
-	// <E> --> <term> { (+|-) <term> }
+		// <E> --> <term> { (+|-) <term> }
 
-	{
 		LinkedList<TermItem> termItemList = new LinkedList<TermItem>();
 
 		Term term = term();
@@ -157,11 +250,10 @@ public abstract class Parser extends LexArithArray {
 		return new E(termItemList);
 	}
 
-	public static Term term()
+	public static Term term() {
 
-	// <term> --> <primary> { (*|/) <primary> }
+		// <term> --> <primary> { (*|/) <primary> }
 
-	{
 		LinkedList<PrimaryItem> primaryItemList = new LinkedList<PrimaryItem>();
 
 		Primary primary = primary();
@@ -178,11 +270,10 @@ public abstract class Parser extends LexArithArray {
 		return new Term(primaryItemList);
 	}
 
-	public static Primary primary()
+	public static Primary primary() {
 
-	// <primary> --> <id> | <int> | <float> | <floatE> | "(" <E> ")"
+		// <primary> --> <id> | <int> | <float> | <floatE> | "(" <E> ")"s
 
-	{
 		switch (state) {
 		case Id:
 
@@ -263,7 +354,7 @@ public abstract class Parser extends LexArithArray {
 		setLex();
 
 		getToken();
-		
+
 		AssignmentList assignmentList = assignmentList(); // build a parse tree
 		if (!t.isEmpty())
 			errorMsg(5);
