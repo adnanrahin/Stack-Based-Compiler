@@ -57,6 +57,9 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static void block() {
+		
+		//	⟨block⟩ → "{" ⟨s list⟩ "}" 
+		
 		getToken();
 		SList();
 
@@ -67,6 +70,9 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static void SList() {
+		
+		//	⟨s list⟩ → { ⟨statement⟩ } 
+		
 		statement();
 		while (state == State.Id || state == State.LBrace) {
 			statement();
@@ -75,7 +81,9 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static void statement() {
-
+		
+		//	⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
+		
 		if (state == State.Id)
 			assignment();
 
@@ -97,6 +105,9 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static void While() {
+
+		//	⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
+		
 		if (state == State.Keyword_while) {
 			getToken();
 			if (state == State.LParen) {
@@ -111,101 +122,132 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static FunDefList funDefList() {
+
+		// ⟨fun def list⟩ → { ⟨fun def⟩ }+
+
 		return null;
 	}
 
 	public static void fundef() {
 
+		// ⟨fun def⟩ → ⟨header⟩ ⟨body⟩
+
 	}
 
 	public static void header() {
-
+		// ⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")"
 	}
 
-	public static void funname() {
-
+	public static void funnName() {
+		// ⟨fun name⟩ → ⟨id⟩
 	}
 
 	public static ParameterList parameterList() {
+
+		// ⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ }
+
 		return null;
+	}
+
+	public static void parameter() {
+		// ⟨parameter⟩ → ⟨id⟩
 	}
 
 	public static void body() {
-
+		// ⟨body⟩ → "{" ⟨s list⟩ "}"
 	}
 
 	public static void var() {
-
+		// ⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal"
 	}
 
 	public static void idVar() {
-
+		// ⟨id var⟩ → ⟨id⟩
 	}
 
-	public static void arraVar() {
-
+	public static void arrayVar() {
+		// ⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]"
 	}
 
 	public static void arrayName() {
-
+		// ⟨array name⟩ → ⟨id⟩
 	}
 
 	public static EList eList() {
+
+		//	⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
+
 		return null;
 	}
 
-	public static void rightside() {
-
+	public static void rightSide() {
+		//	⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
 	}
 
-	public static void arrayconstructor() {
-
+	public static void arrayConstructor() {
+		//	⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
 	}
 
-	public static void exprrightside() {
-
+	public static void exprRightSide() {
+		//	⟨expr right side⟩ → ⟨expr⟩ 
 	}
 
 	public static void funCallStatement() {
-
+		//	⟨fun call statement⟩ → ⟨fun call⟩ ";" 
 	}
 
 	public static void funCall() {
-
+		//	⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
 	}
 
 	public static ExprList exprList() {
+		
+		//	⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
+		
 		return null;
 	}
 
 	public static Expr expr() {
-
+		
+		//	⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
+		
 		return null;
 
 	}
 
 	public static BoolTerm boolTerm() {
+		
+		//	⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
+		
 		return null;
 	}
 
+	public static void boolPrimary() {
+		
+		//	⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
+		
+	}
+	
 	public static void compOp() {
-
+		
+		//	⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
+		
 	}
 
 	public static void varPrimary() {
-
+		//	⟨var primary⟩ → ⟨var⟩ 
 	}
 
 	public static void funCallPrimary() {
-
+		//	⟨fun call primary⟩ → ⟨fun call⟩ 
 	}
 
 	public static void cond() {
-
+		//	⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
 	}
 
 	public static void print() {
-
+		//	⟨print⟩ → "print" ⟨expr⟩ ";" 
 	}
 
 	public static Assignment assignment() {
