@@ -1,2 +1,4 @@
-( : Syntax Error, unexpected symbol where = expected
-( : Syntax Error, unexpected symbol where id expected
+new : Syntax Error, unexpected symbol where id, int, float, or ( expected
+new : Syntax Error, unexpected symbol where ; expected
+new : Syntax Error, unexpected symbol where id expected
+new : Syntax Error, unexpected symbol where id expected

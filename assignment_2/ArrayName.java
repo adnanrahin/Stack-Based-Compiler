@@ -10,6 +10,10 @@ public class ArrayName {
 		this.eList = eList;
 	}
 
+	public ArrayName(String id) {
+		this.id = id;
+	}
+
 	void printParseTree(String indent) {
 		String indent1 = indent + " ";
 		IO.display(indent + indent.length() + " <array name>");

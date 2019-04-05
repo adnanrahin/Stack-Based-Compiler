@@ -11,7 +11,7 @@ public class FunDef {
 	}
 
 	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <fun def>");
+		IO.displayln(indent + indent.length() + " <fun def> ");
 		header.printParseTree(indent);
 		body.printParseTree(indent);
 	}

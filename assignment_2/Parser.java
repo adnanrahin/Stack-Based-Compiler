@@ -56,34 +56,122 @@ public abstract class Parser extends LexArithArray {
 		return new AssignmentList(assignmentList);
 	}
 
-	public static void block() {
-		
-		//	⟨block⟩ → "{" ⟨s list⟩ "}" 
-		
+	public static FunDefList funDefList() {
+
+		// ⟨fun def list⟩ → { ⟨fun def⟩ }+
+
+		LinkedList<FunDef> fundeflist = new LinkedList<FunDef>();
+		FunDef funDef = fundef();
+		fundeflist.add(funDef);
+
+		while (state == State.Id) {
+			funDef = fundef();
+			fundeflist.add(funDef);
+		}
+
+		return new FunDefList(fundeflist);
+	}
+
+	public static FunDef fundef() {
+
+		// ⟨fun def⟩ → ⟨header⟩ ⟨body⟩
+
+		Header header = header();
+		Body body = body();
+
+		return new FunDef(header, body);
+
+	}
+
+	public static Header header() {
+
+		// ⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")"
+
+		funnName();
 		getToken();
-		SList();
+
+		if (state == State.LParen) {
+			getToken();
+
+			ParameterList list = parameterList();
+
+			if (state == State.RParen) {
+				getToken();
+				return new Header(list);
+			}
+
+		}
+
+		return null;
+
+	}
+
+	public static FunName funnName() {
+		// ⟨fun name⟩ → ⟨id⟩
+
+		if (state == State.Id) {
+			getToken();
+			return new FunName(t);
+		} else
+			return null;
+
+	}
+
+	public static ParameterList parameterList() {
+
+		// ⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ }
+
+		LinkedList<Parameter> parametstLinkedList = new LinkedList<Parameter>();
+
+		Parameter parameter = parameter();
+		parametstLinkedList.add(parameter);
+		while (state == State.Comma) {
+			getToken();
+			parameter = parameter();
+			parametstLinkedList.add(parameter);
+		}
+
+		return new ParameterList(parametstLinkedList);
+	}
+
+	public static Block block() {
+
+		// ⟨block⟩ → "{" ⟨s list⟩ "}"
+
+		getToken();
+		SList slist = SList();
 
 		if (state == State.RBrace) {
 			getToken();
-		} else
+			return new Block(slist);
+		} else {
 			System.out.println("Error: } Expected");
+			return null;
+		}
 	}
 
-	public static void SList() {
-		
-		//	⟨s list⟩ → { ⟨statement⟩ } 
-		
+	public static SList SList() {
+
+		// ⟨s list⟩ → { ⟨statement⟩ }
+
+		LinkedList<Statement> statementslist = new LinkedList<Statement>();
+
 		statement();
-		while (state == State.Id || state == State.LBrace) {
-			statement();
+		while (state == State.Id || state == State.LBrace || state == State.Keyword_if || state == State.Keyword_else
+				|| state == State.Keyword_print || state == State.Keyword_while) {
+			Statement statement = statement();
+			statementslist.add(statement);
 		}
 
+		return new SList(statementslist);
+
 	}
 
-	public static void statement() {
-		
-		//	⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
-		
+	public static Statement statement() {
+
+		// ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call
+		// statement⟩ | ⟨print⟩
+
 		if (state == State.Id)
 			assignment();
 
@@ -102,12 +190,14 @@ public abstract class Parser extends LexArithArray {
 		else
 			System.out.println("Error: <Id> or <while> or { or <cond> or <']>");
 
+		return null;
+
 	}
 
 	public static void While() {
 
-		//	⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
-		
+		// ⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩
+
 		if (state == State.Keyword_while) {
 			getToken();
 			if (state == State.LParen) {
@@ -121,133 +211,151 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static FunDefList funDefList() {
-
-		// ⟨fun def list⟩ → { ⟨fun def⟩ }+
-
-		return null;
-	}
-
-	public static void fundef() {
-
-		// ⟨fun def⟩ → ⟨header⟩ ⟨body⟩
-
-	}
-
-	public static void header() {
-		// ⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")"
-	}
-
-	public static void funnName() {
-		// ⟨fun name⟩ → ⟨id⟩
-	}
-
-	public static ParameterList parameterList() {
-
-		// ⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ }
-
-		return null;
-	}
-
-	public static void parameter() {
+	public static Parameter parameter() {
 		// ⟨parameter⟩ → ⟨id⟩
+
+		if (state == State.Id) {
+			getToken();
+			return new Parameter(t);
+		} else
+			return null;
 	}
 
-	public static void body() {
+	public static Body body() {
 		// ⟨body⟩ → "{" ⟨s list⟩ "}"
+
+		getToken();
+		SList slist = SList();
+
+		if (state == State.RBrace) {
+			getToken();
+			return new Body(slist);
+		} else {
+			System.out.println("Error: } Expected");
+			return null;
+		}
+
 	}
 
-	public static void var() {
+	public static Var var() {
 		// ⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal"
+
+		switch (state) {
+
+		case Id:
+			getToken();
+			if (state == State.LBracket) {
+				getToken();
+				if (state == State.RBracket) {
+					ArrayVar arrvar = arrayVar();
+					return arrvar;
+				}
+			}
+
+		}
+
+		return null;
+
 	}
 
-	public static void idVar() {
+	public static IdVar idVar() {
 		// ⟨id var⟩ → ⟨id⟩
+		if (state == State.Id) {
+			getToken();
+			return new IdVar(t);
+		} else
+			return null;
 	}
 
-	public static void arrayVar() {
+	public static ArrayVar arrayVar() {
 		// ⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]"
+		return null;
 	}
 
-	public static void arrayName() {
+	public static ArrayName arrayName() {
 		// ⟨array name⟩ → ⟨id⟩
+		if (state == State.Id) {
+			getToken();
+			return new ArrayName(t);
+		} else
+			return null;
 	}
 
 	public static EList eList() {
 
-		//	⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
+		// ⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ }
 
 		return null;
 	}
 
 	public static void rightSide() {
-		//	⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
+		// ⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩
 	}
 
 	public static void arrayConstructor() {
-		//	⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
+		// ⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]"
 	}
 
 	public static void exprRightSide() {
-		//	⟨expr right side⟩ → ⟨expr⟩ 
+		// ⟨expr right side⟩ → ⟨expr⟩
 	}
 
 	public static void funCallStatement() {
-		//	⟨fun call statement⟩ → ⟨fun call⟩ ";" 
+		// ⟨fun call statement⟩ → ⟨fun call⟩ ";"
 	}
 
 	public static void funCall() {
-		//	⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
+		// ⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")"
 	}
 
 	public static ExprList exprList() {
-		
-		//	⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
-		
+
+		// ⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ }
+
 		return null;
 	}
 
 	public static Expr expr() {
-		
-		//	⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
-		
+
+		// ⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ }
+
 		return null;
 
 	}
 
 	public static BoolTerm boolTerm() {
-		
-		//	⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
-		
+
+		// ⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ }
+
 		return null;
 	}
 
 	public static void boolPrimary() {
-		
-		//	⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
-		
+
+		// ⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ]
+
 	}
-	
+
 	public static void compOp() {
-		
-		//	⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
-		
+
+		// ⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!="
+
 	}
 
 	public static void varPrimary() {
-		//	⟨var primary⟩ → ⟨var⟩ 
+		// ⟨var primary⟩ → ⟨var⟩
 	}
 
 	public static void funCallPrimary() {
-		//	⟨fun call primary⟩ → ⟨fun call⟩ 
+		// ⟨fun call primary⟩ → ⟨fun call⟩
 	}
 
 	public static void cond() {
-		//	⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
+		// ⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ]
 	}
 
 	public static void print() {
-		//	⟨print⟩ → "print" ⟨expr⟩ ";" 
+		// ⟨print⟩ → "print" ⟨expr⟩ ";"
 	}
 
 	public static Assignment assignment() {
@@ -396,7 +504,7 @@ public abstract class Parser extends LexArithArray {
 		setLex();
 
 		getToken();
-
+		FunDefList funDefList = funDefList();
 		AssignmentList assignmentList = assignmentList(); // build a parse tree
 		if (!t.isEmpty())
 			errorMsg(5);
