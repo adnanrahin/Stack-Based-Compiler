@@ -460,37 +460,83 @@ public abstract class Parser extends LexArithArray {
 			getToken();
 		}
 
-		return null;
+		return new BoolTerm(boolPrimaries);
 	}
 
 	public static BoolPrimary boolPrimary() {
 
 		// ⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ]
 
-		return null;
+		E e = E();
+		getToken();
+		if (state == State.Lt || state == State.Le || state == State.Gt || state == State.Ge || state == State.Eq
+				|| state == State.Neq) {
+			CompOp compOp = compOp();
+			e = E();
 
+			return new BoolPrimary(e, compOp);
+		} else
+			return new BoolPrimary(e);
 	}
 
-	public static void compOp() {
+	public static CompOp compOp() {
 
 		// ⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!="
 
+		return new CompOp(t);
+
 	}
 
-	public static void varPrimary() {
+	public static VarPrimary varPrimary() {
 		// ⟨var primary⟩ → ⟨var⟩
+
+		Var var = var();
+
+		return new VarPrimary(var);
+
 	}
 
-	public static void funCallPrimary() {
+	public static FunCallPrimary funCallPrimary() {
+
 		// ⟨fun call primary⟩ → ⟨fun call⟩
+
+		FunCall funCall = funCall();
+
+		return new FunCallPrimary(funCall);
 	}
 
-	public static void cond() {
+	public static Cond cond() {
+
 		// ⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ]
+
+		getToken();
+
+		if (state == State.LParen) {
+			Expr expr = expr();
+			getToken();
+			if (state == State.RParen) {
+				Statement statement = statement();
+				getToken();
+				if (state == State.Keyword_else) {
+					statement = statement();
+					return new Cond(expr, statement);
+				}
+			}
+		}
+		return null;
 	}
 
-	public static void print() {
+	public static Print print() {
 		// ⟨print⟩ → "print" ⟨expr⟩ ";"
+
+		Expr expr = expr();
+		getToken();
+		if (state == State.Semicolon) {
+			return new Print(expr);
+		}
+
+		return null;
+
 	}
 
 	public static Assignment assignment() {

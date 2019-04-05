@@ -10,6 +10,10 @@ public class BoolPrimary {
 		this.compOp = compOp;
 	}
 
+	public BoolPrimary(E e) {
+		this.e = e;
+	}
+
 	void printParseTree(String indent) {
 		String indent1 = indent + " ";
 
