@@ -125,10 +125,11 @@ public abstract class Parser extends LexArithArray {
 
 		Parameter parameter = parameter();
 		parametstLinkedList.add(parameter);
+		getToken();
 		while (state == State.Comma) {
-			getToken();
 			parameter = parameter();
 			parametstLinkedList.add(parameter);
+			getToken();
 		}
 
 		return new ParameterList(parametstLinkedList);
@@ -156,11 +157,11 @@ public abstract class Parser extends LexArithArray {
 
 		LinkedList<Statement> statementslist = new LinkedList<Statement>();
 
-		statement();
 		while (state == State.Id || state == State.LBrace || state == State.Keyword_if || state == State.Keyword_else
 				|| state == State.Keyword_print || state == State.Keyword_while) {
 			Statement statement = statement();
 			statementslist.add(statement);
+			getToken();
 		}
 
 		return new SList(statementslist);
@@ -310,12 +311,11 @@ public abstract class Parser extends LexArithArray {
 
 		elists.add(e);
 		getToken();
-		if (state == State.Comma) {
+
+		while (state == State.Comma) {
+			e = E();
+			elists.add(e);
 			getToken();
-			while (state == State.Comma) {
-				getToken();
-				elists.add(e);
-			}
 		}
 
 		return new EList(elists);
@@ -366,34 +366,60 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static FunCallStatement funCallStatement() {
-		
+
 		// ⟨fun call statement⟩ → ⟨fun call⟩ ";"
-		
+
 		FunCall funCall = funCall();
 		getToken();
-		
-		if(state == State.Semicolon)
+
+		if (state == State.Semicolon)
 			return new FunCallStatement(funCall);
-		
+
 		else {
 			displayln(" ; expected");
 			return null;
 		}
-		
+
 	}
 
 	public static FunCall funCall() {
-		
-		
+
 		// ⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")"
-		
+
+		FunName funName = funnName();
+
+		getToken();
+
+		if (state == State.LParen) {
+			ExprList exprList = exprList();
+			getToken();
+			if (state == State.RParen) {
+				return new FunCall(funName, exprList);
+			} else {
+				displayln(" ) expected");
+			}
+		}
+
 		return null;
-		
+
 	}
 
 	public static ExprList exprList() {
 
 		// ⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ }
+
+		LinkedList<Expr> exprlist = new LinkedList<Expr>();
+
+		Expr expr = expr();
+
+		exprlist.add(expr);
+		getToken();
+
+		while (state == State.Comma) {
+			expr = expr();
+			exprlist.add(expr);
+			getToken();
+		}
 
 		return null;
 	}
@@ -402,7 +428,19 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ }
 
-		return null;
+		LinkedList<BoolTerm> booltemrslist = new LinkedList<BoolTerm>();
+
+		BoolTerm boolTerm = boolTerm();
+
+		booltemrslist.add(boolTerm);
+
+		while (state == State.Or) {
+			boolTerm = boolTerm();
+			booltemrslist.add(boolTerm);
+			getToken();
+		}
+
+		return new Expr(booltemrslist);
 
 	}
 
@@ -410,12 +448,26 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ }
 
+		LinkedList<BoolPrimary> boolPrimaries = new LinkedList<BoolPrimary>();
+
+		BoolPrimary boolPrimary = boolPrimary();
+
+		boolPrimaries.add(boolPrimary);
+		getToken();
+		while (state == State.And) {
+			boolPrimary = boolPrimary();
+			boolPrimaries.add(boolPrimary);
+			getToken();
+		}
+
 		return null;
 	}
 
-	public static void boolPrimary() {
+	public static BoolPrimary boolPrimary() {
 
 		// ⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ]
+
+		return null;
 
 	}
 
