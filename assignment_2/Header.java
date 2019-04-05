@@ -11,7 +11,6 @@ public class Header {
 	}
 
 	public Header(ParameterList parameterList) {
-
 		this.parameterList = parameterList;
 	}
 

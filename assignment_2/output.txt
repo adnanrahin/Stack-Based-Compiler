@@ -1,3 +1,0 @@
-new : Syntax Error, unexpected symbol where id, int, float, or ( expected
-new : Syntax Error, unexpected symbol where ; expected
-100 : Syntax Error, unexpected symbol where id expected

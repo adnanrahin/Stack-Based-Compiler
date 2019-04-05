@@ -6,8 +6,8 @@ public class FunDefList {
 
 	LinkedList<FunDef> fundeflist;
 
-	public FunDefList(LinkedList<FunDef> fd) {
-		fundeflist = fd;
+	public FunDefList(LinkedList<FunDef> fundeflist) {
+		this.fundeflist = fundeflist;
 	}
 
 	public FunDefList() {

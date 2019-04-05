@@ -173,43 +173,50 @@ public abstract class Parser extends LexArithArray {
 		// ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call
 		// statement⟩ | ⟨print⟩
 
-		if (state == State.Id)
-			assignment();
+		if (state == State.Keyword_if || state == State.Keyword_else) {
+			Cond cond = cond();
+			return cond;
+		}
 
-		else if (state == State.Keyword_if || state == State.Keyword_else)
-			cond();
+		else if (state == State.Keyword_print) {
+			Print print = print();
+			return print;
+		}
 
-		else if (state == State.Keyword_print)
-			print();
+		else if (state == State.LBrace) {
+			Block block = block();
+			return block;
+		}
 
-		else if (state == State.LBrace)
-			block();
+		else if (state == State.Keyword_while) {
+			While while1 = While();
+			return while1;
+		}
 
-		else if (state == State.Keyword_while)
-			While();
-
-		else
-			System.out.println("Error: <Id> or <while> or { or <cond> or <']>");
-
-		return null;
+		else if (state == State.Id || state == State.Int || state == State.Float || state == State.FloatE) {
+			Assignment assignment = assignment();
+			return assignment;
+		} else {
+			FunCallStatement funCallStatement = funCallStatement();
+			return funCallStatement;
+		}
 
 	}
 
-	public static void While() {
+	public static While While() {
 
 		// ⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩
 
-		if (state == State.Keyword_while) {
+		getToken();
+		if (state == State.LParen) {
+			Expr expr = expr();
 			getToken();
-			if (state == State.LParen) {
-				getToken();
-				expr();
-				if (state == State.RParen) {
-					getToken();
-					statement();
-				}
+			if (state == State.RParen) {
+				Statement statement = statement();
+				return new While(expr, statement);
 			}
 		}
+		return null;
 	}
 
 	public static Parameter parameter() {
@@ -639,15 +646,18 @@ public abstract class Parser extends LexArithArray {
 			}
 
 		case Minus:
-			getToken();
-			Primary primary = primary();
-			return primary;
-		case Inv:
-			getToken();
-			Primary primary1 = primary();
-			return primary1;
-		default:
 
+			Primary primary = primary();
+			getToken();
+			return primary;
+
+		case Inv:
+
+			Primary primary1 = primary();
+			getToken();
+			return primary1;
+
+		default:
 			errorMsg(2);
 			return null;
 		}
@@ -684,13 +694,13 @@ public abstract class Parser extends LexArithArray {
 		setIO(argv[0], argv[1]);
 		setLex();
 
-		getToken();
+		// getToken();
 		FunDefList funDefList = funDefList();
 		// build a parse tree
-		if (!t.isEmpty())
-			errorMsg(5);
-		else if (!errorFound)
-			funDefList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
+		/*
+		 * if (!t.isEmpty()) errorMsg(5); else if (!errorFound)
+		 */
+		funDefList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
 
 		closeIO();
 	}
