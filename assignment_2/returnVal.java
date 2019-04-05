@@ -1,6 +1,6 @@
 package assignment_2;
 
-public class returnVal extends Statement {
+public class returnVal extends Var {
 
 	String id;
 

@@ -1,6 +1,6 @@
 package assignment_2;
 
-public class IdVar extends Statement {
+public class IdVar extends Var {
 
 	String id;
 

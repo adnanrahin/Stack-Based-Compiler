@@ -250,16 +250,22 @@ public abstract class Parser extends LexArithArray {
 					ArrayVar arrvar = arrayVar();
 					return arrvar;
 				}
+			} else {
+				IdVar idVar = idVar();
+				return idVar;
 			}
 
+		case Keyword_returnVal:
+			return new returnVal(t);
+		default:
+			errorMsg(2);
+			return null;
 		}
-
-		return null;
-
 	}
 
 	public static IdVar idVar() {
 		// ⟨id var⟩ → ⟨id⟩
+		getToken();
 		if (state == State.Id) {
 			getToken();
 			return new IdVar(t);
@@ -268,7 +274,20 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static ArrayVar arrayVar() {
+
 		// ⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]"
+
+		getToken();
+
+		ArrayName arrname = arrayName();
+
+		if (state == State.LBracket) {
+			EList eList = eList();
+			getToken();
+			if (state == State.RBracket) {
+				return new ArrayVar(arrname, eList);
+			}
+		}
 		return null;
 	}
 
@@ -285,27 +304,91 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ }
 
-		return null;
+		LinkedList<E> elists = new LinkedList<E>();
+
+		E e = E();
+
+		elists.add(e);
+		getToken();
+		if (state == State.Comma) {
+			getToken();
+			while (state == State.Comma) {
+				getToken();
+				elists.add(e);
+			}
+		}
+
+		return new EList(elists);
 	}
 
-	public static void rightSide() {
+	public static RightSide rightSide() {
+
 		// ⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩
+
+		switch (state) {
+		case Keyword_new:
+			ArrayConstructor arrayConstructor = arrayConstructor();
+			return arrayConstructor;
+		default:
+			ExprRightSide exprRightSide = exprRightSide();
+			return exprRightSide;
+		}
 	}
 
-	public static void arrayConstructor() {
+	public static ArrayConstructor arrayConstructor() {
+
 		// ⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]"
+
+		getToken();
+
+		if (state == State.LBracket) {
+			EList eList = eList();
+			getToken();
+			if (state == State.RBracket) {
+				return new ArrayConstructor(eList);
+			} else {
+				displayln(" ] expected");
+			}
+		}
+
+		return null;
+
 	}
 
-	public static void exprRightSide() {
+	public static ExprRightSide exprRightSide() {
+
 		// ⟨expr right side⟩ → ⟨expr⟩
+
+		Expr expr = expr();
+
+		return new ExprRightSide(expr);
+
 	}
 
-	public static void funCallStatement() {
+	public static FunCallStatement funCallStatement() {
+		
 		// ⟨fun call statement⟩ → ⟨fun call⟩ ";"
+		
+		FunCall funCall = funCall();
+		getToken();
+		
+		if(state == State.Semicolon)
+			return new FunCallStatement(funCall);
+		
+		else {
+			displayln(" ; expected");
+			return null;
+		}
+		
 	}
 
-	public static void funCall() {
+	public static FunCall funCall() {
+		
+		
 		// ⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")"
+		
+		return null;
+		
 	}
 
 	public static ExprList exprList() {
@@ -505,11 +588,11 @@ public abstract class Parser extends LexArithArray {
 
 		getToken();
 		FunDefList funDefList = funDefList();
-		AssignmentList assignmentList = assignmentList(); // build a parse tree
+		// build a parse tree
 		if (!t.isEmpty())
 			errorMsg(5);
 		else if (!errorFound)
-			assignmentList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
+			funDefList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
 
 		closeIO();
 	}

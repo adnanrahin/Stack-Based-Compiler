@@ -3,9 +3,14 @@ package assignment_2;
 public class ArrayVar extends Var {
 
 	ArrayName arrayName;
-
+	EList eList;
 	public ArrayVar(ArrayName arrayName) {
 		this.arrayName = arrayName;
+	}
+	
+	public ArrayVar(ArrayName arrayName, EList eList) {
+		this.arrayName = arrayName;
+		this.eList = eList;
 	}
 
 	void printParseTree(String indent) {
