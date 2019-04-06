@@ -10,10 +10,15 @@ public class FunDef {
 		this.body = body;
 	}
 
+	public FunDef(Header header) {
+		this.header = header;
+	}
+	
 	void printParseTree(String indent) {
+		String indent1 = indent + " ";
 		IO.displayln(indent + indent.length() + " <fun def> ");
-		header.printParseTree(indent);
-		body.printParseTree(indent);
+		header.printParseTree(indent1);
+		body.printParseTree(indent1);
 	}
 
 }

@@ -17,10 +17,11 @@ public class ParameterList {
 	}
 
 	public void printParseTree(String indent) {
-
-		for(Parameter a: parameterslist)
-			a.printParseTree(indent);
-		
+		String indent1 = indent + " ";
+		IO.displayln(indent1 + indent.length() + " <parameter List>");
+		for(Parameter a: parameterslist) {
+			a.printParseTree(indent1);
+		}
 	}
 
 }

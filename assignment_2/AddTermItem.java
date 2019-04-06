@@ -1,7 +1,5 @@
 package assignment_2;
 
-import java.util.*;
-
 class AddTermItem extends TermItem
 
 // Represents "+ <term>"

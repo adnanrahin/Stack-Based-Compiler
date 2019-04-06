@@ -18,11 +18,7 @@ public class Parameter {
 
 	public void printParseTree(String indent) {
 		String indent1 = indent + " ";
-
-		IO.displayln(indent + indent.length() + " <parameter>");
-		IO.displayln(indent1 + indent1.length() + " " + id);
-		IO.displayln(indent1 + indent1.length() + " ,");
-		e.printParseTree(indent1);
+		IO.displayln(indent1 + indent.length() + " <parameter> " + id);
 	}
 
 }

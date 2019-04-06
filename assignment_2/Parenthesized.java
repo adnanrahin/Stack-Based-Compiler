@@ -1,11 +1,10 @@
 package assignment_2;
 
-
 class Parenthesized extends Primary {
-	E e;
+	Expr e;
 
-	Parenthesized(E exp) {
-		e = exp;
+	Parenthesized(Expr e) {
+		this.e = e;
 	}
 
 	void printParseTree(String indent) {

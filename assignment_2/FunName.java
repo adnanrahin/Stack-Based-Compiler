@@ -11,9 +11,8 @@ public class FunName {
 	public void printParseTree(String indent) {
 
 		String indent1 = indent + " ";
-		IO.display(indent + indent.length() + " <FunName>");
-		IO.displayln(indent1 + indent1.length() + " " + id);
-
+		IO.displayln(indent + indent.length() + " <Fun Name> " + id);
+		IO.display(indent1);
 	}
 
 }

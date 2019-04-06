@@ -10,18 +10,12 @@ public class Header {
 		this.parameterList = parameterList;
 	}
 
-	public Header(ParameterList parameterList) {
-		this.parameterList = parameterList;
-	}
-
 	void printParseTree(String indent) {
 		String indent1 = indent + " ";
 
-		IO.display(indent + indent.length() + " <fun name>");
+		IO.displayln(indent1 + indent.length() + " <Header>");
 		funName.printParseTree(indent1);
-		IO.displayln(indent1 + indent1.length() + "( ");
 		parameterList.printParseTree(indent1);
-		IO.displayln(indent1 + indent1.length() + " )");
 
 	}
 

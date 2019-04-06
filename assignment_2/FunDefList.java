@@ -9,15 +9,12 @@ public class FunDefList {
 	public FunDefList(LinkedList<FunDef> fundeflist) {
 		this.fundeflist = fundeflist;
 	}
-
-	public FunDefList() {
-		// default constructor
-	}
-
+	
 	public void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <fun def list>");
-		for (FunDef a : fundeflist)
+		for (FunDef a : fundeflist) {
 			a.printParseTree(indent + " ");
+		}
 	}
 
 }

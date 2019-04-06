@@ -10,10 +10,8 @@ public class Body {
 
 	void printParseTree(String indent) {
 		String indent1 = indent + " ";
-		IO.display(indent + indent.length() + " <Body>");
-		IO.displayln(indent1 + indent1.length() + "{ ");
+		IO.displayln(indent + indent.length() + " <Body>");
 		slist.printParseTree(indent1);
-		IO.displayln(indent1 + indent1.length() + " }");
 	}
 	
 }

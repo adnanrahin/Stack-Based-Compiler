@@ -1,653 +1,21 @@
 0 <fun def list>
  1 <fun def>
   2 <header>
-   3 <fun name> main
-  2 <body>
-   3 <s list>
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> a
-      6 =
-      6 <right side>
-       7 <array constructor>
-        8 <E list>
-         9 <E>
-          10 <term>
-           11 <primary> 100
-         9 <E>
-          10 <term>
-           11 <primary> 100
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> b
-      6 =
-      6 <right side>
-       7 <array constructor>
-        8 <E list>
-         9 <E>
-          10 <term>
-           11 <primary> 100
-         9 <E>
-          10 <term>
-           11 <primary> 100
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> i
-      6 =
-      6 <right side>
-       7 <expr right side>
-        8 <expr>
-         9 <boolTerm>
-          10 <boolPrimary>
-           11 <E>
-            12 <term>
-             13 <primary> 0
-    4 <statement>
-     5 <while>
-      6 while
-      6 <expr>
-       7 <boolTerm>
-        8 <boolPrimary>
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> i
-         9 <
-         9 <E>
-          10 <term>
-           11 <primary> 100
-      6 <statement>
-       7 <block>
-        8 <s list>
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> j
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary> 0
-         9 <statement>
-          10 <while>
-           11 while
-           11 <expr>
-            12 <boolTerm>
-             13 <boolPrimary>
-              14 <E>
-               15 <term>
-                16 <primary>
-                 17 <var>
-                  18 <id var> j
-              14 <
-              14 <E>
-               15 <term>
-                16 <primary> 100
-           11 <statement>
-            12 <block>
-             13 <s list>
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <array var>
-                  18 <array name> a
-                  18 <E list>
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> i
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> i
-                      22 +
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> j
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <array var>
-                  18 <array name> b
-                  18 <E list>
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> i
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> i
-                      22 -
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> j
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> j
-                      22 +
-                      22 <term>
-                       23 <primary> 1
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> i
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary>
-                   19 <var>
-                    20 <id var> i
-                 17 +
-                 17 <term>
-                  18 <primary> 1
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> c
-      6 =
-      6 <right side>
-       7 <expr right side>
-        8 <expr>
-         9 <boolTerm>
-          10 <boolPrimary>
-           11 <E>
-            12 <term>
-             13 <primary>
-              14 <fun call primary>
-               15 <fun call>
-                16 <fun name> matrixMultiplication
-                16 <expr list>
-                 17 <expr>
-                  18 <boolTerm>
-                   19 <boolPrimary>
-                    20 <E>
-                     21 <term>
-                      22 <primary>
-                       23 <var>
-                        24 <id var> a
-                 17 <expr>
-                  18 <boolTerm>
-                   19 <boolPrimary>
-                    20 <E>
-                     21 <term>
-                      22 <primary>
-                       23 <var>
-                        24 <id var> b
-                 17 <expr>
-                  18 <boolTerm>
-                   19 <boolPrimary>
-                    20 <E>
-                     21 <term>
-                      22 <primary> 100
-                 17 <expr>
-                  18 <boolTerm>
-                   19 <boolPrimary>
-                    20 <E>
-                     21 <term>
-                      22 <primary> 100
-                 17 <expr>
-                  18 <boolTerm>
-                   19 <boolPrimary>
-                    20 <E>
-                     21 <term>
-                      22 <primary> 100
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> i
-      6 =
-      6 <right side>
-       7 <expr right side>
-        8 <expr>
-         9 <boolTerm>
-          10 <boolPrimary>
-           11 <E>
-            12 <term>
-             13 <primary> 0
-    4 <statement>
-     5 <while>
-      6 while
-      6 <expr>
-       7 <boolTerm>
-        8 <boolPrimary>
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> i
-         9 <
-         9 <E>
-          10 <term>
-           11 <primary> 100
-      6 <statement>
-       7 <block>
-        8 <s list>
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> j
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary> 0
-         9 <statement>
-          10 <while>
-           11 while
-           11 <expr>
-            12 <boolTerm>
-             13 <boolPrimary>
-              14 <E>
-               15 <term>
-                16 <primary>
-                 17 <var>
-                  18 <id var> j
-              14 <
-              14 <E>
-               15 <term>
-                16 <primary> 100
-           11 <statement>
-            12 <block>
-             13 <s list>
-              14 <statement>
-               15 <print>
-                16 <expr>
-                 17 <boolTerm>
-                  18 <boolPrimary>
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <array var>
-                        24 <array name> c
-                        24 <E list>
-                         25 <E>
-                          26 <term>
-                           27 <primary>
-                            28 <var>
-                             29 <id var> i
-                         25 <E>
-                          26 <term>
-                           27 <primary>
-                            28 <var>
-                             29 <id var> j
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> j
-                      22 +
-                      22 <term>
-                       23 <primary> 1
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> i
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary>
-                   19 <var>
-                    20 <id var> i
-                 17 +
-                 17 <term>
-                  18 <primary> 1
- 1 <fun def>
-  2 <header>
-   3 <fun name> matrixMultiplication
+   3 <fun name> test
    3 <parameter list>
+    4 <parameter> cs316
+    4 <parameter> abc
+    4 <parameter> test1
+    4 <parameter> abcd
     4 <parameter> A
     4 <parameter> B
-    4 <parameter> iSize
-    4 <parameter> jSize
-    4 <parameter> kSize
+    4 <parameter> C
   2 <body>
    3 <s list>
     4 <statement>
      5 <assignment>
       6 <var>
-       7 <id var> C
-      6 =
-      6 <right side>
-       7 <array constructor>
-        8 <E list>
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> iSize
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> jSize
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 <id var> i
-      6 =
-      6 <right side>
-       7 <expr right side>
-        8 <expr>
-         9 <boolTerm>
-          10 <boolPrimary>
-           11 <E>
-            12 <term>
-             13 <primary> 0
-    4 <statement>
-     5 <while>
-      6 while
-      6 <expr>
-       7 <boolTerm>
-        8 <boolPrimary>
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> i
-         9 <
-         9 <E>
-          10 <term>
-           11 <primary>
-            12 <var>
-             13 <id var> iSize
-      6 <statement>
-       7 <block>
-        8 <s list>
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> j
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary> 0
-         9 <statement>
-          10 <while>
-           11 while
-           11 <expr>
-            12 <boolTerm>
-             13 <boolPrimary>
-              14 <E>
-               15 <term>
-                16 <primary>
-                 17 <var>
-                  18 <id var> j
-              14 <
-              14 <E>
-               15 <term>
-                16 <primary>
-                 17 <var>
-                  18 <id var> jSize
-           11 <statement>
-            12 <block>
-             13 <s list>
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <array var>
-                  18 <array name> C
-                  18 <E list>
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> i
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary> 0
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <id var> k
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary> 0
-              14 <statement>
-               15 <while>
-                16 while
-                16 <expr>
-                 17 <boolTerm>
-                  18 <boolPrimary>
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> k
-                   19 <
-                   19 <E>
-                    20 <term>
-                     21 <primary>
-                      22 <var>
-                       23 <id var> kSize
-                16 <statement>
-                 17 <block>
-                  18 <s list>
-                   19 <statement>
-                    20 <assignment>
-                     21 <var>
-                      22 <array var>
-                       23 <array name> C
-                       23 <E list>
-                        24 <E>
-                         25 <term>
-                          26 <primary>
-                           27 <var>
-                            28 <id var> i
-                        24 <E>
-                         25 <term>
-                          26 <primary>
-                           27 <var>
-                            28 <id var> j
-                     21 =
-                     21 <right side>
-                      22 <expr right side>
-                       23 <expr>
-                        24 <boolTerm>
-                         25 <boolPrimary>
-                          26 <E>
-                           27 <term>
-                            28 <primary>
-                             29 <var>
-                              30 <array var>
-                               31 <array name> C
-                               31 <E list>
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> i
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> j
-                           27 +
-                           27 <term>
-                            28 <primary>
-                             29 <var>
-                              30 <array var>
-                               31 <array name> A
-                               31 <E list>
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> i
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> k
-                            28 *
-                            28 <primary>
-                             29 <var>
-                              30 <array var>
-                               31 <array name> B
-                               31 <E list>
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> k
-                                32 <E>
-                                 33 <term>
-                                  34 <primary>
-                                   35 <var>
-                                    36 <id var> j
-                   19 <statement>
-                    20 <assignment>
-                     21 <var>
-                      22 <id var> k
-                     21 =
-                     21 <right side>
-                      22 <expr right side>
-                       23 <expr>
-                        24 <boolTerm>
-                         25 <boolPrimary>
-                          26 <E>
-                           27 <term>
-                            28 <primary>
-                             29 <var>
-                              30 <id var> k
-                           27 +
-                           27 <term>
-                            28 <primary> 1
-              14 <statement>
-               15 <assignment>
-                16 <var>
-                 17 <id var> j
-                16 =
-                16 <right side>
-                 17 <expr right side>
-                  18 <expr>
-                   19 <boolTerm>
-                    20 <boolPrimary>
-                     21 <E>
-                      22 <term>
-                       23 <primary>
-                        24 <var>
-                         25 <id var> j
-                      22 +
-                      22 <term>
-                       23 <primary> 1
-         9 <statement>
-          10 <assignment>
-           11 <var>
-            12 <id var> i
-           11 =
-           11 <right side>
-            12 <expr right side>
-             13 <expr>
-              14 <boolTerm>
-               15 <boolPrimary>
-                16 <E>
-                 17 <term>
-                  18 <primary>
-                   19 <var>
-                    20 <id var> i
-                 17 +
-                 17 <term>
-                  18 <primary> 1
-    4 <statement>
-     5 <assignment>
-      6 <var>
-       7 returnVal
+       7 <id var> cs316
       6 =
       6 <right side>
        7 <expr right side>
@@ -658,4 +26,59 @@
             12 <term>
              13 <primary>
               14 <var>
-               15 <id var> C
+               15 <id var> cs316
+             13 *
+             13 <primary>
+              14 -
+              14 <primary> 6.9
+             13 /
+             13 <primary>
+              14 -
+              14 <primary> 12
+             13 *
+             13 <primary>
+              14 <var>
+               15 <id var> abc
+            12 +
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> test1
+             13 /
+             13 <primary> 0.069
+             13 *
+             13 <primary> 123
+             13 /
+             13 <primary>
+              14 <var>
+               15 <id var> abcd
+            12 -
+            12 <term>
+             13 <primary>
+              14 -
+              14 <primary>
+               15 -
+               15 <primary>
+                16 -
+                16 <primary> 5
+            12 +
+            12 <term>
+             13 <primary>
+              14 <expr>
+               15 <boolTerm>
+                16 <boolPrimary>
+                 17 <E>
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var> A
+                  18 -
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var> B
+                  18 +
+                  18 <term>
+                   19 <primary>
+                    20 <var>
+                     21 <id var> C
