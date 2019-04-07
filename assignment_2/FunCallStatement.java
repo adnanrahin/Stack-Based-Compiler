@@ -8,7 +8,7 @@ public class FunCallStatement extends Statement{
 		this.funCall = funCall;
 	}
 	
-	void printParseTree(String indent) {
+	public void printParseTree(String indent) {
 		String indent1 = indent + " ";
 
 		IO.displayln(indent + indent.length() + " <Fun Call Statement>");

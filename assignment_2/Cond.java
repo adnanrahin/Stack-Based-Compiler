@@ -10,7 +10,7 @@ public class Cond extends Statement {
 		this.statement = statement;
 	}
 
-	void printParseTree(String indent) {
+	public void printParseTree(String indent) {
 		String indent1 = indent + " ";
 
 		IO.displayln(indent + indent.length() + " <if>");

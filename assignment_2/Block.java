@@ -8,7 +8,7 @@ public class Block extends Statement {
 		this.slist = slist;
 	}
 
-	void printParseTree(String indent) {
+	public void printParseTree(String indent) {
 		String indent1 = indent + " ";
 		IO.display(indent + indent.length() + " <block>");
 		IO.displayln(indent1 + indent1.length() + "{ ");

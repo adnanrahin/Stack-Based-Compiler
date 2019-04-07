@@ -3,11 +3,40 @@ package assignment_2;
 
 This class is a top-down, recursive-descent parser for the following syntactic categories:
 
-<assignment list> --> { <assignment> }+
-<assignment> --> <id> = <E> ";"
-<E> --> <term> { (+|-) <term> }
-<term> --> <primary> { (*|/) <primary> }
-<primary> --> <id> | <int> | <float> | <floatE> | "(" <E> ")"
+⟨fun def list⟩ → { ⟨fun def⟩ }+ 
+⟨fun def⟩ → ⟨header⟩ ⟨body⟩ 
+⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")" 
+⟨fun name⟩ → ⟨id⟩ 
+⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ } 
+⟨parameter⟩ → ⟨id⟩ 
+⟨body⟩ → "{" ⟨s list⟩ "}" 
+⟨s list⟩ → { ⟨statement⟩ } 
+⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
+⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";" 
+⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal" 
+⟨id var⟩ → ⟨id⟩ 
+⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]" 
+⟨array name⟩ → ⟨id⟩ 
+⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
+⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
+⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
+⟨expr right side⟩ → ⟨expr⟩ 
+⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
+⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
+⟨block⟩ → "{" ⟨s list⟩ "}" 
+⟨fun call statement⟩ → ⟨fun call⟩ ";" 
+⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
+⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
+⟨print⟩ → "print" ⟨expr⟩ ";" 
+⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
+⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
+⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
+⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
+⟨E⟩ → ⟨term⟩ { (+|−) ⟨term⟩ } 
+⟨term⟩ → ⟨primary⟩ { (*|/) ⟨primary⟩ } 
+⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" | − ⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩ 
+⟨var primary⟩ → ⟨var⟩ 
+⟨fun call primary⟩ → ⟨fun call⟩ 
 
 Note: The binary operators +, -, *, / associate to left.
 
@@ -79,11 +108,10 @@ public abstract class Parser extends LexArithArray {
 		// ⟨fun def⟩ → ⟨header⟩ ⟨body⟩
 
 		Header header = header();
-		System.out.println(t +" Fundef");
 		Body body = body();
-		
+
 		return new FunDef(header, body);
-		
+
 	}
 
 	public static Header header() {
@@ -92,19 +120,33 @@ public abstract class Parser extends LexArithArray {
 		getToken();
 		FunName funName = funnName();
 		getToken();
-		
+
 		if (state == State.LParen) {
 			getToken();
-			// System.out.println(t);
 			ParameterList list = parameterList();
-
 			if (state == State.RParen) {
 				getToken();
 				return new Header(funName, list);
 			}
-
 		}
+		return null;
 
+	}
+
+	public static Body body() {
+
+		// ⟨body⟩ → "{" ⟨s list⟩ "}"
+
+		if (state == State.LBrace) {
+			getToken();
+			SList slist = SList();
+			if (state == State.RBrace) {
+				getToken();
+				return new Body(slist);
+			} else
+				errorMsg(7);
+		} else
+			errorMsg(6);
 		return null;
 
 	}
@@ -126,14 +168,15 @@ public abstract class Parser extends LexArithArray {
 			getToken();
 			parameter = parameter();
 			parametstLinkedList.add(parameter);
-
 		}
 
 		return new ParameterList(parametstLinkedList);
 	}
 
 	public static Parameter parameter() {
+
 		// ⟨parameter⟩ → ⟨id⟩
+
 		if (state == State.Id) {
 			String idString = t;
 			getToken();
@@ -146,83 +189,75 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨block⟩ → "{" ⟨s list⟩ "}"
 
-		getToken();
-		SList slist = SList();
-
-		if (state == State.RBrace) {
+		if (state == State.LBrace) {
 			getToken();
-			return new Block(slist);
-		} else {
-			displayln("Error: } Expected");
-			return null;
-		}
-	}
-
-	public static Body body() {
-		// ⟨body⟩ → "{" ⟨s list⟩ "}"
-		System.out.println(t + " Body : ");
-		getToken();
-		SList slist = SList();
-		System.out.println(t + " Body2");
-		if (state == State.RBrace) {
-			getToken();
-			return new Body(slist);
-		} else {
-			displayln("Error: } Expected");
-			return null;
-		}
-
+			SList slist = SList();
+			if (state == State.RBrace) {
+				getToken();
+				return new Block(slist);
+			} else
+				errorMsg(7);
+		} else
+			errorMsg(6);
+		return null;
 	}
 
 	public static SList SList() {
 
 		// ⟨s list⟩ → { ⟨statement⟩ }
-		LinkedList<Statement> statementslist = new LinkedList<Statement>();
-		
-		
-		while (state == State.Id || state == State.LBrace || state == State.Keyword_if || state == State.Keyword_else
-				|| state == State.Keyword_print || state == State.Keyword_while) {
-			System.out.println(t + " Slist");
-			getToken();
-			Statement statement = statement();
-			statementslist.add(statement);
 
+		LinkedList<Statement> sList = new LinkedList<Statement>();
+
+		Statement statement;
+
+		while (state == State.Id || state == State.Keyword_if || state == State.Keyword_while
+				|| state == State.Keyword_print || state == State.LBrace) {
+			statement = statement();
+			sList.add(statement);
 		}
-
-		return new SList(statementslist);
+		return new SList(sList);
 
 	}
 
 	public static Statement statement() {
 
-		// ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call
-		// statement⟩ | ⟨print⟩
-	
+		// ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ |
+		// ⟨fun call statement⟩ | ⟨print⟩
+
+		System.out.println(t);
+
 		if (state == State.Keyword_if || state == State.Keyword_else) {
 			Cond cond = cond();
+			getToken();
 			return cond;
 		}
 
 		else if (state == State.Keyword_print) {
 			Print print = print();
+			getToken();
 			return print;
 		}
 
 		else if (state == State.LBrace) {
 			Block block = block();
+			getToken();
 			return block;
 		}
 
 		else if (state == State.Keyword_while) {
 			While while1 = While();
+			getToken();
 			return while1;
 		}
 
-		else if (state == State.Id || state == State.Int || state == State.Float || state == State.FloatE) {
+		else if (state == State.Id || state == State.Int || state == State.Float || state == State.FloatE
+				|| state == State.Eq) {
 			Assignment assignment = assignment();
+			getToken();
 			return assignment;
 		} else {
 			FunCallStatement funCallStatement = funCallStatement();
+			getToken();
 			return funCallStatement;
 		}
 
@@ -232,15 +267,22 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩
 
-		getToken();
-		if (state == State.LParen) {
-			Expr expr = expr();
+		if (state == State.Keyword_while) {
 			getToken();
-			if (state == State.RParen) {
-				Statement statement = statement();
-				return new While(expr, statement);
-			}
-		}
+			if (state == State.LParen) {
+				getToken();
+				Expr expr = expr();
+				if (state == State.RParen) {
+					getToken();
+					Statement statement = statement();
+					return new While(expr, statement);
+
+				} else
+					errorMsg(6);
+			} else
+				errorMsg(1);
+		} else
+			errorMsg(2);
 		return null;
 	}
 
@@ -488,8 +530,13 @@ public abstract class Parser extends LexArithArray {
 	public static CompOp compOp() {
 
 		// ⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!="
-
-		return new CompOp(t);
+		if (state == State.Lt || state == State.Le || state == State.Gt || state == State.Ge || state == State.Eq
+				|| state == State.Neq)
+			return new CompOp(t);
+		else {
+			displayln(t + " Expected");
+			return null;
+		}
 
 	}
 
@@ -515,49 +562,66 @@ public abstract class Parser extends LexArithArray {
 
 		// ⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ]
 
-		getToken();
-
-		if (state == State.LParen) {
-			Expr expr = expr();
+		if (state == State.Keyword_if) {
 			getToken();
-			if (state == State.RParen) {
-				Statement statement = statement();
+			if (state == State.LParen) {
+
 				getToken();
-				if (state == State.Keyword_else) {
-					statement = statement();
+
+				Expr expr = expr();
+
+				if (state == State.RParen) {
+
+					getToken();
+
+					Statement statement = statement();
+
+					if (state == State.Keyword_else) {
+						statement = statement();
+						return new Cond(expr, statement);
+					}
 					return new Cond(expr, statement);
-				}
-			}
-		}
+				} else
+					errorMsg(1);
+			} else
+				errorMsg(2);
+		} else
+			errorMsg(8);
 		return null;
 	}
 
 	public static Print print() {
 		// ⟨print⟩ → "print" ⟨expr⟩ ";"
 
-		Expr expr = expr();
-		getToken();
-		if (state == State.Semicolon) {
-			return new Print(expr);
-		}
-
+		if (state == State.Keyword_print) {
+			getToken();
+			Expr expr = expr();
+			if (state == State.Semicolon) {
+				getToken();
+				return new Print(expr);
+			} else
+				errorMsg(4);
+		} else
+			errorMsg(8);
 		return null;
 
 	}
 
 	public static Assignment assignment() {
+		// ⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";"
 
 		// <assignment> --> <id> = <E> ";"
 
 		if (state == State.Id) {
 			String id = t;
+			Var var = var();
 			getToken();
 			if (state == State.Assign) {
 				getToken();
-				E e = E();
+				RightSide rightSide = rightSide();
 				if (state == State.Semicolon) {
 					getToken();
-					return new Assignment(id, e);
+					return new Assignment(var, rightSide);
 				} else
 					errorMsg(4);
 			} else
@@ -696,6 +760,7 @@ public abstract class Parser extends LexArithArray {
 
 		// getToken();
 		FunDefList funDefList = funDefList();
+
 		// build a parse tree
 		/*
 		 * if (!t.isEmpty()) errorMsg(5); else if (!errorFound)
