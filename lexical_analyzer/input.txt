@@ -1,0 +1,20 @@
+test(a2, x1, x2, x3, x4, x5)
+{
+a1 = (165+756465)/a2;
+while123 = ( 0.847 + 74.76/436.0e5 - 0.87E12 * 1.7e-4 ) +
+       (7.4e+43*7465.7465E-635/0.7645E+5 + 123.0e-5);
+
+bb = (x1 || x2) && ! x3 || true && false;
+
+while ( a1 == a2 || x1 < x3 && x4 > x5 )
+   if ( cs316 != CS315 || abc <= def && kb65tr >= kjh876tr5d )
+   {
+        cs316 = CS315;
+        abc = delse * jhnfg;
+   }
+   else
+   {
+        if1 = mvnh876h;
+        elseT = 8756453+a1;
+   }
+}
