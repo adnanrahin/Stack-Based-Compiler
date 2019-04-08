@@ -248,7 +248,7 @@ public abstract class Parser extends LexArithArray {
 		else if (state == State.Id || state == State.Int || state == State.Float || state == State.FloatE
 				|| state == State.Eq) {
 			System.out.println(t);
-			
+
 			Assignment assignment = assignment();
 			return new Statement(assignment);
 		} else {
@@ -456,7 +456,8 @@ public abstract class Parser extends LexArithArray {
 
 	public static Primary primary() {
 
-		// ⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" | -⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩
+		// ⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" |
+		// -⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩
 
 		System.out.println("Token : " + t);
 
