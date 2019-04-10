@@ -71,3 +71,4 @@ To make grading efficient and uniform, observe the following:
 The program must read the input/output file names as external arguments to the main function. How to set external arguments to Java main function in Eclipse.
 If Java is used, the main function to be invoked to run the program must be included in Parser.java class.
 If your Project 1 lexical analyzer wasn't correct, you may use this sample lexical analyzer: State.java, LexAnalyzer.java. 
+
