@@ -1,432 +1,539 @@
 package java_parser_implementation;
+
 /**
+
+// contributor: Keitaro Yukawa
+ * Adnan Habib Rahin
 
 This class is a top-down, recursive-descent parser for the following syntactic categories:
 
-⟨fun def list⟩ → { ⟨fun def⟩ }+ 
-⟨fun def⟩ → ⟨header⟩ ⟨body⟩ 
-⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")" 
-⟨fun name⟩ → ⟨id⟩ 
-⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ } 
-⟨parameter⟩ → ⟨id⟩ 
-⟨body⟩ → "{" ⟨s list⟩ "}" 
-⟨s list⟩ → { ⟨statement⟩ } 
-⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ | ⟨fun call statement⟩ | ⟨print⟩ 
-⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";" 
-⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal" 
-⟨id var⟩ → ⟨id⟩ 
-⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]" 
-⟨array name⟩ → ⟨id⟩ 
-⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ } 
-⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩ 
-⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]" 
-⟨expr right side⟩ → ⟨expr⟩ 
-⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ] 
-⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩ 
-⟨block⟩ → "{" ⟨s list⟩ "}" 
-⟨fun call statement⟩ → ⟨fun call⟩ ";" 
-⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")" 
-⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ } 
-⟨print⟩ → "print" ⟨expr⟩ ";" 
-⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ } 
-⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ } 
-⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ] 
-⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!=" 
-⟨E⟩ → ⟨term⟩ { (+|−) ⟨term⟩ } 
-⟨term⟩ → ⟨primary⟩ { (*|/) ⟨primary⟩ } 
-⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" | − ⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩ 
-⟨var primary⟩ → ⟨var⟩ 
-⟨fun call primary⟩ → ⟨fun call⟩ 
+<fun def list> --> { <fun def> }+ 
+<fun def> --> <header> <body>
+<header> --> <fun name> "(" [ <parameter list> ] ")"
+<fun name> --> <id>
+<parameter list> --> <parameter> { "," <parameter> }
+<parameter> --> <id>
+<body> --> "{" <s list> "}"
+<s list> --> { <statement> }
+<statement> --> <assignment> | <cond> | <while> | <block> | <fun call statement> | <print>
+<assignment> --> <var> "=" <right side> ";"
+<var> --> <id var> | <array var> | "returnVal"
+<id var> --> <id>
+<array var> --> <array name> "[" <E list> "]"
+<array name> --> <id>
+<E list> --> <E> { "," <E> }
+<right side> --> <array constructor> | <expr right side>
+<array constructor> --> "new" "[" <E list> "]"
+<expr right side> --> <expr>
+<cond> --> "if" "(" <expr> ")" <statement> [ "else" <statement> ]
+<while> --> "while" "(" <expr> ")" <statement>
+<block> --> "{" <s list> "}"
+<fun call statement> --> <fun call> ";"
+<fun call> --> <fun name> "(" [ <expr list> ] ")"
+<expr list> --> <expr> { "," <expr> }
+<print> --> "print" <expr> ";"
+<expr> --> <boolTerm> { || <boolTerm> }
+<boolTerm> --> <boolPrimary> { && <boolPrimary> }
+<boolPrimary> --> <E> [ <comp op> <E> ]
+<comp op> --> "<" | "<=" | ">" | ">=" | "==" | "!="
+<E> --> <term> { (+|-) <term> }
+<term> --> <primary> { (*|/) <primary> }
+<primary> --> <var primary> | <int> | <float> | <floatE> | "(" <expr> ")" | - <primary> | ! <primary> | <fun call primary>
+<var primary> --> <var>
+<fun call primary> --> <fun call>
 
-Note: The binary operators +, -, *, / associate to left.
+NOTE: In the 2-branch conditionals, each "else" matches the closest preceding unmatched "if".
+NOTE: The binary operators +, -, *, /, ||, && associate to left.
 
-The definitions of the tokens are given in the lexical analyzer class file "LexArithArray.java". 
+The definitions of the tokens are given in the lexical analyzer class file "LexAnalyzer.java". 
 
-The following variables/functions of "IO"/"LexArithArray" classes are used:
+The following variables and functions of the "LexAnalyzer" class are used:
 
+static String t // holds an extracted token
+static State state // the current state of the finite automaton
+static int getToken() // extracts the next token
 static void display(String s)
 static void displayln(String s)
 static void setIO(String inFile, String outFile)
 static void closeIO()
 
-static void setLex()
-static String t // holds an extracted token
-static State state // the current state of the finite automaton
-static int getToken() // extracts the next token
-
-An explicit parse tree is constructed in the form of nested class objects.
- 
-The main function will display the parse tree in linearly indented form.
+The program will display the parse tree in linearly indented form.
 Each syntactic category name labeling a node is displayed on a separate line, 
-prefixed with the integer i representing the node's depth and indented by i blanks.
-
-All iterations of the form { ... } and { ... }+ are implemented by java.util.LinkedList.
-Function call list.add(x) appends element x to the end of list. 
+prefixed with the integer i representing the node's depth and indented by i blanks. 
+The string variable "indent" will keep track of the correct number of blanks for indentation and
+will be passed to parse functions corresponding to syntactic categories.
 
 **/
 
 import java.util.*;
 
 public abstract class Parser extends LexArithArray {
-
-	static boolean errorFound = false;
-
-	public static AssignmentList assignmentList() {
-
-		// <assignment list> --> { <assignment> }+
-
-		LinkedList<Assignment> assignmentList = new LinkedList<Assignment>();
-
-		Assignment assignment = assignment();
-		assignmentList.add(assignment);
-		while (state == State.Id) {
-			assignment = assignment();
-			assignmentList.add(assignment); // append "assignment" to the end of "assignmentList"
-		}
-		return new AssignmentList(assignmentList);
-	}
+	static boolean syntaxErrorFound = false;
+	static final returnVal returnVal_ = new returnVal();
 
 	public static FunDefList funDefList() {
 
-		// ⟨fun def list⟩ → { ⟨fun def⟩ }+
+		// <fun def list> --> { <fun def> }+
 
-		LinkedList<FunDef> fundeflist = new LinkedList<FunDef>();
-		FunDef funDef = fundef();
-		fundeflist.add(funDef);
+		LinkedList<FunDef> funDefList = new LinkedList<FunDef>();
 
-		while (state == State.Id) {
-			getToken();
-			funDef = fundef();
-			fundeflist.add(funDef);
+		FunDef funDef = funDef();
+		funDefList.add(funDef);
+		while (state == State.Id) // Parse <fun def> as long as the token is <fun name>.
+		{
+			funDef = funDef();
+			funDefList.add(funDef);
+
 		}
-
-		return new FunDefList(fundeflist);
+		return new FunDefList(funDefList);
 	}
 
-	public static FunDef fundef() {
-
-		// ⟨fun def⟩ → ⟨header⟩ ⟨body⟩
+	public static FunDef funDef() {
+		// <fun def> --> <header> <body>
 
 		Header header = header();
 		Body body = body();
 		return new FunDef(header, body);
-
 	}
 
 	public static Header header() {
+		// <header> --> <fun name> "(" [ <parameter list> ] ")"
 
-		// ⟨header⟩ → ⟨fun name⟩ "(" [ ⟨parameter list⟩ ] ")"
-		getToken();
-		FunName funName = funnName();
-		getToken();
-
-		if (state == State.LParen) {
+		if (state == State.Id) // The token is <fun name>.
+		{
+			FunName funName = new FunName(new Id(t));
 			getToken();
-			ParameterList list = parameterList();
-			if (state == State.RParen) {
+			if (state == State.LParen) {
 				getToken();
-				return new Header(funName, list);
-			}
-		}
-		return null;
-
-	}
-
-	public static Body body() {
-
-		// ⟨body⟩ → "{" ⟨s list⟩ "}"
-
-		if (state == State.LBrace) {
-			getToken();
-			SList slist = SList();
-			if (state == State.RBrace) {
-				getToken();
-				return new Body(slist);
+				if (state == State.RParen) // <parameter list> is non-existent.
+				{
+					getToken();
+					return new HeaderWithoutParameters(funName);
+				} else {
+					ParameterList parameterList = parameterList();
+					if (state == State.RParen) {
+						getToken();
+						return new HeaderWithParameters(funName, parameterList);
+					} else
+						errorMsg(1);
+				}
 			} else
-				errorMsg(7);
+				errorMsg(2);
 		} else
-			errorMsg(6);
+			errorMsg(3);
 		return null;
-	}
-
-	public static FunName funnName() {
-		return new FunName(t);
 	}
 
 	public static ParameterList parameterList() {
 
-		// ⟨parameter list⟩ → ⟨parameter⟩ { "," ⟨parameter⟩ }
+		// <parameter list> --> <parameter> { "," <parameter> }
 
-		LinkedList<Parameter> parametstLinkedList = new LinkedList<Parameter>();
+		LinkedList<Parameter> parameterList = new LinkedList<Parameter>();
 
 		Parameter parameter = parameter();
-		parametstLinkedList.add(parameter);
-
+		parameterList.add(parameter);
 		while (state == State.Comma) {
 			getToken();
 			parameter = parameter();
-			parametstLinkedList.add(parameter);
+			parameterList.add(parameter);
 		}
-
-		return new ParameterList(parametstLinkedList);
+		return new ParameterList(parameterList);
 	}
 
 	public static Parameter parameter() {
 
-		// ⟨parameter⟩ → ⟨id⟩
+		// <parameter> --> <id>
 
 		if (state == State.Id) {
-			String idString = t;
+			Parameter parameter = new Parameter(new Id(t));
 			getToken();
-			return new Parameter(idString);
-		} else
+			return parameter;
+		} else {
+			errorMsg(12);
 			return null;
+		}
 	}
 
-	public static Block block() {
+	public static Body body() {
 
-		// ⟨block⟩ → "{" ⟨s list⟩ "}"
+		// <body> --> "{" <s list> "}"
 
 		if (state == State.LBrace) {
 			getToken();
-			SList slist = SList();
+			SList sList = sList();
 			if (state == State.RBrace) {
 				getToken();
-				return new Block(slist);
-			} else
-				errorMsg(7);
-		} else
-			errorMsg(6);
-		return null;
+				return new Body(sList);
+			} else {
+				errorMsg(9);
+				return null;
+			}
+		} else {
+			errorMsg(11);
+			return null;
+		}
 	}
 
-	public static SList SList() {
-
-		// ⟨s list⟩ → { ⟨statement⟩ }
+	public static SList sList() {
+		// <s list> --> { <statement> }
 
 		LinkedList<Statement> sList = new LinkedList<Statement>();
 
-		Statement statement;
-
-		while (state == State.Id || state == State.Keyword_if || state == State.Keyword_while
-				|| state == State.Keyword_print || state == State.LBrace) {
-			statement = statement();
+		while (beginsStatement()) {
+			Statement statement = statement();
 			sList.add(statement);
+
 		}
-
 		return new SList(sList);
-
 	}
 
 	public static Statement statement() {
-
-		// ⟨statement⟩ → ⟨assignment⟩ | ⟨cond⟩ | ⟨while⟩ | ⟨block⟩ |
-		// ⟨fun call statement⟩ | ⟨print⟩
-
-		// System.out.println(t);
-
-		if (state == State.Keyword_if) {
-			Cond cond = cond();
-			return new Statement(cond);
-		}
-
-		else if (state == State.Keyword_print) {
-			Print print = print();
-			return new Statement(print);
-		}
-
-		else if (state == State.LBrace) {
-			Block block = block();
-			return new Statement(block);
-		}
-
-		else if (state == State.Keyword_while) {
-			While while1 = While();
-			return new Statement(while1);
-		}
-
-		else if (state == State.Id || state == State.Int || state == State.Float || state == State.FloatE
-				|| state == State.Eq) {
-			System.out.println(t);
-
-			Assignment assignment = assignment();
-			return new Statement(assignment);
-		} else {
-			FunCallStatement funCallStatement = funCallStatement();
-			return new Statement(funCallStatement);
-		}
-
-	}
-
-	public static Assignment assignment() {
-
-		// ⟨assignment⟩ → ⟨var⟩ "=" ⟨right side⟩ ";"
-
-		if (state == State.Id) {
-			Var var = var();
-			getToken();
-			if (state == State.Assign) {
-				getToken();
-				RightSide rightSide = rightSide();
-				if (state == State.Semicolon) {
-					getToken();
-					return new Assignment(var, rightSide);
-				} else
-					errorMsg(4);
-			} else
-				errorMsg(3);
-		} else
-			errorMsg(5);
-		return null;
-	}
-
-	public static Var var() {
-
-		// ⟨var⟩ → ⟨id var⟩ | ⟨array var⟩ | "returnVal"
-
-		String opString = t;
+		// <statement> --> <assignment> | <cond> | <while> | <block> | <fun call
+		// statement> | <print>
 
 		switch (state) {
-
-		case Id:
-			// getToken();
-			if (state == State.Assign) {
+		case Id: // <assignment> or <fun call statement>
+			Id id = new Id(t);
+			getToken();
+			if (state == State.LParen) // <fun call statement>
+			{
 				getToken();
-				if (state == State.Keyword_new) {
-					ArrayVar arrayVar = arrayVar();
-					return arrayVar;
-				} else {
-					t = opString;
-					IdVar idVar = idVar();
-					return idVar;
-				}
+				FunCallStatement funCallStatement = funCallStatement(id);
+				return funCallStatement;
+			} else if (state == State.LBracket) // <assignment> to <array var>
+			{
+				getToken();
+				ArrayVar arrayVar = arrayVar(id);
+				return assignment(arrayVar);
+			} else // <assignment> to <id var>
+				return assignment(new IdVar(id));
+
+		case Keyword_returnVal: // <assignment> to returnVal
+			getToken();
+			return assignment(returnVal_);
+
+		case Keyword_if:
+			return cond();
+
+		case Keyword_while:
+			return while_();
+
+		case LBrace:
+			return block();
+
+		case Keyword_print:
+			return print();
+
+		default:
+			errorMsg(4);
+			return null;
+		}
+	}
+
+	public static boolean beginsStatement() {
+		return state == State.Id || state == State.Keyword_returnVal || state == State.Keyword_if
+				|| state == State.Keyword_while || state == State.LBrace || state == State.Keyword_print;
+	}
+
+	public static ArrayVar arrayVar(Id id) // id is the array name extracted.
+	{
+
+		// <array var> --> <array name> "[" <E list> "]"
+
+		EList eList = eList();
+		if (state == State.RBracket) {
+			getToken();
+			ArrayName arrayName = new ArrayName(id);
+			return new ArrayVar(arrayName, eList);
+		} else {
+			errorMsg(5);
+			return null;
+		}
+	}
+
+	public static EList eList()
+
+	{
+		// <E list> --> <E> { "," <E> }
+
+		LinkedList<E> eList = new LinkedList<E>();
+
+		E e = E();
+		eList.add(e);
+		while (state == State.Comma) {
+			getToken();
+			e = E();
+			eList.add(e);
+		}
+		return new EList(eList);
+	}
+
+	public static Assignment assignment(Var var) {
+		// <assignment> --> <var> "=" <right side> ";"
+
+		if (state == State.Assign) {
+			getToken();
+			RightSide rightSide = rightSide();
+			if (state == State.Semicolon) {
+				getToken();
+				return new Assignment(var, rightSide);
+			} else {
+				errorMsg(6);
+				return null;
 			}
+		} else {
+			errorMsg(7);
+			return null;
+		}
+	}
+
+	public static Var var() // This function is not used by the parser.
+	{
+		// <var> --> <id var> | <array var> | "returnVal"
+		// <id var> --> <id>
+
+		switch (state) {
+		case Id:
+			Id id = new Id(t);
+			getToken();
+			if (state == State.LBracket) // <array var>
+			{
+				getToken();
+				return arrayVar(id);
+			} else // <id var>
+				return new IdVar(id);
 
 		case Keyword_returnVal:
-			// getToken();
-			if (state == State.Eq) {
-				return new returnVal(t);
-			}
+			getToken();
+			return returnVal_;
+
 		default:
-			errorMsg(2);
+			errorMsg(13);
 			return null;
 		}
 	}
 
 	public static RightSide rightSide() {
+		// <right side> --> <array constructor> | <expr right side>
+		// <expr right side> --> <expr>
 
-		// ⟨right side⟩ → ⟨array constructor⟩ | ⟨expr right side⟩
-		// getToken();
-		switch (state) {
-		case Keyword_new:
-			ArrayConstructor arrayConstructor = arrayConstructor();
-			return arrayConstructor;
-		default:
-			ExprRightSide exprRightSide = exprRightSide();
-			return exprRightSide;
-		}
-	}
-
-	public static ExprRightSide exprRightSide() {
-
-		// ⟨expr right side⟩ → ⟨expr⟩
-
-		Expr expr = expr();
-
-		return new ExprRightSide(expr);
-
-	}
-
-	public static Expr expr() {
-
-		// ⟨expr⟩ → ⟨boolTerm⟩ { || ⟨boolTerm⟩ }
-
-		LinkedList<BoolTerm> booltemrslist = new LinkedList<BoolTerm>();
-
-		BoolTerm boolTerm = boolTerm();
-
-		booltemrslist.add(boolTerm);
-		getToken();
-		while (state == State.Or) {
-			boolTerm = boolTerm();
-			booltemrslist.add(boolTerm);
+		if (state == State.Keyword_new) {
 			getToken();
+			return arrayConstructor();
+		} else {
+			Expr expr = expr();
+			return new ExprRightSide(expr);
 		}
-
-		return new Expr(booltemrslist);
-
 	}
 
-	public static ExprList exprList() {
+	public static ArrayConstructor arrayConstructor() {
+		// <array constructor> --> "new" "[" <E list> "]"
 
-		// ⟨expr list⟩ → ⟨expr⟩ { "," ⟨expr⟩ }
-
-		LinkedList<Expr> exprlist = new LinkedList<Expr>();
-
-		Expr expr = expr();
-
-		exprlist.add(expr);
-		getToken();
-
-		while (state == State.Comma) {
-			expr = expr();
-			exprlist.add(expr);
+		if (state == State.LBracket) {
 			getToken();
+			EList eList = eList();
+			if (state == State.RBracket) {
+				getToken();
+				return new ArrayConstructor(eList);
+			} else {
+				errorMsg(5);
+				return null;
+			}
+		} else {
+			errorMsg(8);
+			return null;
 		}
+	}
 
+	public static Cond cond() {
+
+		// <cond> --> "if" "(" <expr> ")" <statement> [ "else" <statement> ]
+
+		getToken();
+		if (state == State.LParen) {
+			getToken();
+			Expr expr = expr();
+			if (state == State.RParen) {
+				getToken();
+				Statement statement1 = statement();
+				if (state == State.Keyword_else) {
+					getToken();
+					Statement statement2 = statement();
+					return new If2(expr, statement1, statement2);
+				} else
+					return new If1(expr, statement1);
+			} else
+				errorMsg(1);
+		} else
+			errorMsg(2);
 		return null;
 	}
 
+	public static While while_() {
+		// <while> --> "while" "(" <expr> ")" <statement>
+
+		getToken();
+		if (state == State.LParen) {
+			getToken();
+			Expr expr = expr();
+			if (state == State.RParen) {
+				getToken();
+				Statement statement = statement();
+				return new While(expr, statement);
+			} else
+				errorMsg(1);
+		} else
+			errorMsg(2);
+		return null;
+	}
+
+	public static Block block() {
+		// <block> --> "{" <s list> "}"
+
+		getToken(); // flush "{"
+		SList sList = sList();
+		if (state == State.RBrace) {
+			getToken();
+			return new Block(sList);
+		} else {
+			errorMsg(9);
+			return null;
+		}
+	}
+
+	public static FunCallStatement funCallStatement(Id id) {
+		// <fun call statement> --> <fun call> ";"
+
+		FunCall funCall = funCall(id);
+		if (state == State.Semicolon) {
+			getToken();
+			return new FunCallStatement(funCall);
+		} else {
+			errorMsg(6);
+			return null;
+		}
+	}
+
+	public static FunCall funCall(Id id) {
+		// <fun call> --> <fun name> "(" [ <expr list> ] ")"
+
+		if (state == State.RParen) {
+			getToken();
+			FunName funName = new FunName(id);
+			return new FunCallWithoutParameters(funName);
+		} else {
+			ExprList exprList = exprList();
+			if (state == State.RParen) {
+				getToken();
+				FunName funName = new FunName(id);
+				return new FunCallWithParameters(funName, exprList);
+			} else {
+				errorMsg(1);
+				return null;
+			}
+		}
+	}
+
+	public static ExprList exprList() {
+		// <expr list> --> <expr> { "," <expr> }
+
+		LinkedList<Expr> exprList = new LinkedList<Expr>();
+
+		Expr expr = expr();
+		exprList.add(expr);
+		while (state == State.Comma) {
+			getToken();
+			expr = expr();
+			exprList.add(expr);
+		}
+		return new ExprList(exprList);
+	}
+
+	public static Print print() {
+		// <print> --> "print" <expr> ";"
+
+		getToken();
+		Expr expr = expr();
+		if (state == State.Semicolon) {
+			getToken();
+			return new Print(expr);
+		} else {
+			errorMsg(6);
+			return null;
+		}
+	}
+
+	public static Expr expr() {
+		// <expr> --> <boolTerm> { "||" <boolTerm> }
+
+		LinkedList<BoolTermItem> boolTermItemList = new LinkedList<BoolTermItem>();
+
+		BoolTerm boolTerm = boolTerm();
+		boolTermItemList.add(new SingleBoolTermItem(boolTerm));
+		while (state == State.Or) {
+			getToken();
+			boolTerm = boolTerm();
+			boolTermItemList.add(new OrBoolTermItem(boolTerm));
+		}
+		return new Expr(boolTermItemList);
+	}
+
 	public static BoolTerm boolTerm() {
+		// <boolTerm> --> <boolPrimary> { "&&" <boolPrimary> }
 
-		// ⟨boolTerm⟩ → ⟨boolPrimary⟩ { && ⟨boolPrimary⟩ }
-
-		LinkedList<BoolPrimary> boolPrimaries = new LinkedList<BoolPrimary>();
+		LinkedList<BoolPrimaryItem> boolPrimaryItemList = new LinkedList<BoolPrimaryItem>();
 
 		BoolPrimary boolPrimary = boolPrimary();
-
-		boolPrimaries.add(boolPrimary);
-		getToken();
+		boolPrimaryItemList.add(new SingleBoolPrimaryItem(boolPrimary));
 		while (state == State.And) {
-			boolPrimary = boolPrimary();
-			boolPrimaries.add(boolPrimary);
 			getToken();
+			boolPrimary = boolPrimary();
+			boolPrimaryItemList.add(new AndBoolPrimaryItem(boolPrimary));
 		}
-
-		return new BoolTerm(boolPrimaries);
+		return new BoolTerm(boolPrimaryItemList);
 	}
 
 	public static BoolPrimary boolPrimary() {
+		// <boolPrimary> --> <E> [ <comp op> <E> ]
+		// <comp op> --> "<" | "<=" | ">" | ">=" | "==" | "!="
 
-		// ⟨boolPrimary⟩ → ⟨E⟩ [ ⟨comp op⟩ ⟨E⟩ ]
-
-		E e = E();
-
-		getToken();
-		if (state == State.Lt || state == State.Le || state == State.Gt || state == State.Ge || state == State.Eq
-				|| state == State.Neq) {
-			CompOp compOp = compOp();
-			e = E();
-
-			return new BoolPrimary(e, compOp);
+		E e1 = E();
+		if (state.isCompOp()) {
+			State compOp = state;
+			getToken();
+			E e2 = E();
+			switch (compOp) {
+			case Lt:
+				return new Lt(e1, e2);
+			case Le:
+				return new Le(e1, e2);
+			case Gt:
+				return new Gt(e1, e2);
+			case Ge:
+				return new Ge(e1, e2);
+			case Eq:
+				return new Eq(e1, e2);
+			default:
+				return new Neq(e1, e2);
+			}
 		} else
-			return new BoolPrimary(e);
+			return new SingleE(e1);
 	}
 
 	public static E E() {
-
 		// <E> --> <term> { (+|-) <term> }
 
 		LinkedList<TermItem> termItemList = new LinkedList<TermItem>();
+
 		Term term = term();
 		termItemList.add(new SingleTermItem(term));
-		while (state == State.Plus | state == State.Minus) {
+		while (state == State.Add | state == State.Sub) {
 			State op = state;
 			getToken();
 			term = term();
-			if (op == State.Plus)
+			if (op == State.Add)
 				termItemList.add(new AddTermItem(term));
-			else // op == State.Minus
+			else // op == State.Sub
 				termItemList.add(new SubTermItem(term));
 		}
 		return new E(termItemList);
@@ -439,14 +546,12 @@ public abstract class Parser extends LexArithArray {
 		LinkedList<PrimaryItem> primaryItemList = new LinkedList<PrimaryItem>();
 
 		Primary primary = primary();
-
 		primaryItemList.add(new SinglePrimaryItem(primary));
-
-		while (state == State.Times | state == State.Div) {
+		while (state == State.Mul | state == State.Div) {
 			State op = state;
 			getToken();
 			primary = primary();
-			if (op == State.Times)
+			if (op == State.Mul)
 				primaryItemList.add(new MulPrimaryItem(primary));
 			else // op == State.Div
 				primaryItemList.add(new DivPrimaryItem(primary));
@@ -456,315 +561,137 @@ public abstract class Parser extends LexArithArray {
 
 	public static Primary primary() {
 
-		// ⟨primary⟩ → ⟨var primary⟩ | ⟨int⟩ | ⟨float⟩ | ⟨floatE⟩ | "(" ⟨expr⟩ ")" |
-		// -⟨primary⟩ | ! ⟨primary⟩ | ⟨fun call primary⟩
-
-		System.out.println("Token : " + t);
-
+		// <primary> --> <var primary> | <int> | <float> | <floatE> | "(" <expr> ")" | -
+		// <primary> | ! <primary> | <fun call primary>
+		// <var primary> --> <var>
 		switch (state) {
-
 		case Id:
-			// System.out.println(t);
-			// System.out.println(" Test " + t);
+			Id id = new Id(t);
 			getToken();
-			VarPrimary varPrimary = varPrimary();
-			return varPrimary;
+			if (state == State.LParen) // <fun call primary>
+			{
+				getToken();
+				FunCallPrimary funCallPrimary = funCallPrimary(id);
+				return funCallPrimary;
+			} else if (state == State.LBracket) // <array var>
+			{
+				getToken();
+				ArrayVar arrayVar = arrayVar(id);
+				return new VarPrimary(arrayVar);
+			} else // <id var>
+				return new VarPrimary(new IdVar(id));
+
+		case Keyword_returnVal:
+			getToken();
+			return new VarPrimary(returnVal_);
 
 		case Int:
-
 			Int intElem = new Int(Integer.parseInt(t));
 			getToken();
 			return intElem;
 
 		case Float:
 		case FloatE:
-
-			Floatp floatElem = new Floatp(Float.parseFloat(t));
+			Floatp floatElem = new Floatp(Double.parseDouble(t));
 			getToken();
 			return floatElem;
 
 		case LParen:
-
 			getToken();
-			Expr e = expr();
+			Expr expr = expr();
 			if (state == State.RParen) {
 				getToken();
-				Parenthesized paren = new Parenthesized(e);
+				Parenthesized paren = new Parenthesized(expr);
 				return paren;
 			} else {
 				errorMsg(1);
 				return null;
 			}
 
-		case Minus:
+		case Sub:
 			getToken();
 			Primary primary = primary();
-
-			return primary;
+			return new NegPrimary(primary);
 
 		case Inv:
 			getToken();
-			Primary primary1 = primary();
-
-			return primary1;
+			Primary primary_ = primary();
+			return new InvPrimary(primary_);
 
 		default:
-			errorMsg(2);
+			errorMsg(10);
 			return null;
 		}
 	}
 
-	public static VarPrimary varPrimary() {
+	public static FunCallPrimary funCallPrimary(Id id) {
+		// <fun call primary> --> <fun call>
 
-		// ⟨var primary⟩ → ⟨var⟩
-		System.out.println(t + " varfield");
-		Var var = var();
-
-		return new VarPrimary(var);
-
-	}
-
-	public static IdVar idVar() {
-		// ⟨id var⟩ → ⟨id⟩
-
-		if (state == State.Id) {
-			String opString = t;
-			getToken();
-			return new IdVar(opString);
-		} else
-			return null;
-	}
-
-	public static While While() {
-
-		// ⟨while⟩ → "while" "(" ⟨expr⟩ ")" ⟨statement⟩
-
-		if (state == State.Keyword_while) {
-			getToken();
-			if (state == State.LParen) {
-				getToken();
-				Expr expr = expr();
-				if (state == State.RParen) {
-					getToken();
-					Statement statement = statement();
-					return new While(expr, statement);
-				} else
-					errorMsg(6);
-			} else
-				errorMsg(1);
-		} else
-			errorMsg(2);
-		return null;
-	}
-
-	public static ArrayVar arrayVar() {
-
-		// ⟨array var⟩ → ⟨array name⟩ "[" ⟨E list⟩ "]"
-
-		getToken();
-
-		ArrayName arrname = arrayName();
-
-		if (state == State.LBracket) {
-			EList eList = eList();
-			getToken();
-			if (state == State.RBracket) {
-				return new ArrayVar(arrname, eList);
-			}
-		}
-		return null;
-	}
-
-	public static ArrayName arrayName() {
-		// ⟨array name⟩ → ⟨id⟩
-		if (state == State.Id) {
-			getToken();
-			return new ArrayName(t);
-		} else
-			return null;
-	}
-
-	public static EList eList() {
-
-		// ⟨E list⟩ → ⟨E⟩ { "," ⟨E⟩ }
-
-		LinkedList<E> elists = new LinkedList<E>();
-
-		E e = E();
-
-		elists.add(e);
-		getToken();
-
-		while (state == State.Comma) {
-			e = E();
-			elists.add(e);
-			getToken();
-		}
-
-		return new EList(elists);
-	}
-
-	public static ArrayConstructor arrayConstructor() {
-
-		// ⟨array constructor⟩ → "new" "[" ⟨E list⟩ "]"
-
-		getToken();
-
-		if (state == State.LBracket) {
-			EList eList = eList();
-			getToken();
-			if (state == State.RBracket) {
-				return new ArrayConstructor(eList);
-			} else {
-				displayln(" ] expected");
-			}
-		}
-
-		return null;
-
-	}
-
-	public static FunCallStatement funCallStatement() {
-
-		// ⟨fun call statement⟩ → ⟨fun call⟩ ";"
-
-		FunCall funCall = funCall();
-		getToken();
-
-		if (state == State.Semicolon)
-			return new FunCallStatement(funCall);
-
-		else {
-			displayln(" ; expected");
-			return null;
-		}
-
-	}
-
-	public static FunCall funCall() {
-
-		// ⟨fun call⟩ → ⟨fun name⟩ "(" [ ⟨expr list⟩ ] ")"
-
-		FunName funName = funnName();
-
-		getToken();
-
-		if (state == State.LParen) {
-			ExprList exprList = exprList();
-			getToken();
-			if (state == State.RParen) {
-				return new FunCall(funName, exprList);
-			} else {
-				displayln(" ) expected");
-			}
-		}
-
-		return null;
-
-	}
-
-	public static CompOp compOp() {
-
-		// ⟨comp op⟩ → "<" | "<=" | ">" | ">=" | "==" | "!="
-		if (state == State.Lt || state == State.Le || state == State.Gt || state == State.Ge || state == State.Eq
-				|| state == State.Neq)
-			return new CompOp(t);
-		else {
-			displayln(t + " Expected");
-			return null;
-		}
-
-	}
-
-	public static FunCallPrimary funCallPrimary() {
-
-		// ⟨fun call primary⟩ → ⟨fun call⟩
-
-		FunCall funCall = funCall();
-
+		FunCall funCall = funCall(id);
 		return new FunCallPrimary(funCall);
 	}
 
-	public static Cond cond() {
-
-		// ⟨cond⟩ → "if" "(" ⟨expr⟩ ")" ⟨statement⟩ [ "else" ⟨statement⟩ ]
-
-		if (state == State.Keyword_if) {
-			getToken();
-			if (state == State.LParen) {
-				getToken();
-				Expr expr = expr();
-				if (state == State.RParen) {
-					getToken();
-					Statement statement = statement();
-					if (state == State.Keyword_else) {
-						statement = statement();
-						return new Cond(expr, statement);
-					}
-					return new Cond(expr, statement);
-				} else
-					errorMsg(1);
-			} else
-				errorMsg(2);
-		} else
-			errorMsg(8);
-		return null;
-	}
-
-	public static Print print() {
-		// ⟨print⟩ → "print" ⟨expr⟩ ";"
-
-		if (state == State.Keyword_print) {
-			getToken();
-			Expr expr = expr();
-			if (state == State.Semicolon) {
-				getToken();
-				return new Print(expr);
-			} else
-				errorMsg(4);
-		} else
-			errorMsg(8);
-		return null;
-	}
-
 	public static void errorMsg(int i) {
-		errorFound = true;
+		syntaxErrorFound = true;
 
 		display(t + " : Syntax Error, unexpected symbol where");
 
 		switch (i) {
 		case 1:
-			displayln(" arith op or ) expected");
+			displayln(" ) expected");
 			return;
 		case 2:
-			displayln(" id, int, float, or ( expected");
+			displayln(" ( expected");
 			return;
 		case 3:
-			displayln(" = expected");
+			displayln(" function name expected");
 			return;
 		case 4:
-			displayln(" ; expected");
+			displayln(" id, returnVal, if, while, {, or print expected");
 			return;
 		case 5:
-			displayln(" id expected");
+			displayln(" ] expected");
+			return;
+		case 6:
+			displayln(" ; expected");
+			return;
+		case 7:
+			displayln(" = expected");
+			return;
+		case 8:
+			displayln(" [ expected");
+			return;
+		case 9:
+			displayln(" } expected");
+			return;
+		case 10:
+			displayln(" id, returnVal, int, float, (, -, or ! expected");
+			return;
+		case 11:
+			displayln(" { expected");
+			return;
+		case 12:
+			displayln(" function parameter expected");
+			return;
+		case 13:
+			displayln(" id or returnVal expected");
 			return;
 		}
 	}
 
 	public static void main(String argv[]) {
-		// argv[0]: input file containing an assignment list
-		// argv[1]: output file displaying the parse tree
+		// argv[0]: input file containing a string of <fun def list>
+		// argv[1]: output file displaying the parse tree or error messages
 
 		setIO(argv[0], argv[1]);
 		setLex();
 
-		// getToken();
-		FunDefList funDefList = funDefList();
-		// build a parse tree
-		/*
-		 * if (!t.isEmpty()) errorMsg(5); else if (!errorFound)
-		 */
-		funDefList.printParseTree(""); // print the parse tree in linearly indented form in argv[1] file
+		getToken();
+		FunDefList funDefList = funDefList(); // build a parse tree
+		if (!t.isEmpty())
+			displayln(t + " : Syntax Error, unexpected symbol");
+		else if (!syntaxErrorFound)
+			funDefList.printParseTree("");
 
 		closeIO();
 	}

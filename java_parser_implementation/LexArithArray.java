@@ -1,6 +1,6 @@
 package java_parser_implementation;
 /**
- 
+
 This class is a lexical analyzer for the 26 token categories <id> through <comma> defined by:
 
 <letter> --> a | b | ... | z | A | B | ... | Z
@@ -59,9 +59,9 @@ public abstract class LexArithArray extends IO {
 	public enum State {
 		// final states ordinal number token accepted
 
-		Plus, // 0 +
-		Minus, // 1 -
-		Times, // 2 *
+		Add, // 0 +
+		Sub, // 1 -
+		Mul, // 2 *
 		Div, // 3 /
 		Or, // 4 ||
 		And, // 5 &&
@@ -143,15 +143,7 @@ public abstract class LexArithArray extends IO {
 		keywordMap.put("print", State.Keyword_print);
 	}
 
-	private static int driver()
-
-	// This is the driver of the DFA.
-	// If a valid token is found, assigns it to "t" and returns 1.
-	// If an invalid token is found, assigns it to "t" and returns 0.
-	// If end-of-stream is reached without finding any non-whitespace character,
-	// returns -1.
-
-	{
+	private static int driver() {
 		State nextSt; // the next state of the DFA
 
 		t = "";
@@ -224,9 +216,9 @@ public abstract class LexArithArray extends IO {
 		nextState[State.E.ordinal()]['+'] = State.EPlusMinus;
 		nextState[State.E.ordinal()]['-'] = State.EPlusMinus;
 
-		nextState[State.Start.ordinal()]['+'] = State.Plus;
-		nextState[State.Start.ordinal()]['-'] = State.Minus;
-		nextState[State.Start.ordinal()]['*'] = State.Times;
+		nextState[State.Start.ordinal()]['+'] = State.Add;
+		nextState[State.Start.ordinal()]['-'] = State.Sub;
+		nextState[State.Start.ordinal()]['*'] = State.Mul;
 		nextState[State.Start.ordinal()]['/'] = State.Div;
 		nextState[State.Start.ordinal()]['('] = State.LParen;
 		nextState[State.Start.ordinal()][')'] = State.RParen;
@@ -256,12 +248,7 @@ public abstract class LexArithArray extends IO {
 			state = keywordState;
 	}
 
-	public static void getToken()
-
-	// Extract the next token using the driver of the DFA.
-	// If an invalid token is found, issue an error message.
-
-	{
+	public static void getToken() {
 		int i = driver();
 		if (state == State.Id)
 			keywordCheck();
@@ -271,19 +258,12 @@ public abstract class LexArithArray extends IO {
 
 	public static void setLex()
 
-	// Sets the nextState array and keywordMap.
-
 	{
 		setNextState();
 		setKeywordMap();
 	}
 
-	public static void main(String argv[])
-
-	// argv[0]: input file containing source code using tokens defined above
-	// argv[1]: output file displaying a list of the tokens
-
-	{
+	public static void main(String argv[]) {
 		setIO(argv[0], argv[1]);
 		setLex();
 

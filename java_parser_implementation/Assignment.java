@@ -1,21 +1,22 @@
 package java_parser_implementation;
 
-class Assignment extends Statement_backup {
+public class Assignment extends Statement {
+	Var var; // variable on the left side of the assignment
+	RightSide rightSide; // right side of the assignment
 
-	Var var;
-	RightSide rightSide;
-
-	public Assignment(Var var, RightSide rightSide) {
-		this.var = var;
-		this.rightSide = rightSide;
+	Assignment(Var v, RightSide rs) {
+		var = v;
+		rightSide = rs;
 	}
 
-	public void printParseTree(String indent) {
+	void printParseTree(String indent) {
 		String indent1 = indent + " ";
+		String indent2 = indent + "  ";
 
-		IO.displayln(indent + indent.length() + " <assignment>");
-		var.printParseTree(indent1);
-		rightSide.printParseTree(indent1);
+		super.printParseTree(indent);
+		IO.displayln(indent1 + indent1.length() + " <assignment>");
+		var.printParseTree(indent2);
+		IO.displayln(indent2 + indent2.length() + " =");
+		rightSide.printParseTree(indent2);
 	}
-
 }

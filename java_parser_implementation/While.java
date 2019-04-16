@@ -1,6 +1,6 @@
 package java_parser_implementation;
 
-public class While extends Statement_backup {
+public class While extends Statement {
 
 	Expr expr;
 	Statement statement;

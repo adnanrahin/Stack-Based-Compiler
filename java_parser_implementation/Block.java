@@ -1,6 +1,6 @@
 package java_parser_implementation;
 
-public class Block extends Statement_backup {
+public class Block extends Statement {
 
 	SList slist;
 

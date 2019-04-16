@@ -1,6 +1,6 @@
 package java_parser_implementation;
 
-public class FunCallStatement extends Statement_backup{
+public class FunCallStatement extends Statement{
 
 	FunCall funCall;
 	

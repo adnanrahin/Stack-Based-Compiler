@@ -1,0 +1,20 @@
+0 <fun def list>
+ 1 <fun def> 
+  2 <header>
+   3 <fun name> test
+    3 <parameter List>
+    4 <parameter> cs316
+    4 <parameter> abc
+    4 <parameter> test1
+    4 <parameter> abcd
+    4 <parameter> A
+    4 <parameter> B
+    4 <parameter> C
+  2 <Body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> cs316
+      6 =
+      6 <right side>      6 <expr right side>

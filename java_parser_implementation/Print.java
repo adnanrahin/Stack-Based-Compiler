@@ -1,6 +1,6 @@
 package java_parser_implementation;
 
-public class Print extends Statement_backup {
+public class Print extends Statement {
 
 	Expr expr;
 

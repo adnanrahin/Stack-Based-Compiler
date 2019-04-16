@@ -1,16 +1,18 @@
 package java_parser_implementation;
 
 public class FunCallPrimary extends Primary {
-
 	FunCall funCall;
 
-	public FunCallPrimary(FunCall funCall) {
-		this.funCall = funCall;
+	FunCallPrimary(FunCall fCall) {
+		funCall = fCall;
 	}
 
 	void printParseTree(String indent) {
-		super.printParseTree(indent);
-		funCall.printParseTree(indent);
-	}
+		String indent1 = indent + " ";
 
+		super.printParseTree(indent);
+		IO.displayln("");
+		IO.displayln(indent1 + indent1.length() + " <fun call primary>");
+		funCall.printParseTree(indent1);
+	}
 }

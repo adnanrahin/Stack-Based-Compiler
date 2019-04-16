@@ -1,24 +1,14 @@
 package java_parser_implementation;
 
 public class Parameter {
+	Id id;
 
-	String id;
-	E e;
-
-	public Parameter(String id, E e) {
-
-		this.id = id;
-		this.e = e;
-
+	Parameter(Id ident) {
+		id = ident;
 	}
 
-	public Parameter(String id) {
-		this.id = id;
+	void printParseTree(String indent) {
+		IO.display(indent + indent.length() + " <parameter>");
+		id.printParseTree();
 	}
-
-	public void printParseTree(String indent) {
-		String indent1 = indent + " ";
-		IO.displayln(indent1 + indent.length() + " <parameter> " + id);
-	}
-
 }

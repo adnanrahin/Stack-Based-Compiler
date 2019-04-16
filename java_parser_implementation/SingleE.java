@@ -1,14 +1,14 @@
 package java_parser_implementation;
 
-public class Floatp extends Primary {
-	double val;
+public class SingleE extends BoolPrimary {
+	E e;
 
-	Floatp(double d) {
-		val = d;
+	SingleE(E e_) {
+		e = e_;
 	}
 
 	void printParseTree(String indent) {
 		super.printParseTree(indent);
-		IO.displayln(" " + val);
+		e.printParseTree(indent + " ");
 	}
 }

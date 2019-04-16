@@ -1,25 +1,13 @@
 package java_parser_implementation;
 
-public class Cond extends Statement_backup {
-
+public abstract class Cond extends Statement {
 	Expr expr;
-	Statement statement;
+	Statement statement1;
 
-	public Cond(Expr expr, Statement statement) {
-		this.expr = expr;
-		this.statement = statement;
-	}
-
-	public void printParseTree(String indent) {
+	void printParseTree(String indent) {
 		String indent1 = indent + " ";
 
-		IO.displayln(indent + indent.length() + " <if>");
-		IO.displayln(indent1 + indent1.length() + "( ");
-		expr.printParseTree(indent1);
-		IO.displayln(indent1 + indent1.length() + " )");
-		statement.printParseTree(indent1);
-		IO.displayln(indent1 + indent1.length() + "else");
-		statement.printParseTree(indent1);
+		super.printParseTree(indent);
+		IO.displayln(indent1 + indent1.length() + " <cond>");
 	}
-
 }

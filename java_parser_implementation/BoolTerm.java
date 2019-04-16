@@ -4,21 +4,16 @@ import java.util.LinkedList;
 
 public class BoolTerm {
 
-	LinkedList<BoolPrimary> boolTerm;
-	
-	public BoolTerm(LinkedList <BoolPrimary> boolTerm) {
-		
-		this.boolTerm = boolTerm;
-		
+	LinkedList<BoolPrimaryItem> boolPrimaryItemList;
+
+	BoolTerm(LinkedList<BoolPrimaryItem> bpItemList) {
+		boolPrimaryItemList = bpItemList;
 	}
-	
-	public void printParseTree(String indent) {
-		
-		IO.displayln(indent + indent.length() + "<boolTerm>");
-		
-		for(BoolPrimary b: boolTerm)
-			b.printParseTree(indent + " ");
-		
+
+	void printParseTree(String indent) {
+		IO.displayln(indent + indent.length() + " <boolTerm>");
+		for (BoolPrimaryItem bp : boolPrimaryItemList)
+			bp.printParseTree(indent + " ");
 	}
-	
+
 }
