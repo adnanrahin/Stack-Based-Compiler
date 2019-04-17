@@ -288,14 +288,6 @@ public abstract class LexArith extends IO {
 
 	public static void main(String argv[]) {
 
-		// argv[0]: input file containing source code using tokens defined above
-		// argv[1]: output file displaying a list of the tokens
-
-		/*
-		 * Set the external Arguments for this code, where input file path will go on
-		 * top and in the next line output file path
-		 */
-
 		Hashtable<String, State> stateKeymap = keyWordMap();
 
 		setIO(argv[0], argv[1]);
