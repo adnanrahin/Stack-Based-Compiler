@@ -1,7 +1,12 @@
-package java_parser_implementation;
+package assignment_2;
 
-public class AddTermItem extends TermItem {
-	
+class AddTermItem extends TermItem
+
+// Represents "+ <term>"
+
+{
+	// Term term; inherited from TermItem
+
 	AddTermItem(Term t) {
 		term = t;
 	}

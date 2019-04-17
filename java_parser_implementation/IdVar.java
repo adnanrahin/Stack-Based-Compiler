@@ -1,18 +1,17 @@
-package java_parser_implementation;
+package assignment_2;
 
 public class IdVar extends Var {
-	Id id;
 
-	IdVar(Id ident) {
-		id = ident;
+	String id;
+
+	public IdVar(String id) {
+		this.id = id;
 	}
 
-	void printParseTree(String indent) {
+	public void printParseTree(String indent) {
 		String indent1 = indent + " ";
-
-		super.printParseTree(indent);
-		IO.displayln("");
-		IO.display(indent1 + indent1.length() + " <id var>");
-		id.printParseTree();
+		IO.displayln(indent + indent.length() + " <Id Var>");
+		IO.displayln(indent1 + indent1.length() + " " + id);
 	}
+
 }

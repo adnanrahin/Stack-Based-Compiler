@@ -1,7 +1,8 @@
-package java_parser_implementation;
+package assignment_2;
 
 public abstract class Var {
 	void printParseTree(String indent) {
-		IO.display(indent + indent.length() + " <var>");
+		IO.displayln(indent + indent.length() + " <var>");
 	}
+
 }

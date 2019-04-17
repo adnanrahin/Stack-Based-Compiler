@@ -1,4 +1,4 @@
-package java_parser_implementation;
+package assignment_2;
 
 public abstract class Primary {
 	void printParseTree(String indent) {

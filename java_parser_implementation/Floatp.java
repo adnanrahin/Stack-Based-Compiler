@@ -1,14 +1,15 @@
-package java_parser_implementation;
+package assignment_2;
 
-public class Floatp extends Primary {
-	double val;
+class Floatp extends Primary {
+	float val;
 
-	Floatp(double d) {
-		val = d;
+	Floatp(float f) {
+		val = f;
 	}
 
 	void printParseTree(String indent) {
 		super.printParseTree(indent);
 		IO.displayln(" " + val);
 	}
+
 }

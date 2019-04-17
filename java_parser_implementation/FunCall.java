@@ -1,14 +1,18 @@
-package java_parser_implementation;
+package assignment_2;
 
-import java.util.*;
+public class FunCall {
 
-public abstract class FunCall
-{
 	FunName funName;
-	
-	void printParseTree(String indent)
-	{
-		IO.displayln(indent + indent.length() + " <fun call>");
-		funName.printParseTree(indent+" ");
+	ExprList exprList;
+
+	public FunCall(FunName funName, ExprList exprList) {
+		this.exprList = exprList;
+		this.funName = funName;
+	}
+
+	void printParseTree(String indent) {
+		IO.display(indent + indent.length() + " <fun call>");
+		funName.printParseTree(indent);
+		exprList.printParseTree(indent);
 	}
 }

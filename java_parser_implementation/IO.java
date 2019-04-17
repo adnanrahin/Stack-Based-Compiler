@@ -1,4 +1,4 @@
-package java_parser_implementation;
+package assignment_2;
 
 //This class defines I/O variables and functions used by the compiler/interpreter.
 

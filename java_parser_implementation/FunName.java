@@ -1,16 +1,18 @@
-package java_parser_implementation;
-
-import java.util.*;
+package assignment_2;
 
 public class FunName {
-	Id id;
 
-	FunName(Id ident) {
-		id = ident;
+	String id;
+
+	public FunName(String id) {
+		this.id = id;
 	}
 
-	void printParseTree(String indent) {
-		IO.display(indent + indent.length() + " <fun name>");
-		id.printParseTree();
+	public void printParseTree(String indent) {
+
+		String indent1 = indent + " ";
+		IO.displayln(indent + indent.length() + " <Fun Name> " + id);
+		IO.display(indent1);
 	}
+
 }

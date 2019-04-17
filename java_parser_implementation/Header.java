@@ -1,10 +1,22 @@
-package java_parser_implementation;
+package assignment_2;
 
-abstract class Header {
+public class Header {
+
 	FunName funName;
+	ParameterList parameterList;
+
+	public Header(FunName funName, ParameterList parameterList) {
+		this.funName = funName;
+		this.parameterList = parameterList;
+	}
 
 	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <header>");
-		funName.printParseTree(indent + " ");
+		String indent1 = indent + " ";
+
+		IO.displayln(indent1 + indent.length() + " <Header>");
+		funName.printParseTree(indent1);
+		parameterList.printParseTree(indent1);
+
 	}
+
 }

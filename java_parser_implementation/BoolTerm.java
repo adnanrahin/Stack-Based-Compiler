@@ -1,19 +1,24 @@
-package java_parser_implementation;
+package assignment_2;
 
 import java.util.LinkedList;
 
 public class BoolTerm {
 
-	LinkedList<BoolPrimaryItem> boolPrimaryItemList;
-
-	BoolTerm(LinkedList<BoolPrimaryItem> bpItemList) {
-		boolPrimaryItemList = bpItemList;
+	LinkedList<BoolPrimary> boolTerm;
+	
+	public BoolTerm(LinkedList <BoolPrimary> boolTerm) {
+		
+		this.boolTerm = boolTerm;
+		
 	}
-
-	void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <boolTerm>");
-		for (BoolPrimaryItem bp : boolPrimaryItemList)
-			bp.printParseTree(indent + " ");
+	
+	public void printParseTree(String indent) {
+		
+		IO.displayln(indent + indent.length() + "<boolTerm>");
+		
+		for(BoolPrimary b: boolTerm)
+			b.printParseTree(indent + " ");
+		
 	}
-
+	
 }

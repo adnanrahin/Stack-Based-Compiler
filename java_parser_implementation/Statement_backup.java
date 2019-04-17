@@ -1,10 +1,6 @@
 package assignment_2;
 
-import java.util.*;
-
-abstract class TermItem {
-	Term term;
+public abstract class Statement_backup {
 
 	abstract void printParseTree(String indent);
-
 }

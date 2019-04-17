@@ -1,17 +1,17 @@
-package java_parser_implementation;
+package assignment_2;
 
 import java.util.*;
 
-import java.util.*;
-
-public class Id {
+class Id extends Primary {
 	String id;
 
 	Id(String ident) {
 		id = ident;
 	}
 
-	void printParseTree() {
+	void printParseTree(String indent) {
+		super.printParseTree(indent);
 		IO.displayln(" " + id);
 	}
+
 }

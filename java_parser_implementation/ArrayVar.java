@@ -1,22 +1,22 @@
-package java_parser_implementation;
+package assignment_2;
 
 public class ArrayVar extends Var {
+
 	ArrayName arrayName;
 	EList eList;
-
-	ArrayVar(ArrayName aName, EList el) {
-		arrayName = aName;
-		eList = el;
+	public ArrayVar(ArrayName arrayName) {
+		this.arrayName = arrayName;
+	}
+	
+	public ArrayVar(ArrayName arrayName, EList eList) {
+		this.arrayName = arrayName;
+		this.eList = eList;
 	}
 
 	void printParseTree(String indent) {
 		String indent1 = indent + " ";
-		String indent2 = indent + "  ";
-
-		super.printParseTree(indent);
-		IO.displayln("");
-		IO.displayln(indent1 + indent1.length() + " <array var>");
-		arrayName.printParseTree(indent2);
-		eList.printParseTree(indent2);
+		IO.display(indent + indent.length() + " <array var>");
+		arrayName.printParseTree(indent1);
 	}
+
 }
