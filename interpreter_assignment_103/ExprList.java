@@ -18,10 +18,8 @@ class ExprList
 	}
 
 	void M(Hashtable<String, Val> state, LinkedList<Val> params) {
-		for (int i = 0; i < exprList.size(); i++) {
-			Expr expr = exprList.get(i);
-			Val val = expr.Eval(state);
-			params.add(val);
+		for (Expr expr: exprList) {
+			params.add(expr.Eval(state));
 		}
 	}
 }

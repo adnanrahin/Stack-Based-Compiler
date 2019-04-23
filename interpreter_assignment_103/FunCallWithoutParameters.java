@@ -20,13 +20,15 @@ class FunCallWithoutParameters extends FunCall {
 			return null;
 
 		FunDef funDef = Parser.fundeftable.get(id.id);
-		if (funDef == null)
-			return null;
+		if (funDef != null) {
+			Body body = funDef.body;
+			Hashtable<String, Val> newState = new Hashtable<String, Val>();
+			body.M(newState);
 
-		Body body = funDef.body; // get the body of main function
-		Hashtable<String, Val> newState = new Hashtable<String, Val>();
-		body.M(newState);
+			return newState.get("returnVal");
+		}
 
-		return newState.get("returnVal");
+		return null;
+
 	}
 }

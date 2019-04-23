@@ -44,12 +44,18 @@ class E {
 									temp += val.floatVal();
 								else if (termItem.isSub())
 									temp -= val.floatVal();
-								else
+								else {
+									System.out.println("Error1");
 									return null;
-							} else
+								}
+							} else {
+								System.out.println("Error2");
 								return null;
-						} else
+							}
+						} else {
+							System.out.println("Error3");
 							return null;
+						}
 					}
 
 					if (isInt)
@@ -59,12 +65,18 @@ class E {
 				} else {
 					if (termItemList.size() == 1)
 						return val;
-					else
+					else {
+						System.out.println("Error 4");
 						return null;
+					}
 				}
+			} else {
+				System.out.println("Error 5");
+				return null;
 			}
+		} else {
+			System.out.println("Error 6");
 			return null;
 		}
-		return null;
 	}
 }
