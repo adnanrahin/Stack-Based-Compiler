@@ -1,12 +1,35 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class SinglePrimaryItem extends PrimaryItem {
-	SinglePrimaryItem(Primary p) {
+class SinglePrimaryItem extends PrimaryItem
+
+// Represents the first <primary> in <term>
+
+{
+	// Primary primary; inherited from PrimaryItem
+
+	SinglePrimaryItem(Primary p)
+	{
 		primary = p;
 	}
 
-	public void printParseTree(String indent) {
+	void printParseTree(String indent)
+	{
 		primary.printParseTree(indent);
 	}
+	
+	@Override
+	boolean isMul() {
+		return false;
+	}
 
+	@Override
+	boolean isDiv() {
+		return false;
+	}
+
+	@Override
+	Val Eval(Hashtable<String, Val> state) {
+		return primary.Eval(state);
+	}
 }

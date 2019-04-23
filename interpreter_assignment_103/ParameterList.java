@@ -1,21 +1,30 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-import java.util.LinkedList;
+class ParameterList
+{
+	LinkedList<Parameter> parameterList;
 
-public class ParameterList {
-
-	LinkedList<Parameter> parameterslist;
-
-	public ParameterList(LinkedList<Parameter> parameterslist) {
-
-		this.parameterslist = parameterslist;
-
+	ParameterList(LinkedList<Parameter> pl)
+	{
+		parameterList = pl;
 	}
-
-	public void printParseTree(String indent) {
+	
+	void printParseTree(String indent)
+	{
 		IO.displayln(indent + indent.length() + " <parameter list>");
-		for (Parameter p : parameterslist)
-			p.printParseTree(indent + " ");
+		for ( Parameter p : parameterList )
+			p.printParseTree(indent+" ");
 	}
 
+	void M(Hashtable<String, Val> state, LinkedList<Val> params) {
+		if (parameterList.size() != params.size())
+			return;
+		
+		for (int i = 0; i < parameterList.size(); i++) {
+			Parameter parameter = parameterList.get(i);
+			Val val = params.get(i);
+			state.put(parameter.id.id, val);
+		}
+	}
 }

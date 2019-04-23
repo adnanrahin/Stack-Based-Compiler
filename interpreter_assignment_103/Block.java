@@ -1,11 +1,12 @@
 package interpreter_assignment_103;
 
-public class Block extends Statement {
+import java.util.*;
 
-	SList slist;
+class Block extends Statement {
+	SList sList;
 
-	public Block(SList slist) {
-		this.slist = slist;
+	Block(SList s) {
+		sList = s;
 	}
 
 	void printParseTree(String indent) {
@@ -13,7 +14,11 @@ public class Block extends Statement {
 
 		super.printParseTree(indent);
 		IO.displayln(indent1 + indent1.length() + " <block>");
-		slist.printParseTree(indent1 + " ");
+		sList.printParseTree(indent1 + " ");
 	}
 
+	@Override
+	void M(Hashtable<String, Val> state) {
+		sList.M(state);
+	}
 }

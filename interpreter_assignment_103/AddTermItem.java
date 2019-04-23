@@ -1,14 +1,32 @@
 package interpreter_assignment_103;
 
-public class AddTermItem extends TermItem {
-	
+import java.util.*;
+
+public class AddTermItem extends TermItem
+
+{
+
 	AddTermItem(Term t) {
 		term = t;
 	}
 
-	public void printParseTree(String indent) {
+	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " +");
 		term.printParseTree(indent);
 	}
 
+	@Override
+	boolean isAdd() {
+		return true;
+	}
+
+	@Override
+	boolean isSub() {
+		return false;
+	}
+
+	@Override
+	Val Eval(Hashtable<String, Val> state) {
+		return term.Eval(state);
+	}
 }

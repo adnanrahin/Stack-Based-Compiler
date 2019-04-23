@@ -1,8 +1,7 @@
 package interpreter_assignment_103;
-
 import java.util.*;
 
-public abstract class FunCall
+abstract class FunCall
 {
 	FunName funName;
 	
@@ -11,4 +10,6 @@ public abstract class FunCall
 		IO.displayln(indent + indent.length() + " <fun call>");
 		funName.printParseTree(indent+" ");
 	}
+
+	abstract Val Eval(Hashtable<String, Val> state);
 }

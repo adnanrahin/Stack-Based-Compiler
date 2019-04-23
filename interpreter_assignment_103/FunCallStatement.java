@@ -1,20 +1,26 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class FunCallStatement extends Statement {
-
+class FunCallStatement extends Statement
+{
 	FunCall funCall;
 
-	public FunCallStatement(FunCall funCall) {
-		this.funCall = funCall;
+	FunCallStatement(FunCall fCall)
+	{
+		funCall = fCall;
 	}
+	
+	void printParseTree(String indent)
+	{
+		String indent1 = indent+" ";
 
-	public void printParseTree(String indent) {
-		String indent1 = indent + " ";
-
-		IO.displayln(indent + indent.length() + " <Fun Call Statement>");
-		IO.displayln(indent1 + indent1.length() + " ;");
+		super.printParseTree(indent);
+		IO.displayln(indent1 + indent1.length() + " <fun call statement>");
 		funCall.printParseTree(indent1);
-
 	}
 
+	@Override
+	void M(Hashtable<String, Val> state) {
+		funCall.Eval(state);
+	}
 }

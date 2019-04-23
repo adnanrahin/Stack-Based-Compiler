@@ -1,8 +1,5 @@
 package interpreter_assignment_103;
-
 /**
-
-// contributor: Keitaro Yukawa
 
 This class is a top-down, recursive-descent parser for the following syntactic categories:
 
@@ -66,28 +63,35 @@ will be passed to parse functions corresponding to syntactic categories.
 
 import java.util.*;
 
-public abstract class Parser extends LexArithArray {
+public abstract class Parser extends LexAnalyzer {
 	static boolean syntaxErrorFound = false;
-	static final returnVal returnVal_ = new returnVal();
+	static Hashtable<String, FunDef> fundeftable;
+	static final ReturnVal returnVal_ = new ReturnVal();
 
 	public static FunDefList funDefList() {
 
 		// <fun def list> --> { <fun def> }+
 
 		LinkedList<FunDef> funDefList = new LinkedList<FunDef>();
+		fundeftable = new Hashtable<String, FunDef>();
 
 		FunDef funDef = funDef();
 		funDefList.add(funDef);
+
+		fundeftable.put(funDef.header.funName.id.id, funDef);
+
 		while (state == State.Id) // Parse <fun def> as long as the token is <fun name>.
 		{
 			funDef = funDef();
 			funDefList.add(funDef);
 
+			fundeftable.put(funDef.header.funName.id.id, funDef);
 		}
 		return new FunDefList(funDefList);
 	}
 
 	public static FunDef funDef() {
+
 		// <fun def> --> <header> <body>
 
 		Header header = header();
@@ -96,6 +100,7 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static Header header() {
+
 		// <header> --> <fun name> "(" [ <parameter list> ] ")"
 
 		if (state == State.Id) // The token is <fun name>.
@@ -153,10 +158,11 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static Body body() {
+	public static Body body()
 
-		// <body> --> "{" <s list> "}"
+	// <body> --> "{" <s list> "}"
 
+	{
 		if (state == State.LBrace) {
 			getToken();
 			SList sList = sList();
@@ -175,7 +181,6 @@ public abstract class Parser extends LexArithArray {
 
 	public static SList sList() {
 		// <s list> --> { <statement> }
-
 		LinkedList<Statement> sList = new LinkedList<Statement>();
 
 		while (beginsStatement()) {
@@ -199,7 +204,7 @@ public abstract class Parser extends LexArithArray {
 				getToken();
 				FunCallStatement funCallStatement = funCallStatement(id);
 				return funCallStatement;
-			} else if (state == State.LBracket) // <assignment> to <array var>
+			} else if (state == state.LBracket) // <assignment> to <array var>
 			{
 				getToken();
 				ArrayVar arrayVar = arrayVar(id);
@@ -234,10 +239,11 @@ public abstract class Parser extends LexArithArray {
 				|| state == State.Keyword_while || state == State.LBrace || state == State.Keyword_print;
 	}
 
-	public static ArrayVar arrayVar(Id id) // id is the array name extracted.
-	{
+	public static ArrayVar arrayVar(Id id) { // <array name> and "[" already extracted; start parsing <E list> "]".
+		// id is the array name extracted.
 
 		// <array var> --> <array name> "[" <E list> "]"
+		// <array name > -- <id>
 
 		EList eList = eList();
 		if (state == State.RBracket) {
@@ -250,9 +256,7 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static EList eList()
-
-	{
+	public static EList eList() {
 		// <E list> --> <E> { "," <E> }
 
 		LinkedList<E> eList = new LinkedList<E>();
@@ -268,6 +272,8 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static Assignment assignment(Var var) {
+		// The parameter var is the <var> on the left side.
+
 		// <assignment> --> <var> "=" <right side> ";"
 
 		if (state == State.Assign) {
@@ -286,8 +292,8 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static Var var() // This function is not used by the parser.
-	{
+	public static Var var() {
+		// This function is not used by the parser.
 		// <var> --> <id var> | <array var> | "returnVal"
 		// <id var> --> <id>
 
@@ -295,7 +301,7 @@ public abstract class Parser extends LexArithArray {
 		case Id:
 			Id id = new Id(t);
 			getToken();
-			if (state == State.LBracket) // <array var>
+			if (state == state.LBracket) // <array var>
 			{
 				getToken();
 				return arrayVar(id);
@@ -313,6 +319,7 @@ public abstract class Parser extends LexArithArray {
 	}
 
 	public static RightSide rightSide() {
+
 		// <right side> --> <array constructor> | <expr right side>
 		// <expr right side> --> <expr>
 
@@ -325,7 +332,8 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static ArrayConstructor arrayConstructor() {
+	public static ArrayConstructor arrayConstructor() { // "new" already extracted; start parsing "[" <E list> "]"
+
 		// <array constructor> --> "new" "[" <E list> "]"
 
 		if (state == State.LBracket) {
@@ -348,7 +356,7 @@ public abstract class Parser extends LexArithArray {
 
 		// <cond> --> "if" "(" <expr> ")" <statement> [ "else" <statement> ]
 
-		getToken();
+		getToken(); // flush "if"
 		if (state == State.LParen) {
 			getToken();
 			Expr expr = expr();
@@ -368,10 +376,12 @@ public abstract class Parser extends LexArithArray {
 		return null;
 	}
 
-	public static While while_() {
-		// <while> --> "while" "(" <expr> ")" <statement>
+	public static While while_()
 
-		getToken();
+	// <while> --> "while" "(" <expr> ")" <statement>
+
+	{
+		getToken(); // flush "while"
 		if (state == State.LParen) {
 			getToken();
 			Expr expr = expr();
@@ -386,9 +396,11 @@ public abstract class Parser extends LexArithArray {
 		return null;
 	}
 
-	public static Block block() {
-		// <block> --> "{" <s list> "}"
+	public static Block block()
 
+	// <block> --> "{" <s list> "}"
+
+	{
 		getToken(); // flush "{"
 		SList sList = sList();
 		if (state == State.RBrace) {
@@ -400,9 +412,11 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static FunCallStatement funCallStatement(Id id) {
-		// <fun call statement> --> <fun call> ";"
+	public static FunCallStatement funCallStatement(Id id) // id is the function name extracted.
 
+	// <fun call statement> --> <fun call> ";"
+
+	{
 		FunCall funCall = funCall(id);
 		if (state == State.Semicolon) {
 			getToken();
@@ -413,10 +427,14 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static FunCall funCall(Id id) {
-		// <fun call> --> <fun name> "(" [ <expr list> ] ")"
+	public static FunCall funCall(Id id) // id is the function name extracted.
 
-		if (state == State.RParen) {
+	// <fun call> --> <fun name> "(" [ <expr list> ] ")"
+
+	{ // <fun name> and "(" already extracted; start parsing <expr list> ")".
+
+		if (state == State.RParen) // Parameters <expr list> is non-existent.
+		{
 			getToken();
 			FunName funName = new FunName(id);
 			return new FunCallWithoutParameters(funName);
@@ -433,9 +451,11 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static ExprList exprList() {
-		// <expr list> --> <expr> { "," <expr> }
+	public static ExprList exprList()
 
+	// <expr list> --> <expr> { "," <expr> }
+
+	{
 		LinkedList<Expr> exprList = new LinkedList<Expr>();
 
 		Expr expr = expr();
@@ -448,10 +468,12 @@ public abstract class Parser extends LexArithArray {
 		return new ExprList(exprList);
 	}
 
-	public static Print print() {
-		// <print> --> "print" <expr> ";"
+	public static Print print()
 
-		getToken();
+	// <print> --> "print" <expr> ";"
+
+	{
+		getToken(); // flush "print"
 		Expr expr = expr();
 		if (state == State.Semicolon) {
 			getToken();
@@ -462,9 +484,11 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static Expr expr() {
-		// <expr> --> <boolTerm> { "||" <boolTerm> }
+	public static Expr expr()
 
+	// <expr> --> <boolTerm> { "||" <boolTerm> }
+
+	{
 		LinkedList<BoolTermItem> boolTermItemList = new LinkedList<BoolTermItem>();
 
 		BoolTerm boolTerm = boolTerm();
@@ -477,9 +501,11 @@ public abstract class Parser extends LexArithArray {
 		return new Expr(boolTermItemList);
 	}
 
-	public static BoolTerm boolTerm() {
-		// <boolTerm> --> <boolPrimary> { "&&" <boolPrimary> }
+	public static BoolTerm boolTerm()
 
+	// <boolTerm> --> <boolPrimary> { "&&" <boolPrimary> }
+
+	{
 		LinkedList<BoolPrimaryItem> boolPrimaryItemList = new LinkedList<BoolPrimaryItem>();
 
 		BoolPrimary boolPrimary = boolPrimary();
@@ -492,10 +518,12 @@ public abstract class Parser extends LexArithArray {
 		return new BoolTerm(boolPrimaryItemList);
 	}
 
-	public static BoolPrimary boolPrimary() {
-		// <boolPrimary> --> <E> [ <comp op> <E> ]
-		// <comp op> --> "<" | "<=" | ">" | ">=" | "==" | "!="
+	public static BoolPrimary boolPrimary()
 
+	// <boolPrimary> --> <E> [ <comp op> <E> ]
+	// <comp op> --> "<" | "<=" | ">" | ">=" | "==" | "!="
+
+	{
 		E e1 = E();
 		if (state.isCompOp()) {
 			State compOp = state;
@@ -519,9 +547,11 @@ public abstract class Parser extends LexArithArray {
 			return new SingleE(e1);
 	}
 
-	public static E E() {
-		// <E> --> <term> { (+|-) <term> }
+	public static E E()
 
+	// <E> --> <term> { (+|-) <term> }
+
+	{
 		LinkedList<TermItem> termItemList = new LinkedList<TermItem>();
 
 		Term term = term();
@@ -538,10 +568,11 @@ public abstract class Parser extends LexArithArray {
 		return new E(termItemList);
 	}
 
-	public static Term term() {
+	public static Term term()
 
-		// <term> --> <primary> { (*|/) <primary> }
+	// <term> --> <primary> { (*|/) <primary> }
 
+	{
 		LinkedList<PrimaryItem> primaryItemList = new LinkedList<PrimaryItem>();
 
 		Primary primary = primary();
@@ -558,11 +589,13 @@ public abstract class Parser extends LexArithArray {
 		return new Term(primaryItemList);
 	}
 
-	public static Primary primary() {
+	public static Primary primary()
 
-		// <primary> --> <var primary> | <int> | <float> | <floatE> | "(" <expr> ")" | -
-		// <primary> | ! <primary> | <fun call primary>
-		// <var primary> --> <var>
+	// <primary> --> <var primary> | <int> | <float> | <floatE> | "(" <expr> ")" | -
+	// <primary> | ! <primary> | <fun call primary>
+	// <var primary> --> <var>
+
+	{
 		switch (state) {
 		case Id:
 			Id id = new Id(t);
@@ -572,7 +605,7 @@ public abstract class Parser extends LexArithArray {
 				getToken();
 				FunCallPrimary funCallPrimary = funCallPrimary(id);
 				return funCallPrimary;
-			} else if (state == State.LBracket) // <array var>
+			} else if (state == state.LBracket) // <array var>
 			{
 				getToken();
 				ArrayVar arrayVar = arrayVar(id);
@@ -623,9 +656,11 @@ public abstract class Parser extends LexArithArray {
 		}
 	}
 
-	public static FunCallPrimary funCallPrimary(Id id) {
-		// <fun call primary> --> <fun call>
+	public static FunCallPrimary funCallPrimary(Id id) // id is the function name extracted.
 
+	// <fun call primary> --> <fun call>
+
+	{
 		FunCall funCall = funCall(id);
 		return new FunCallPrimary(funCall);
 	}

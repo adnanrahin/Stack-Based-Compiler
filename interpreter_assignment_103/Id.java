@@ -1,17 +1,17 @@
 package interpreter_assignment_103;
-
 import java.util.*;
 
-import java.util.*;
-
-public class Id {
+class Id
+{
 	String id;
 
-	Id(String ident) {
+	Id(String ident)
+	{
 		id = ident;
 	}
 
-	void printParseTree() {
+	void printParseTree()
+	{
 		IO.displayln(" " + id);
 	}
 }

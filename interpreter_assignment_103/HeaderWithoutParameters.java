@@ -1,15 +1,21 @@
 package interpreter_assignment_103;
-
 import java.util.*;
 
-public class HeaderWithoutParameters extends Header {
-	// FunName funName; inherited from Header
+class HeaderWithoutParameters extends Header
+{
+	//FunName funName; inherited from Header
 
-	HeaderWithoutParameters(FunName fName) {
+	HeaderWithoutParameters(FunName fName)
+	{
 		funName = fName;
 	}
-
-	void printParseTree(String indent) {
+	
+	void printParseTree(String indent)
+	{
 		super.printParseTree(indent);
+	}
+
+	@Override
+	void M(Hashtable<String, Val> newState, LinkedList<Val> params) {
 	}
 }

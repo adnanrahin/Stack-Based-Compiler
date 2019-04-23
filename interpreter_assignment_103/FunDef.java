@@ -1,24 +1,23 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class FunDef {
-
+class FunDef
+{
 	Header header;
 	Body body;
 
-	public FunDef(Header header, Body body) {
-		this.header = header;
-		this.body = body;
+	FunDef(Header h, Body b)
+	{
+		header = h;
+		body = b;
 	}
 
-	public FunDef(Header header) {
-		this.header = header;
-	}
-	
-	void printParseTree(String indent) {
-		String indent1 = indent + " ";
-		IO.displayln(indent + indent.length() + " <fun def> ");
+	void printParseTree(String indent)
+	{
+		String indent1 = indent+" ";
+
+		IO.displayln(indent + indent.length() + " <fun def>");
 		header.printParseTree(indent1);
 		body.printParseTree(indent1);
 	}
-
 }

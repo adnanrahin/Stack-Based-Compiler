@@ -1,7 +1,5 @@
 package interpreter_assignment_103;
 
-//This class defines I/O variables and functions used by the compiler/interpreter.
-
 import java.io.*;
 
 public abstract class IO {
@@ -11,10 +9,11 @@ public abstract class IO {
 	public static int a; // the current input character on "inStream"
 	public static char c; // used to convert the variable "a" to the char type whenever necessary
 
-	public static int getNextChar() {
+	public static int getNextChar()
 
-		// Returns the next character on the input stream.
+	// Returns the next character on the input stream.
 
+	{
 		try {
 			return inStream.read();
 		} catch (IOException e) {
@@ -23,11 +22,12 @@ public abstract class IO {
 		}
 	}
 
-	public static int getChar() {
+	public static int getChar()
 
-		// Returns the next non-whitespace character on the input stream.
-		// Returns -1, end-of-stream, if the end of the input stream is reached.
+	// Returns the next non-whitespace character on the input stream.
+	// Returns -1, end-of-stream, if the end of the input stream is reached.
 
+	{
 		int i = getNextChar();
 		while (Character.isWhitespace((char) i))
 			i = getNextChar();
@@ -40,14 +40,15 @@ public abstract class IO {
 
 	public static void displayln(String s) {
 		outStream.println(s);
-		System.out.println(s);
 	}
 
-	public static void setIO(String inFile, String outFile) {
-		// Sets the input and output streams to "inFile" and "outFile", respectively.
-		// Sets the current input character "a" to the first character on the input
-		// stream.
+	public static void setIO(String inFile, String outFile)
 
+	// Sets the input and output streams to "inFile" and "outFile", respectively.
+	// Sets the current input character "a" to the first character on the input
+	// stream.
+
+	{
 		try {
 			inStream = new BufferedReader(new FileReader(inFile));
 			outStream = new PrintWriter(new FileOutputStream(outFile));

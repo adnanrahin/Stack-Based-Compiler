@@ -1,19 +1,27 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-import java.util.LinkedList;
-
-public class ExprList {
-
+class ExprList
+{
 	LinkedList<Expr> exprList;
 
-	public ExprList(LinkedList<Expr> exprList) {
-		this.exprList = exprList;
+	ExprList(LinkedList<Expr> el)
+	{
+		exprList = el;
+	}
+	
+	void printParseTree(String indent)
+	{
+		IO.displayln(indent + indent.length() + " <expr list>");
+		for ( Expr expr : exprList )
+			expr.printParseTree(indent+" ");
 	}
 
-	public void printParseTree(String indent) {
-		IO.displayln(indent + indent.length() + " <Expr List>");
-		for (Expr p : exprList)
-			p.printParseTree(indent + " ");
+	void M(Hashtable<String, Val> state, LinkedList<Val> params) {
+		for (int i = 0; i < exprList.size(); i++) {
+			Expr expr = exprList.get(i);
+			Val val = expr.Eval(state);
+			params.add(val);
+		}
 	}
-
 }

@@ -1,29 +1,35 @@
 package interpreter_assignment_103;
-
-public class IntVal extends Val {
+class IntVal extends Val
+{
 	int val;
 
-	IntVal(int i) {
+	IntVal(int i)
+	{
 		val = i;
 	}
 
-	public String toString() {
-		return val + "";
+	public String toString()
+	{
+		return val+"";
 	}
 
-	Val cloneVal() {
+	Val cloneVal()
+	{
 		return new IntVal(val);
 	}
 
-	double floatVal() {
-		return (double) val;
+	double floatVal()
+	{
+		return (double)val;
 	}
 
-	boolean isNumber() {
+	boolean isNumber()
+	{
 		return true;
 	}
 
-	boolean isZero() {
+	boolean isZero()
+	{
 		return val == 0;
 	}
 }

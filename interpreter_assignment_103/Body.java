@@ -1,16 +1,20 @@
 package interpreter_assignment_103;
 
-public class Body {
+import java.util.*;
 
-	SList slist;
+class Body {
+	SList sList;
 
-	public Body(SList slist) {
-		this.slist = slist;
+	Body(SList s) {
+		sList = s;
 	}
 
 	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <body>");
-		slist.printParseTree(indent + " ");
+		sList.printParseTree(indent + " ");
 	}
 
+	void M(Hashtable<String, Val> state) {
+		sList.M(state);
+	}
 }

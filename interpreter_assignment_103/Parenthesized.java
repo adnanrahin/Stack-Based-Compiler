@@ -1,16 +1,24 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-class Parenthesized extends Primary {
-	Expr e;
+class Parenthesized extends Primary
+{
+	Expr expr;
 
-	Parenthesized(Expr e) {
-		this.e = e;
+	Parenthesized(Expr e)
+	{
+		expr = e;
 	}
 
-	void printParseTree(String indent) {
+	void printParseTree(String indent)
+	{
 		super.printParseTree(indent);
 		IO.displayln("");
-		e.printParseTree(indent + " ");
+		expr.printParseTree(indent+" ");
 	}
 
+	@Override
+	Val Eval(Hashtable<String, Val> state) {
+		return expr.Eval(state);
+	}
 }

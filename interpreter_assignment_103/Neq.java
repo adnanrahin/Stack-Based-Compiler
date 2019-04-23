@@ -1,11 +1,23 @@
 package interpreter_assignment_103;
 
-public class Neq extends CompBoolPrimary {
+import java.util.*;
+
+class Neq extends CompBoolPrimary {
 	Neq(E e_1, E e_2) {
 		super(e_1, e_2);
 	}
 
 	String getOp() {
 		return " !=";
+	}
+
+	@Override
+	BoolVal Eval(Hashtable<String, Val> state) {
+
+		if (e1.Eval(state).isNumber() && e2.Eval(state).isNumber()
+				|| e1.Eval(state) instanceof BoolVal && e2.Eval(state) instanceof BoolVal) {
+			return new BoolVal(e1.Eval(state).floatVal() != e2.Eval(state).floatVal());
+		}
+		return null;
 	}
 }

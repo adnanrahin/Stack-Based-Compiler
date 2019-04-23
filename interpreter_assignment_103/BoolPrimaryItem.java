@@ -1,6 +1,11 @@
 package interpreter_assignment_103;
 
-public abstract class BoolPrimaryItem {
+import java.util.*;
+
+abstract class BoolPrimaryItem {
 	BoolPrimary boolPrimary;
+
 	abstract void printParseTree(String indent);
+
+	abstract Val Eval(Hashtable<String, Val> state);
 }

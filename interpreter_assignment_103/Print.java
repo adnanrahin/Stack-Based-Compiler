@@ -1,20 +1,29 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class Print extends Statement {
-
+class Print extends Statement
+{
 	Expr expr;
 
-	public Print(Expr expr) {
-		this.expr = expr;
+	Print(Expr e)
+	{
+		expr = e;
 	}
 
-	public void printParseTree(String indent) {
-		String indent1 = indent + " ";
+	void printParseTree(String indent)
+	{
+		String indent1 = indent+" ";
 
-		IO.displayln(indent + indent.length() + " <print>");
-		IO.displayln(indent1 + indent1.length() + " ;");
-		expr.printParseTree(indent1);
-
+		super.printParseTree(indent);
+		IO.displayln(indent1 + indent1.length() + " <print>");
+		expr.printParseTree(indent1+" ");
 	}
 
+	@Override
+	void M(Hashtable<String, Val> state) {
+		Val val = expr.Eval(state);
+		
+		if (val != null)
+			System.out.println(val.toString());
+	}
 }

@@ -1,17 +1,21 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class ArrayVar extends Var {
+class ArrayVar extends Var
+{
 	ArrayName arrayName;
 	EList eList;
 
-	ArrayVar(ArrayName aName, EList el) {
+	ArrayVar(ArrayName aName, EList el)
+	{
 		arrayName = aName;
 		eList = el;
 	}
 
-	public void printParseTree(String indent) {
-		String indent1 = indent + " ";
-		String indent2 = indent + "  ";
+	void printParseTree(String indent)
+	{
+		String indent1 = indent+" ";
+		String indent2 = indent+"  ";
 
 		super.printParseTree(indent);
 		IO.displayln("");

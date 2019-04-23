@@ -1,19 +1,25 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-import java.util.LinkedList;
+class SList
+{
+	LinkedList<Statement> sList;
 
-public class SList {
-
-	LinkedList<Statement> statements;
-
-	public SList(LinkedList<Statement> statements) {
-		this.statements = statements;
+	SList(LinkedList<Statement> sl)
+	{
+		sList = sl;
 	}
-
-	public void printParseTree(String indent) {
+	
+	void printParseTree(String indent)
+	{
 		IO.displayln(indent + indent.length() + " <s list>");
-		for (Statement s : statements)
-			s.printParseTree(indent + " ");
+		for ( Statement s : sList )
+			s.printParseTree(indent+" ");
 	}
 
+	void M(Hashtable<String, Val> state) {
+		for (Statement statement : sList) {
+			statement.M(state);
+		}
+	}
 }

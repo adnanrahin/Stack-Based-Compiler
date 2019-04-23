@@ -1,17 +1,32 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class VarPrimary extends Primary {
-
+class VarPrimary extends Primary
+{
 	Var var;
 
-	public VarPrimary(Var var) {
-		this.var = var;
+	VarPrimary(Var v)
+	{
+		var = v;
 	}
 
-	public void printParseTree(String indent) {
+	void printParseTree(String indent)
+	{
 		super.printParseTree(indent);
 		IO.displayln("");
-		var.printParseTree(indent + " ");
+		var.printParseTree(indent+" ");
 	}
 
+	@Override
+	Val Eval(Hashtable<String, Val> state) {
+		if (var instanceof IdVar) {
+			Id id = ((IdVar) var).id;
+			return state.get(id.id);
+		}
+		else if (var instanceof ReturnVal) {
+			return state.get("returnVal");
+		}
+		
+		return null;
+	}
 }

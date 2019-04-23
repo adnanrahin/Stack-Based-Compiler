@@ -1,15 +1,23 @@
 package interpreter_assignment_103;
+import java.util.*;
 
-public class Int extends Primary {
+class Int extends Primary
+{
 	int val;
 
-	Int(int i) {
+	Int(int i)
+	{
 		val = i;
 	}
 
-	public void printParseTree(String indent) {
+	void printParseTree(String indent)
+	{
 		super.printParseTree(indent);
 		IO.displayln(" " + val);
 	}
 
+	@Override
+	Val Eval(Hashtable<String, Val> state) {
+		return new IntVal(val);
+	}
 }
