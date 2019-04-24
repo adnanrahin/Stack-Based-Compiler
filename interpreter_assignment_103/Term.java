@@ -31,29 +31,42 @@ class Term {
 
 					for (int i = 1; i < primaryItemList.size(); i++) {
 
-						PrimaryItem termItem = primaryItemList.get(i);
+						PrimaryItem primaryItem = primaryItemList.get(i);
 
-						if (termItem != null) {
-							val = termItem.Eval(state);
+						if (primaryItem != null) {
+							val = primaryItem.Eval(state);
 
 							if (!(val instanceof BoolVal)) {
 								if (!(val instanceof IntVal))
 									isInt = false;
 
-								if (termItem.isMul())
+								if (primaryItem.isMul())
 									temp *= val.floatVal();
-								else if (termItem.isDiv()) {
+								else if (primaryItem.isDiv()) {
 									if (val.floatVal() == 0) {
 										System.out.println("Error: division by 0");
 										return null;
 									} else
 										temp /= val.floatVal();
-								} else
+								} else {
 									return null;
-							} else
+								}
+							} else {
+								if (primaryItem.isMul()) {
+									System.out.println("Error: * operator cannot be applied to " + val);
+								} else {
+									System.out.println("Error: / operator cannot be applied to " + val);
+								}
 								return null;
-						} else
+							}
+						} else {
+							if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
+								System.out.println("Error: * operator cannot be applied to " + val);
+							} else {
+								System.out.println("Error: / operator cannot be applied to " + val);
+							}
 							return null;
+						}
 					}
 
 					if (isInt)
@@ -63,8 +76,14 @@ class Term {
 				} else {
 					if (primaryItemList.size() == 1)
 						return val;
-					else
+					else {
+						if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
+							System.out.println("Error: * operator cannot be applied to " + val);
+						} else {
+							System.out.println("Error: / operator cannot be applied to " + val);
+						}
 						return null;
+					}
 				}
 			}
 			return null;

@@ -23,7 +23,7 @@ class E {
 			Val val = termItemList.get(0).Eval(state);
 
 			if (val != null) {
-				TermItem termItem = termItemList.get(0);
+				// TermItem termItem = termItemList.get(0);
 				if ((val instanceof IntVal) || (val instanceof FloatVal)) {
 					if (!(val instanceof IntVal))
 						isInt = false;
@@ -32,7 +32,7 @@ class E {
 
 					for (int i = 1; i < termItemList.size(); i++) {
 
-						termItem = termItemList.get(i);
+						TermItem termItem = termItemList.get(i);
 
 						if (termItem != null) {
 							val = termItem.Eval(state);
@@ -47,23 +47,23 @@ class E {
 									temp -= val.floatVal();
 								else {
 									if (termItem.isAdd()) {
-										System.out.println("Error:1 + operator cannot be applied to " + val);
+										System.out.println("Error: + operator cannot be applied to " + val);
 									} else
-										System.out.println("Error:1 + operator cannot be applied to " + val);
+										System.out.println("Error: - operator cannot be applied to " + val);
 									return null;
 								}
 							} else {
 								if (termItem.isAdd()) {
-									System.out.println("Error:2 + operator cannot be applied to " + val);
+									System.out.println("Error: + operator cannot be applied to " + val); // marks
 								} else
-									System.out.println("Error:2 - operator cannot be applied to " + val);
+									System.out.println("Error: - operator cannot be applied to " + val);
 								return null;
 							}
 						} else {
-							if (termItemList.get(0).isAdd()) {
-								System.out.println("Error:3 + operator cannot be applied to " + val);
+							if (termItemList.get(termItemList.size() - 1).isAdd()) {
+								System.out.println("Error: + operator cannot be applied to " + val);
 							} else
-								System.out.println("Error:3 - operator cannot be applied to " + val);
+								System.out.println("Error: - operator cannot be applied to " + val);
 							return null;
 						}
 					}
@@ -76,21 +76,17 @@ class E {
 					if (termItemList.size() == 1)
 						return val;
 					else {
-						if (termItem.isAdd()) {
-							System.out.println("Error:4 - operator cannot be applied to " + val);
+						if (termItemList.get(termItemList.size() - 1).isAdd()) {
+							System.out.println("Error: + operator cannot be applied to " + val);
 						} else
 							System.out.println(
-									"Error:4 + operator cannot be applied to " + termItemList.get(0).Eval(state));
+									"Error: - operator cannot be applied to " + termItemList.get(0).Eval(state));
 						return null;
 					}
 				}
-			} else {
-				System.out.println("Error:5 " + "operator cannot be applied to " + val);
-				return null;
 			}
-		} else {
-			// System.out.println("Error: 6" + "operator cannot be applied to " + val);
 			return null;
 		}
+		return null;
 	}
 }

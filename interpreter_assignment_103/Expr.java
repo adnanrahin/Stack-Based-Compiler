@@ -41,7 +41,7 @@ class Expr {
 						if (val instanceof BoolVal) {
 							temp = temp || ((BoolVal) val).val;
 						} else {
-							System.out.println("ERROR: MEGATRON");
+							System.out.println("BUG TRACING: ");
 							return null;
 						}
 					} else

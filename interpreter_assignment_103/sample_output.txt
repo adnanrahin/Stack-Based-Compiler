@@ -1,0 +1,44 @@
+1
+1.1
+true
+variable y does not have a value
+55.0
+1
+1.1428571428571428
+false
+false
+false
+true
+Error: + operator cannot be applied to false
+Error: + operator cannot be applied to true
+Error: + operator cannot be applied to false
+Error: - operator cannot be applied to false
+Error: - operator cannot be applied to true
+Error: - operator cannot be applied to false
+Error: * operator cannot be applied to false
+Error: * operator cannot be applied to true
+Error: * operator cannot be applied to false
+Error: / operator cannot be applied to false
+Error: / operator cannot be applied to true
+Error: / operator cannot be applied to false
+Error: unary - operator cannot be applied to false
+Error: < operator cannot be applied to [5.0,true]
+Error: <= operator cannot be applied to [true,5]
+Error: > operator cannot be applied to [5.0,true]
+Error: >= operator cannot be applied to [true,5]
+Error: == operator cannot be applied to [5.0,true]
+Error: != operator cannot be applied to [true,5]
+Error: || operator cannot be applied to 1
+Error: || operator cannot be applied to 1
+Error: || operator cannot be applied to 1
+Error: && operator cannot be applied to 1
+Error: && operator cannot be applied to 1
+Error: && operator cannot be applied to 1
+Error: ! operator cannot be applied to 1
+Error: + operator cannot be applied to false
+Error: - operator cannot be applied to false
+Error: / operator cannot be applied to false
+returnVal does not have a value
+variable y does not have a value
+
+
