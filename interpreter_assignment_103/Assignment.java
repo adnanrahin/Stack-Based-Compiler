@@ -22,16 +22,19 @@ class Assignment extends Statement {
 		rightSide.printParseTree(indent2);
 	}
 
-	@Override
 	void M(Hashtable<String, Val> state) {
 		if (rightSide instanceof ExprRightSide) {
 			Expr e = ((ExprRightSide) rightSide).expr;
 			if (var instanceof IdVar) {
 				Id id = ((IdVar) var).id;
 				state.put(id.id, e.Eval(state));
-			} else if (var instanceof ReturnVal) {
+			}
+
+			else if (var instanceof ReturnVal) {
 				state.put("returnVal", e.Eval(state));
-			} else if (var instanceof ArrayVar) {
+			}
+
+			else if (var instanceof ArrayVar) {
 				ArrayName arrayName = ((ArrayVar) var).arrayName;
 				state.put(arrayName.toString(), e.Eval(state));
 			}

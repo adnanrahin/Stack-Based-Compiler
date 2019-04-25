@@ -11,5 +11,5 @@ abstract class Header
 		funName.printParseTree(indent+" ");
 	}
 
-	abstract void M(Hashtable<String, Val> newState, LinkedList<Val> params);
+	abstract void M(Hashtable<String, Val> newState, List<Val> list);
 }

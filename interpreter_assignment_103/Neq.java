@@ -18,6 +18,12 @@ class Neq extends CompBoolPrimary {
 				|| e1.Eval(state) instanceof BoolVal && e2.Eval(state) instanceof BoolVal) {
 			return new BoolVal(e1.Eval(state).floatVal() != e2.Eval(state).floatVal());
 		}
+		
+		else {
+			System.out.println(
+					"Error: != operator cannot be applied to + " + "[" + e1.Eval(state) + " ," + e2.Eval(state) + "]");
+		}
+		
 		return null;
 	}
 }

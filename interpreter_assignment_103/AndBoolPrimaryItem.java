@@ -1,5 +1,7 @@
 package interpreter_assignment_103;
+
 import java.util.*;
+
 class AndBoolPrimaryItem extends BoolPrimaryItem
 
 // Represents "&& <boolPrimary>"
@@ -7,18 +9,14 @@ class AndBoolPrimaryItem extends BoolPrimaryItem
 {
 	// BoolPrimary boolPrimary; inherited from BoolPrimaryItem
 
-	AndBoolPrimaryItem(BoolPrimary bp)
-	{
+	AndBoolPrimaryItem(BoolPrimary bp) {
 		boolPrimary = bp;
 	}
 
-	void printParseTree(String indent)
-	{
+	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " &&");
 		boolPrimary.printParseTree(indent);
 	}
-
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		return boolPrimary.Eval(state);
 	}

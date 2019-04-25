@@ -1,11 +1,8 @@
 package interpreter_assignment_103;
-import java.util.*;
 
-class ReturnVal extends Var
-{
-	void printParseTree(String indent)
-	{
-		String indent1 = indent+" ";
+class ReturnVal extends Var {
+	void printParseTree(String indent) {
+		String indent1 = indent + " ";
 
 		super.printParseTree(indent);
 		IO.displayln("");

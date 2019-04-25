@@ -16,6 +16,6 @@ class HeaderWithoutParameters extends Header
 	}
 
 	@Override
-	void M(Hashtable<String, Val> newState, LinkedList<Val> params) {
+	void M(Hashtable<String, Val> newState, List<Val> list) {
 	}
 }

@@ -1,4 +1,5 @@
 package interpreter_assignment_103;
+
 import java.util.*;
 
 class SingleTermItem extends TermItem
@@ -8,28 +9,24 @@ class SingleTermItem extends TermItem
 {
 	// Term term; inherited from TermItem
 
-	SingleTermItem(Term t)
-	{
+	SingleTermItem(Term t) {
 		term = t;
 	}
 
-	void printParseTree(String indent)
-	{
+	void printParseTree(String indent) {
 		term.printParseTree(indent);
 	}
 
-	@Override
 	boolean isAdd() {
-		return false;
+		return true;
 	}
 
-	@Override
 	boolean isSub() {
-		return false;
+		return true;
 	}
 
-	@Override
-	Val Eval(Hashtable<String, Val> state) {
-		return term.Eval(state);
+	Val Eval(Hashtable<String, Val> state, Val eVal) {
+		eVal = term.Eval(state);
+		return eVal;
 	}
 }

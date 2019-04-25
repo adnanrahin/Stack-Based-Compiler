@@ -14,19 +14,16 @@ public class AddTermItem extends TermItem
 		IO.displayln(indent + indent.length() + " +");
 		term.printParseTree(indent);
 	}
-
-	@Override
 	boolean isAdd() {
 		return true;
 	}
 
-	@Override
 	boolean isSub() {
 		return false;
 	}
 
-	@Override
-	Val Eval(Hashtable<String, Val> state) {
-		return term.Eval(state);
+	Val Eval(Hashtable<String, Val> state, Val eVal) {
+		eVal = term.Eval(state);
+		return eVal;
 	}
 }

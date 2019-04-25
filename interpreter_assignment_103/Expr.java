@@ -29,10 +29,11 @@ class Expr {
 				} else {
 					if (boolTermItemList.size() == 1)
 						return val;
-					else
+					else {
+						System.out.println("Error: || operator cannot be applied to " + val);
 						return null;
+					}
 				}
-
 				for (int i = 1; i < boolTermItemList.size(); i++) {
 
 					if (boolTermItemList.get(i) != null) {
@@ -41,7 +42,7 @@ class Expr {
 						if (val instanceof BoolVal) {
 							temp = temp || ((BoolVal) val).val;
 						} else {
-							System.out.println("BUG TRACING: ");
+							System.out.println("Error: || operator cannot be applied to " + val);
 							return null;
 						}
 					} else

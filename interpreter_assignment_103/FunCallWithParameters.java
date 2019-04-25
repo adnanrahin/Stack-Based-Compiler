@@ -3,7 +3,6 @@ package interpreter_assignment_103;
 import java.util.*;
 
 class FunCallWithParameters extends FunCall {
-	// FunName funName; inherited from FunCall
 
 	ExprList exprList;
 
@@ -19,26 +18,23 @@ class FunCallWithParameters extends FunCall {
 		exprList.printParseTree(indent1 + " ");
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		Id id = funName.id;
-		if (id == null)
+		if (id != null) {
+			FunDef funDef = Parser.fundeftable.get(id.id);
+			if (funDef != null) {
+				List<Val> list = new ArrayList<Val>();
+				exprList.M(state, list);
+				Hashtable<String, Val> newState = new Hashtable<>();
+				Header header = funDef.header;
+				header.M(newState, list);
+				Body body = funDef.body;
+				body.M(newState);
+
+				return newState.get("returnVal");
+			}
 			return null;
-
-		FunDef funDef = Parser.fundeftable.get(id.id);
-		if (funDef == null)
-			return null;
-
-		LinkedList<Val> params = new LinkedList<Val>();
-		exprList.M(state, params);
-
-		Hashtable<String, Val> newState = new Hashtable<>();
-		Header header = funDef.header;
-		header.M(newState, params);
-
-		Body body = funDef.body; // get the body of main function
-		body.M(newState);
-
-		return newState.get("returnVal");
+		}
+		return null;
 	}
 }

@@ -1,4 +1,5 @@
 package interpreter_assignment_103;
+
 import java.util.*;
 
 class SingleBoolPrimaryItem extends BoolPrimaryItem
@@ -8,18 +9,20 @@ class SingleBoolPrimaryItem extends BoolPrimaryItem
 {
 	// BoolPrimary boolPrimary; inherited from BoolPrimaryItem
 
-	SingleBoolPrimaryItem(BoolPrimary bp)
-	{
+	SingleBoolPrimaryItem(BoolPrimary bp) {
 		boolPrimary = bp;
 	}
 
-	void printParseTree(String indent)
-	{
+	void printParseTree(String indent) {
 		boolPrimary.printParseTree(indent);
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
-		return boolPrimary.Eval(state);
+		if (boolPrimary.Eval(state) != null)
+			return boolPrimary.Eval(state);
+		else {
+			// System.out.println("Error Handling: ");
+			return null;
+		}
 	}
 }

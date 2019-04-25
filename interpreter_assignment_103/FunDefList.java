@@ -1,19 +1,17 @@
 package interpreter_assignment_103;
+
 import java.util.*;
 
-class FunDefList
-{
+class FunDefList {
 	LinkedList<FunDef> funDefList;
 
-	FunDefList(LinkedList<FunDef> fdl)
-	{
+	FunDefList(LinkedList<FunDef> fdl) {
 		funDefList = fdl;
 	}
-	
-	void printParseTree(String indent)
-	{
+
+	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <fun def list>");
-		for ( FunDef fd : funDefList )
-			fd.printParseTree(indent+" ");
+		for (FunDef fd : funDefList)
+			fd.printParseTree(indent + " ");
 	}
 }

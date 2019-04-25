@@ -1,4 +1,5 @@
 package interpreter_assignment_103;
+
 import java.util.*;
 
 class SingleBoolTermItem extends BoolTermItem
@@ -8,17 +9,14 @@ class SingleBoolTermItem extends BoolTermItem
 {
 	// BoolTerm boolTerm; inherited from BoolTermItem
 
-	SingleBoolTermItem(BoolTerm bt)
-	{
+	SingleBoolTermItem(BoolTerm bt) {
 		boolTerm = bt;
 	}
 
-	void printParseTree(String indent)
-	{
+	void printParseTree(String indent) {
 		boolTerm.printParseTree(indent);
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		return boolTerm.Eval(state);
 	}

@@ -18,18 +18,16 @@ class DivPrimaryItem extends PrimaryItem
 		primary.printParseTree(indent);
 	}
 
-	@Override
 	boolean isMul() {
 		return false;
 	}
 
-	@Override
 	boolean isDiv() {
 		return true;
 	}
 
-	@Override
-	Val Eval(Hashtable<String, Val> state) {
-		return primary.Eval(state);
+	Val Eval(Hashtable<String, Val> state, Val termVal) {
+		termVal = primary.Eval(state);
+		return termVal;
 	}
 }

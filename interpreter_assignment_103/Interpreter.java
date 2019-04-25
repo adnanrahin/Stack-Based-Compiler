@@ -4,6 +4,7 @@ import java.util.*;
 
 public abstract class Interpreter extends Parser {
 	public static void main(String argv[]) {
+		
 		// argv[0]: input file containing a string of <fun def list>
 		// argv[1]: output file displaying lexical/syntax error messages
 

@@ -13,7 +13,6 @@ class FunCallWithoutParameters extends FunCall {
 		super.printParseTree(indent + " ");
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		Id id = funName.id;
 		if (id == null)

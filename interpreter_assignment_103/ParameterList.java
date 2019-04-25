@@ -17,13 +17,13 @@ class ParameterList
 			p.printParseTree(indent+" ");
 	}
 
-	void M(Hashtable<String, Val> state, LinkedList<Val> params) {
-		if (parameterList.size() != params.size())
+	void M(Hashtable<String, Val> state, List<Val> list) {
+		if (parameterList.size() != list.size())
 			return;
 		
 		for (int i = 0; i < parameterList.size(); i++) {
 			Parameter parameter = parameterList.get(i);
-			Val val = params.get(i);
+			Val val = list.get(i);
 			state.put(parameter.id.id, val);
 		}
 	}

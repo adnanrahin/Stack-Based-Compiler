@@ -30,8 +30,10 @@ class BoolTerm {
 				} else {
 					if (boolPrimaryItemList.size() == 1)
 						return val;
-					else
+					else {
+						System.out.println("Error: && operator cannot be applied to " + val);
 						return null;
+					}
 				}
 
 				for (int i = 1; i < boolPrimaryItemList.size(); i++) {
@@ -42,6 +44,7 @@ class BoolTerm {
 						if (val instanceof BoolVal) {
 							temp = temp && ((BoolVal) val).val;
 						} else {
+							System.out.println("Error: && operator cannot be applied to " + val);
 							return null;
 						}
 					} else

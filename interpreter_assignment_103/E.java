@@ -16,77 +16,81 @@ class E {
 	}
 
 	Val Eval(Hashtable<String, Val> state) {
-		boolean isInt = true;
+		try {
+			boolean isInt = true;
 
-		if (termItemList.get(0) != null || !termItemList.isEmpty()) {
+			if (termItemList.get(0) != null || !termItemList.isEmpty()) {
 
-			Val val = termItemList.get(0).Eval(state);
+				Val val = termItemList.get(0).Eval(state, null);
 
-			if (val != null) {
-				// TermItem termItem = termItemList.get(0);
-				if ((val instanceof IntVal) || (val instanceof FloatVal)) {
-					if (!(val instanceof IntVal))
-						isInt = false;
+				if (val != null) {
+					// TermItem termItem = termItemList.get(0);
+					if ((val instanceof IntVal) || (val instanceof FloatVal)) {
+						if (!(val instanceof IntVal))
+							isInt = false;
 
-					Double temp = val.floatVal();
+						Double temp = val.floatVal();
 
-					for (int i = 1; i < termItemList.size(); i++) {
+						for (int i = 1; i < termItemList.size(); i++) {
 
-						TermItem termItem = termItemList.get(i);
+							TermItem termItem = termItemList.get(i);
 
-						if (termItem != null) {
-							val = termItem.Eval(state);
+							if (termItem != null) {
+								val = termItem.Eval(state, val);
 
-							if (!(val instanceof BoolVal)) {
-								if (!(val instanceof IntVal))
-									isInt = false;
+								if (!(val instanceof BoolVal)) {
+									if (!(val instanceof IntVal))
+										isInt = false;
 
-								if (termItem.isAdd())
-									temp += val.floatVal();
-								else if (termItem.isSub())
-									temp -= val.floatVal();
-								else {
+									if (termItem.isAdd())
+										temp += val.floatVal();
+									else if (termItem.isSub())
+										temp -= val.floatVal();
+									else {
+										if (termItem.isAdd()) {
+											System.out.println("Error: + operator cannot be applied to " + val);
+										} else
+											System.out.println("Error: - operator cannot be applied to " + val);
+										return null;
+									}
+								} else {
 									if (termItem.isAdd()) {
-										System.out.println("Error: + operator cannot be applied to " + val);
+										System.out.println("Error: + operator cannot be applied to " + val); // marks
 									} else
 										System.out.println("Error: - operator cannot be applied to " + val);
 									return null;
 								}
 							} else {
-								if (termItem.isAdd()) {
-									System.out.println("Error: + operator cannot be applied to " + val); // marks
+								if (termItemList.get(termItemList.size() - 1).isAdd()) {
+									System.out.println("Error: + operator cannot be applied to " + val);
 								} else
 									System.out.println("Error: - operator cannot be applied to " + val);
 								return null;
 							}
-						} else {
+						}
+
+						if (isInt)
+							return new IntVal(temp.intValue());
+
+						return new FloatVal(temp.doubleValue());
+					} else {
+						if (termItemList.size() == 1)
+							return val;
+						else {
 							if (termItemList.get(termItemList.size() - 1).isAdd()) {
 								System.out.println("Error: + operator cannot be applied to " + val);
 							} else
-								System.out.println("Error: - operator cannot be applied to " + val);
+								System.out.println("Error: - operator cannot be applied to "
+										+ termItemList.get(0).Eval(state, val));
 							return null;
 						}
 					}
-
-					if (isInt)
-						return new IntVal(temp.intValue());
-
-					return new FloatVal(temp.doubleValue());
-				} else {
-					if (termItemList.size() == 1)
-						return val;
-					else {
-						if (termItemList.get(termItemList.size() - 1).isAdd()) {
-							System.out.println("Error: + operator cannot be applied to " + val);
-						} else
-							System.out.println(
-									"Error: - operator cannot be applied to " + termItemList.get(0).Eval(state));
-						return null;
-					}
 				}
+				return null;
 			}
 			return null;
+		} catch (Exception e) {
+			return null;
 		}
-		return null;
 	}
 }

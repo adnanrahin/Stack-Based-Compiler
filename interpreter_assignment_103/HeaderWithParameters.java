@@ -20,7 +20,7 @@ class HeaderWithParameters extends Header
 	}
 
 	@Override
-	void M(Hashtable<String, Val> state, LinkedList<Val> params) {
-		parameterList.M(state, params);
+	void M(Hashtable<String, Val> state, List<Val> list) {
+		parameterList.M(state, list);
 	}
 }

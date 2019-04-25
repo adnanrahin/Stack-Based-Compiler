@@ -1,19 +1,17 @@
 package interpreter_assignment_103;
+
 import java.util.*;
 
-class EList
-{
+class EList {
 	LinkedList<E> eList;
 
-	EList(LinkedList<E> el)
-	{
+	EList(LinkedList<E> el) {
 		eList = el;
 	}
-	
-	void printParseTree(String indent)
-	{
+
+	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <E list>");
-		for ( E e : eList )
-			e.printParseTree(indent+" ");
+		for (E e : eList)
+			e.printParseTree(indent + " ");
 	}
 }

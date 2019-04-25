@@ -1,14 +1,11 @@
 package interpreter_assignment_103;
-import java.util.*;
 
-abstract class Cond extends Statement
-{
+abstract class Cond extends Statement {
 	Expr expr;
 	Statement statement1;
 
-	void printParseTree(String indent)
-	{
-		String indent1 = indent+" ";
+	void printParseTree(String indent) {
+		String indent1 = indent + " ";
 
 		super.printParseTree(indent);
 		IO.displayln(indent1 + indent1.length() + " <cond>");

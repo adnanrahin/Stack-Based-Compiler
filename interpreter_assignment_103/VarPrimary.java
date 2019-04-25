@@ -15,7 +15,6 @@ class VarPrimary extends Primary {
 		var.printParseTree(indent + " ");
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		if (var instanceof IdVar) {
 			Id id = ((IdVar) var).id;
