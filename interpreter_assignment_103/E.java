@@ -54,17 +54,19 @@ class E {
 										return null;
 									}
 								} else {
-									if (termItem.isAdd()) {
-										System.out.println("Error: + operator cannot be applied to " + val); // marks
-									} else
-										System.out.println("Error: - operator cannot be applied to " + val);
+									/*
+									 * if (termItem.isAdd()) {
+									 * System.out.println("Error: + operator cannot be applied to " + val); // marks
+									 * } else System.out.println("Error: - operator cannot be applied to " + val);
+									 */
 									return null;
 								}
 							} else {
-								if (termItemList.get(termItemList.size() - 1).isAdd()) {
-									System.out.println("Error: + operator cannot be applied to " + val);
-								} else
-									System.out.println("Error: - operator cannot be applied to " + val);
+								/*
+								 * if (termItemList.get(termItemList.size() - 1).isAdd()) {
+								 * System.out.println("Error: + operator cannot be applied to " + val); } else
+								 * System.out.println("Error: - operator cannot be applied to " + val);
+								 */
 								return null;
 							}
 						}

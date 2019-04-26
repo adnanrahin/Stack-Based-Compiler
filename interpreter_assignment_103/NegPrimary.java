@@ -26,12 +26,14 @@ class NegPrimary extends Primary {
 
 				if (primary.Eval(state) instanceof IntVal)
 					return new IntVal(-temp.intValue());
-
 				return new FloatVal(-temp.floatValue());
+				
+			} else if (primary.Eval(state) instanceof BoolVal) {
+				System.out.println("unary - operator cannot be applied to " + primary.Eval(state));
+				return null;
 			}
-			return null;
+
 		}
 		return null;
-
 	}
 }

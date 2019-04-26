@@ -18,13 +18,15 @@ class InvPrimary extends Primary {
 		primary.printParseTree(indent1);
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		Val val = primary.Eval(state);
 
 		if (val instanceof BoolVal)
 			return new BoolVal(val.floatVal() == 0.0);
-		return null;
 
+		else {
+			System.out.println("Error: ! operator cannot be applied to " + primary.Eval(state));
+			return null;
+		}
 	}
 }
