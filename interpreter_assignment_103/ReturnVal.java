@@ -11,13 +11,13 @@ class ReturnVal extends Var {
 		IO.displayln(indent1 + indent1.length() + " returnVal");
 	}
 
-	Val Eval(HashMap<String, Val> state) {
-		Val val = state.get("returnVal");
+	Val Eval(HashMap<String, Val> state, Val returnVal) {
+		returnVal = state.get("returnVal");
 
-		if (val == null) {
+		if (!(returnVal instanceof BoolVal)) {
 			System.out.println("returnVal does not have a value");
 		}
 
-		return val;
+		return returnVal;
 	}
 }
