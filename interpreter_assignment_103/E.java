@@ -47,10 +47,11 @@ class E {
 									else if (termItem.isSub())
 										temp -= val.floatVal();
 									else {
-										if (termItem.isAdd()) {
-											System.out.println("Error: + operator cannot be applied to " + val);
-										} else
-											System.out.println("Error: - operator cannot be applied to " + val);
+										/*
+										 * if (termItem.isAdd()) {
+										 * System.out.println("Error: + operator cannot be applied to " + val); } else
+										 * System.out.println("Error: - operator cannot be applied to " + val);
+										 */
 										return null;
 									}
 								} else {
@@ -82,8 +83,7 @@ class E {
 							if (termItemList.get(termItemList.size() - 1).isAdd()) {
 								System.out.println("Error: + operator cannot be applied to " + val);
 							} else
-								System.out.println("Error: - operator cannot be applied to "
-										+ termItemList.get(0).Eval(state, val));
+								System.out.println("Error: - operator cannot be applied to " + val);
 							return null;
 						}
 					}
