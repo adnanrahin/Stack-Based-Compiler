@@ -28,6 +28,9 @@ class MulPrimaryItem extends PrimaryItem
 
 	Val Eval(Hashtable<String, Val> state, Val termVal) {
 		termVal = primary.Eval(state);
+		if (termVal instanceof BoolVal) {
+			System.out.println("Error: * operator cannot be applied to " + termVal);
+		}
 		return termVal;
 	}
 }

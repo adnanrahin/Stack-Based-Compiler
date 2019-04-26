@@ -25,10 +25,8 @@ public class AddTermItem extends TermItem
 
 	Val Eval(Hashtable<String, Val> state, Val eVal) {
 		eVal = term.Eval(state);
-		
 		if (eVal instanceof BoolVal)
 			System.out.println("Error: + operator cannot be applied to " + eVal);
-
 		return eVal;
 	}
 }

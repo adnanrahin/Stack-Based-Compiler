@@ -17,6 +17,7 @@ class AndBoolPrimaryItem extends BoolPrimaryItem
 		IO.displayln(indent + indent.length() + " &&");
 		boolPrimary.printParseTree(indent);
 	}
+
 	Val Eval(Hashtable<String, Val> state) {
 		return boolPrimary.Eval(state);
 	}

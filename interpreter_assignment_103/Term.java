@@ -53,19 +53,20 @@ class Term {
 										return null;
 									}
 								} else {
-									if (primaryItem.isMul()) {
-										System.out.println("Error: * operator cannot be applied to " + val);
-									} else {
-										System.out.println("Error: / operator cannot be applied to " + val);
-									}
+									/*
+									 * if (primaryItem.isMul()) {
+									 * System.out.println("Error: * operator cannot be applied to " + val); } else {
+									 * System.out.println("Error: / operator cannot be applied to " + val); }
+									 */
 									return null;
 								}
 							} else {
-								if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
-									System.out.println("Error: * operator cannot be applied to " + val);
-								} else {
-									System.out.println("Error: / operator cannot be applied to " + val);
-								}
+
+								/*
+								 * if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
+								 * System.out.println("Error: * operator cannot be applied to " + val); } else {
+								 * System.out.println("Error: / operator cannot be applied to " + val); }
+								 */
 								return null;
 							}
 						}

@@ -21,6 +21,11 @@ class Print extends Statement {
 		if (expr.Eval(state) != null)
 			System.out.println(expr.Eval(state).toString());
 		else {
+			/*
+			 * if(expr.Eval(state) instanceof Id) {
+			 * 
+			 * }
+			 */
 			//System.out.println("Test: + operator cannot be applied to " + expr.Eval(state));
 		}
 	}
