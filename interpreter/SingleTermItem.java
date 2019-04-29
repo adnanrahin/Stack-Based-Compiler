@@ -17,14 +17,6 @@ class SingleTermItem extends TermItem
 		term.printParseTree(indent);
 	}
 
-	boolean isAdd() {
-		return false;
-	}
-
-	boolean isSub() {
-		return false;
-	}
-
 	Val Eval(Hashtable<String, Val> state) {
 		return term.Eval(state);
 	}

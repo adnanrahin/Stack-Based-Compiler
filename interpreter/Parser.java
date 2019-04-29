@@ -66,9 +66,8 @@ import java.util.*;
 public abstract class Parser extends LexAnalyzer
 {
 	static boolean syntaxErrorFound = false;
-	static Hashtable<String, FunDef> funDeftable;
 	static final ReturnVal returnVal_ = new ReturnVal();
-
+	static Hashtable<String, FunDef> funDeftable;
 
 	public static FunDefList funDefList()
 

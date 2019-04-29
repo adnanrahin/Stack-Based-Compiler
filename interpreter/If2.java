@@ -1,23 +1,21 @@
 package interpreter;
+
 import java.util.*;
 
-class If2 extends Cond
-{
+class If2 extends Cond {
 	// Expr expr; inherited from Cond
 	// Statement statement1; inherited from Cond
 
 	Statement statement2;
 
-	If2(Expr e, Statement s1, Statement s2)
-	{
+	If2(Expr e, Statement s1, Statement s2) {
 		expr = e;
 		statement1 = s1;
 		statement2 = s2;
 	}
 
-	void printParseTree(String indent)
-	{
-		String indent2 = indent+"  ";
+	void printParseTree(String indent) {
+		String indent2 = indent + "  ";
 
 		super.printParseTree(indent);
 		IO.displayln(indent2 + indent2.length() + " if");
@@ -27,19 +25,14 @@ class If2 extends Cond
 		statement2.printParseTree(indent2);
 	}
 
-	@Override
 	void M(Hashtable<String, Val> state) {
-		Val exprVal = expr.Eval(state);
-		if (exprVal instanceof BoolVal)
-			if (((BoolVal)exprVal).val) {
+		Val val = expr.Eval(state);
+		if (val instanceof BoolVal)
+			if (((BoolVal) val).val) {
 				statement1.M(state);
-			}
-			else {
+			} else {
 				statement2.M(state);
 			}
-		else {
-			//TODO: error message
-			return;
-		}
-	}	
+		return;
+	}
 }

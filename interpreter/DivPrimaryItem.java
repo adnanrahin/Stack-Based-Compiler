@@ -18,18 +18,11 @@ class DivPrimaryItem extends PrimaryItem
 		primary.printParseTree(indent);
 	}
 
-	boolean isMul() {
-		return true;
-	}
-
-	boolean isDiv() {
-		return true;
-	}
-
 	Val Eval(Hashtable<String, Val> state) {
 		Val termVal = primary.Eval(state);
 		if (termVal instanceof BoolVal) {
 			System.out.println("Error: / operator cannot be applied to " + termVal);
+			return null;
 		}
 		return termVal;
 	}

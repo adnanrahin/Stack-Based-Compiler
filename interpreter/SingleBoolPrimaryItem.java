@@ -18,7 +18,6 @@ class SingleBoolPrimaryItem extends BoolPrimaryItem
 		boolPrimary.printParseTree(indent);
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		return boolPrimary.Eval(state);
 	}

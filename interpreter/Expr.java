@@ -37,11 +37,11 @@ class Expr {
 					}
 				}
 				for (int i = 1; i < boolTermItemList.size(); i++) {
-					
+
 					btitem = boolTermItemList.get(i);
-					
+
 					if (btitem != null) {
-					
+
 						val = btitem.Eval(state);
 
 						if (val instanceof BoolVal) {
@@ -54,8 +54,8 @@ class Expr {
 						return null;
 				}
 				return new BoolVal(temp);
-			}
-			return null;
+			} else
+				return null;
 		}
 		return null;
 	}

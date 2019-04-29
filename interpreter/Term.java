@@ -16,8 +16,10 @@ class Term {
 	}
 
 	Val Eval(Hashtable<String, Val> state) {
+
+		boolean isInt = true;
+
 		try {
-			boolean isInt = true;
 
 			if (primaryItemList.get(0) != null || !primaryItemList.isEmpty()) {
 
@@ -41,9 +43,9 @@ class Term {
 									if (!(val instanceof IntVal))
 										isInt = false;
 
-									if (primaryItem.isMul())
+									if (primaryItem instanceof MulPrimaryItem)
 										temp *= val.floatVal();
-									else if (primaryItem.isDiv()) {
+									else if (primaryItem instanceof DivPrimaryItem) {
 										if (val.floatVal() == 0) {
 											System.out.println("Error: division by 0");
 											return null;
@@ -79,9 +81,9 @@ class Term {
 						if (primaryItemList.size() == 1)
 							return val;
 						else {
-							if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
+							if (primaryItemList.get(primaryItemList.size() - 1) instanceof MulPrimaryItem) {
 								System.out.println("Error: * operator cannot be applied to " + val);
-							} else {
+							} else if (primaryItemList.get(primaryItemList.size() - 1) instanceof DivPrimaryItem) {
 								System.out.println("Error: / operator cannot be applied to " + val);
 							}
 							return null;

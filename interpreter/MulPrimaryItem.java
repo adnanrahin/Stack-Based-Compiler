@@ -18,13 +18,6 @@ class MulPrimaryItem extends PrimaryItem
 		primary.printParseTree(indent);
 	}
 
-	boolean isMul() {
-		return true;
-	}
-
-	boolean isDiv() {
-		return true;
-	}
 
 	Val Eval(Hashtable<String, Val> state) {
 		Val termVal = primary.Eval(state);

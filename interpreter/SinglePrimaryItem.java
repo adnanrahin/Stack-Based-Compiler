@@ -1,4 +1,5 @@
 package interpreter;
+
 import java.util.*;
 
 class SinglePrimaryItem extends PrimaryItem
@@ -8,28 +9,15 @@ class SinglePrimaryItem extends PrimaryItem
 {
 	// Primary primary; inherited from PrimaryItem
 
-	SinglePrimaryItem(Primary p)
-	{
+	SinglePrimaryItem(Primary p) {
 		primary = p;
 	}
 
-	void printParseTree(String indent)
-	{
+	void printParseTree(String indent) {
 		primary.printParseTree(indent);
 	}
-	
-	@Override
-	boolean isMul() {
-		return false;
-	}
-
-	@Override
-	boolean isDiv() {
-		return false;
-	}
-
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
-		return primary.Eval(state);
+		Val termVal = primary.Eval(state);
+		return termVal;
 	}
 }

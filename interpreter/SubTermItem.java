@@ -18,14 +18,6 @@ class SubTermItem extends TermItem
 		term.printParseTree(indent);
 	}
 
-	boolean isAdd() {
-		return false;
-	}
-
-	boolean isSub() {
-		return true;
-	}
-
 	Val Eval(Hashtable<String, Val> state) {
 		Val eVal = term.Eval(state);
 		if (eVal instanceof BoolVal) {

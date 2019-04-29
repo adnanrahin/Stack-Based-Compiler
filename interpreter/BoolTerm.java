@@ -56,8 +56,8 @@ class BoolTerm {
 						return null;
 				}
 				return new BoolVal(temp);
-			}
-			return null;
+			} else
+				return null;
 		}
 		return null;
 	}

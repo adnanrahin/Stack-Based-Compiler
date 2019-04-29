@@ -16,7 +16,6 @@ class SingleE extends BoolPrimary
 		e.printParseTree(indent+" ");
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		return e.Eval(state);
 	}

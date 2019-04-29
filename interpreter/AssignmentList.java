@@ -13,4 +13,12 @@ class AssignmentList {
 		for (Assignment a : assignmentList)
 			a.printParseTree(indent);
 	}
+
+	void M(Hashtable<String, Val> state) {
+		
+		// function to interpret this assignment list
+		
+		for (Assignment a : assignmentList)
+			a.M(state);
+	}
 }

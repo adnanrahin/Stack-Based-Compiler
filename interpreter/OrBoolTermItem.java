@@ -19,7 +19,6 @@ class OrBoolTermItem extends BoolTermItem
 		boolTerm.printParseTree(indent);
 	}
 
-	@Override
 	Val Eval(Hashtable<String, Val> state) {
 		return boolTerm.Eval(state);
 	}

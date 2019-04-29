@@ -2,8 +2,6 @@ package interpreter;
 
 import java.util.*;
 
-import java.util.*;
-
 class E {
 	LinkedList<TermItem> termItemList;
 
@@ -44,9 +42,9 @@ class E {
 									if (!(val instanceof IntVal))
 										isInt = false;
 
-									if (termItem.isAdd())
+									if (termItem instanceof AddTermItem)
 										temp += val.floatVal();
-									else if (termItem.isSub())
+									else if (termItem instanceof SubTermItem)
 										temp -= val.floatVal();
 									else {
 										/*
@@ -65,11 +63,6 @@ class E {
 									return null;
 								}
 							} else {
-								/*
-								 * if (termItemList.get(termItemList.size() - 1).isAdd()) {
-								 * System.out.println("Error: + operator cannot be applied to " + val); } else
-								 * System.out.println("Error: - operator cannot be applied to " + val);
-								 */
 								return null;
 							}
 						}
@@ -82,10 +75,11 @@ class E {
 						if (termItemList.size() == 1)
 							return val;
 						else {
-							if (termItemList.get(termItemList.size() - 1).isAdd()) {
+							if (termItemList.get(termItemList.size() - 1) instanceof AddTermItem) {
 								System.out.println("Error: + operator cannot be applied to " + val);
-							} else
+							} else if (termItemList.get(termItemList.size() - 1) instanceof SubTermItem) {
 								System.out.println("Error: - operator cannot be applied to " + val);
+							}
 							return null;
 						}
 					}
