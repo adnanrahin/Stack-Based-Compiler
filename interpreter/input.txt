@@ -71,7 +71,7 @@ test(a1, a2, a3, x1, x2, x3)
     if (a1 < a2) returnVal = 123.0 + -76.0;   
     else if ((x1 <= x3) && (a3 > a1)) returnVal = (7.0 / 0.78) - (54.0 * -0.123);
     else if ((x1 < x3) || (a3 >= a1)) returnVal = (87.54 / 0.5E6) - (7.0e15 * -87.54e-23);
-    else if (not (x1 == x3)) returnVal = (87.54e-9 / 0.5E+6) + (-7.0E-12 * 87.101e23);
+    else if (x1 != x3) returnVal = (87.54e-9 / 0.5E+6) + (-7.0E-12 * 87.101e23);
     else returnVal = (-87.54e-9 / 0.5E+6) + (-7.0 * 87.0e23);
 }
 

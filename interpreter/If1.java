@@ -22,10 +22,11 @@ class If1 extends Cond {
 
 	void M(Hashtable<String, Val> state) {
 		Val val = expr.Eval(state);
-		if (val instanceof BoolVal)
+		if (val instanceof BoolVal) {
 			if (((BoolVal) val).val) {
 				statement1.M(state);
 			}
+		}
 		return;
 	}
 }

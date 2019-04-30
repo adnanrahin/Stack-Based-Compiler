@@ -5,8 +5,8 @@ import java.util.*;
 class BoolTerm {
 	LinkedList<BoolPrimaryItem> boolPrimaryItemList;
 
-	BoolTerm(LinkedList<BoolPrimaryItem> bpItemList) {
-		boolPrimaryItemList = bpItemList;
+	BoolTerm(LinkedList<BoolPrimaryItem> bpList) {
+		boolPrimaryItemList = bpList;
 	}
 
 	void printParseTree(String indent) {
@@ -23,9 +23,9 @@ class BoolTerm {
 
 			if (boolPrimaryItemList.get(0) != null) {
 
-				BoolPrimaryItem bpitem = boolPrimaryItemList.get(0);
+				BoolPrimaryItem bp = boolPrimaryItemList.get(0);
 
-				Val val = bpitem.Eval(state);
+				Val val = bp.Eval(state);
 
 				if (val instanceof BoolVal) {
 					temp = ((BoolVal) val).val;
@@ -40,11 +40,11 @@ class BoolTerm {
 
 				for (int i = 1; i < boolPrimaryItemList.size(); i++) {
 
-					bpitem = boolPrimaryItemList.get(i);
+					bp = boolPrimaryItemList.get(i);
 
-					if (bpitem != null) {
+					if (bp != null) {
 
-						val = bpitem.Eval(state);
+						val = bp.Eval(state);
 
 						if (val instanceof BoolVal) {
 							temp = temp && ((BoolVal) val).val;

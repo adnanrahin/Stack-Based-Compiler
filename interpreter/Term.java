@@ -56,7 +56,7 @@ class Term {
 									}
 								} else {
 									/*
-									 * if (primaryItem.isMul()) {
+									 * if (primaryItem instanceof MulPrimaryItem) {
 									 * System.out.println("Error: * operator cannot be applied to " + val); } else {
 									 * System.out.println("Error: / operator cannot be applied to " + val); }
 									 */
@@ -65,7 +65,8 @@ class Term {
 							} else {
 
 								/*
-								 * if (primaryItemList.get(primaryItemList.size() - 1).isMul()) {
+								 * if (primaryItemList.get(primaryItemList.size() - 1) instanceof
+								 * MulPrimaryItem) {
 								 * System.out.println("Error: * operator cannot be applied to " + val); } else {
 								 * System.out.println("Error: / operator cannot be applied to " + val); }
 								 */

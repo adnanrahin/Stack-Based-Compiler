@@ -48,7 +48,7 @@ class E {
 										temp -= val.floatVal();
 									else {
 										/*
-										 * if (termItem.isAdd()) {
+										 * if (termItem instanceof AddTermItem) {
 										 * System.out.println("Error: + operator cannot be applied to " + val); } else
 										 * System.out.println("Error: - operator cannot be applied to " + val);
 										 */
@@ -56,7 +56,7 @@ class E {
 									}
 								} else {
 									/*
-									 * if (termItem.isAdd()) {
+									 * if (termItem instanceof AddTermItem) {
 									 * System.out.println("Error: + operator cannot be applied to " + val); // marks
 									 * } else System.out.println("Error: - operator cannot be applied to " + val);
 									 */

@@ -16,8 +16,8 @@ class SinglePrimaryItem extends PrimaryItem
 	void printParseTree(String indent) {
 		primary.printParseTree(indent);
 	}
+
 	Val Eval(Hashtable<String, Val> state) {
-		Val termVal = primary.Eval(state);
-		return termVal;
+		return primary.Eval(state);
 	}
 }
