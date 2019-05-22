@@ -1,18 +1,16 @@
 package interpreter;
+
 import java.util.*;
 
-class IdVar extends Var
-{
+class IdVar extends Var {
 	Id id;
 
-	IdVar(Id ident)
-	{
+	IdVar(Id ident) {
 		id = ident;
 	}
 
-	void printParseTree(String indent)
-	{
-		String indent1 = indent+" ";
+	void printParseTree(String indent) {
+		String indent1 = indent + " ";
 
 		super.printParseTree(indent);
 		IO.displayln("");
