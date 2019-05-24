@@ -1,12 +1,41 @@
 main()
 {
-	b = 10;
-	a = new [5+5, 10, b];
-	print a;
-	b = new [10];
-	print b;
-	b[5] = 7;
-	print b[5];
-	a[1, 0, 7] = 20;
-	print a[1, 0, b[5]];
+	print test[10, 10];
+
+	test[10, 10] = 10;
+
+	test = 10;
+	print test[10, 10];
+	test[10, 10] = 10;
+
+	test = new [10, fact(3)+0.5];
+
+	test = new [10, -fact(3)];
+
+	test = new [10, 10];
+
+	print test[5, fact(3)+0.5];
+	print test[5, fact(4)];
+	print test[-fact(3), 5];
+
+	test[5, fact(3)+0.5] = 10;
+	test[5, fact(4)] = 10;
+	test[-fact(3), 5] =10;
+
+	print test[5, 5];
+
+	test[5, 5] = 10;
+	print test[5, 5];
+}
+
+fact(n)
+{
+	i = 0;
+	fact = 1;
+	while ( i < n )
+	{
+		i = i+1;
+		fact = i*fact;
+	}
+	returnVal = fact;
 }

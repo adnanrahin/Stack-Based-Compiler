@@ -2,19 +2,24 @@ package interpreter_final;
 
 import java.util.*;
 
-class EList
-{
+class EList {
 	LinkedList<E> eList;
 
-	EList(LinkedList<E> el)
-	{
+	EList(LinkedList<E> el) {
 		eList = el;
 	}
-	
-	void printParseTree(String indent)
-	{
+
+	void printParseTree(String indent) {
 		IO.displayln(indent + indent.length() + " <E list>");
-		for ( E e : eList )
-			e.printParseTree(indent+" ");
+		for (E e : eList)
+			e.printParseTree(indent + " ");
+	}
+
+	LinkedList<Val> Eval(HashMap<String, Val> state) {
+		LinkedList<Val> elist = new LinkedList<Val>();
+		for (E e : eList) {
+			elist.add(e.Eval(state));
+		}
+		return elist;
 	}
 }
