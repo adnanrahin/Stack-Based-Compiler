@@ -24,6 +24,7 @@ class ArrayVar extends Var {
     }
 
     Val Eval(HashMap<String, Val> state) {
+
         Val val = state.get(arrayName.id.id);
 
         try {
@@ -39,7 +40,7 @@ class ArrayVar extends Var {
             System.out.println("variable " + arrayName.id.id + " has a non-array value: " + val);
             return null;
         }
-        return val;
+        return null;
     }
 
     void M(HashMap<String, Val> state, RightSide rightSide) // interpret assignment <array var> = <right side>
