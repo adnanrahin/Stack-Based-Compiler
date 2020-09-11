@@ -1,4 +1,3 @@
-
 arrayTest()
 {
 	x1 = 10;
