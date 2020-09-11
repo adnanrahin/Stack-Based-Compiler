@@ -1,4 +1,4 @@
-This project is a continuation of Project 1. Implement a top-down parser for the following EBNF for our project language. 
+Stack Based Compiler 
 
  ⟨fun def list⟩ → { ⟨fun def⟩ }+ \
  ⟨fun def⟩ → ⟨header⟩ ⟨body⟩ \
