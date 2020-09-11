@@ -2,26 +2,22 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class FunCallStatement extends Statement
-{
-	FunCall funCall;
+class FunCallStatement extends Statement {
+    FunCall funCall;
 
-	FunCallStatement(FunCall fCall)
-	{
-		funCall = fCall;
-	}
-	
-	void printParseTree(String indent)
-	{
-		String indent1 = indent+" ";
+    FunCallStatement(FunCall fCall) {
+        funCall = fCall;
+    }
 
-		super.printParseTree(indent);
-		IO.displayln(indent1 + indent1.length() + " <fun call statement>");
-		funCall.printParseTree(indent1);
-	}
+    void printParseTree(String indent) {
+        String indent1 = indent + " ";
 
-	void M(HashMap<String,Val> state)
-	{
-		funCall.M(state);
-	}
+        super.printParseTree(indent);
+        IO.displayln(indent1 + indent1.length() + " <fun call statement>");
+        funCall.printParseTree(indent1);
+    }
+
+    void M(HashMap<String, Val> state) {
+        funCall.M(state);
+    }
 }

@@ -1,20 +1,17 @@
 package interpeter_final;
 
-class HeaderWithParameters extends Header
-{
-	//FunName funName; inherited from Header
+class HeaderWithParameters extends Header {
+    //FunName funName; inherited from Header
 
-	ParameterList parameterList;
+    ParameterList parameterList;
 
-	HeaderWithParameters(FunName fName, ParameterList pList)
-	{
-		funName = fName;
-		parameterList = pList;
-	}
-	
-	void printParseTree(String indent)
-	{
-		super.printParseTree(indent);
-		parameterList.printParseTree(indent+" ");
-	}
+    HeaderWithParameters(FunName fName, ParameterList pList) {
+        funName = fName;
+        parameterList = pList;
+    }
+
+    void printParseTree(String indent) {
+        super.printParseTree(indent);
+        parameterList.printParseTree(indent + " ");
+    }
 }

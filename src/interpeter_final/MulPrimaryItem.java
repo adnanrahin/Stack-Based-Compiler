@@ -2,60 +2,52 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class MulPrimaryItem extends PrimaryItem
+class MulPrimaryItem extends PrimaryItem {
 
-// Represents "* <primary>"
+    // Represents "* <primary>"
 
-{
-	// Primary primary; inherited from PrimaryItem
 
-	MulPrimaryItem(Primary p)
-	{
-		primary = p;
-	}
+    // Primary primary; inherited from PrimaryItem
 
-	void printParseTree(String indent)
-	{
-		IO.displayln(indent + indent.length() + " *");
-		primary.printParseTree(indent);
-	}
+    MulPrimaryItem(Primary p) {
+        primary = p;
+    }
 
-	Val Eval(HashMap<String,Val> state, Val termVal)
-	{
-		Val primaryVal = primary.Eval(state);
+    void printParseTree(String indent) {
+        IO.displayln(indent + indent.length() + " *");
+        primary.printParseTree(indent);
+    }
 
-		if ( termVal == null || primaryVal == null )
-			return null;
-		if ( !termVal.isNumber() )
-		{
-			System.out.println( "Error: * operator cannot be applied to " + termVal.toString() );
-			return null;
-		}
-		if ( !primaryVal.isNumber() )
-		{
-			System.out.println( "Error: * operator cannot be applied to " + primaryVal.toString() );
-			return null;
-		}
-		
-		// The result will be float if one or both of the arguments are float.
-		
-		Class    termClass = termVal.getClass();
-		Class primaryClass = primaryVal.getClass();
-		
-		if ( termClass == IntVal.class && primaryClass == IntVal.class )
-		{
-			((IntVal)termVal).val = ((IntVal)termVal).val * ((IntVal)primaryVal).val;
-			return termVal;
-		}
-		else if ( termClass == IntVal.class ) // primaryClass == FloatVal.class
-		{
-			((FloatVal)primaryVal).val = ((IntVal)termVal).val * ((FloatVal)primaryVal).val;
-			return primaryVal;
-		}
-		else // termClass == FloatVal.class
-		{
-			((FloatVal)termVal).val = termVal.floatVal() * primaryVal.floatVal();
-			return termVal;
-		}
-	}
+    Val Eval(HashMap<String, Val> state, Val termVal) {
+        Val primaryVal = primary.Eval(state);
+
+        if (termVal == null || primaryVal == null)
+            return null;
+        if (!termVal.isNumber()) {
+            System.out.println("Error: * operator cannot be applied to " + termVal.toString());
+            return null;
+        }
+        if (!primaryVal.isNumber()) {
+            System.out.println("Error: * operator cannot be applied to " + primaryVal.toString());
+            return null;
+        }
+
+        // The result will be float if one or both of the arguments are float.
+
+        Class termClass = termVal.getClass();
+        Class primaryClass = primaryVal.getClass();
+
+        if (termClass == IntVal.class && primaryClass == IntVal.class) {
+            ((IntVal) termVal).val = ((IntVal) termVal).val * ((IntVal) primaryVal).val;
+            return termVal;
+        } else if (termClass == IntVal.class) // primaryClass == FloatVal.class
+        {
+            ((FloatVal) primaryVal).val = ((IntVal) termVal).val * ((FloatVal) primaryVal).val;
+            return primaryVal;
+        } else // termClass == FloatVal.class
+        {
+            ((FloatVal) termVal).val = termVal.floatVal() * primaryVal.floatVal();
+            return termVal;
+        }
+    }
 }

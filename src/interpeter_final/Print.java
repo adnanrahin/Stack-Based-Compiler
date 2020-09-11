@@ -2,28 +2,24 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class Print extends Statement
-{
-	Expr expr;
+class Print extends Statement {
+    Expr expr;
 
-	Print(Expr e)
-	{
-		expr = e;
-	}
+    Print(Expr e) {
+        expr = e;
+    }
 
-	void printParseTree(String indent)
-	{
-		String indent1 = indent+" ";
+    void printParseTree(String indent) {
+        String indent1 = indent + " ";
 
-		super.printParseTree(indent);
-		IO.displayln(indent1 + indent1.length() + " <print>");
-		expr.printParseTree(indent1+" ");
-	}
+        super.printParseTree(indent);
+        IO.displayln(indent1 + indent1.length() + " <print>");
+        expr.printParseTree(indent1 + " ");
+    }
 
-	void M(HashMap<String,Val> state)
-	{
-		Val exprVal = expr.Eval(state);
-		if ( exprVal != null )
-			System.out.println(exprVal.toString());
-	}
+    void M(HashMap<String, Val> state) {
+        Val exprVal = expr.Eval(state);
+        if (exprVal != null)
+            System.out.println(exprVal.toString());
+    }
 }

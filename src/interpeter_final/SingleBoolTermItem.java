@@ -2,26 +2,21 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class SingleBoolTermItem extends BoolTermItem
+class SingleBoolTermItem extends BoolTermItem {
 
-// Represents the first <boolTerm> in <Expr>
+    // Represents the first <boolTerm> in <Expr>
+    // BoolTerm boolTerm; inherited from BoolTermItem
 
-{
-	// BoolTerm boolTerm; inherited from BoolTermItem
+    SingleBoolTermItem(BoolTerm bt) {
+        boolTerm = bt;
+    }
 
-	SingleBoolTermItem(BoolTerm bt)
-	{
-		boolTerm = bt;
-	}
+    void printParseTree(String indent) {
+        boolTerm.printParseTree(indent);
+    }
 
-	void printParseTree(String indent)
-	{
-		boolTerm.printParseTree(indent);
-	}
-
-	Val Eval(HashMap<String,Val> state, Val exprVal)
-	{
-		exprVal = boolTerm.Eval(state);
-		return exprVal;
-	}
+    Val Eval(HashMap<String, Val> state, Val exprVal) {
+        exprVal = boolTerm.Eval(state);
+        return exprVal;
+    }
 }

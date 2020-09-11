@@ -1,39 +1,32 @@
 package interpeter_final;
 
-class BoolVal extends Val
-{
-	boolean val;
+class BoolVal extends Val {
+    boolean val;
 
-	BoolVal(boolean b)
-	{
-		val = b;
-	}
+    BoolVal(boolean b) {
+        val = b;
+    }
 
-	public String toString()
-	{
-		return val+"";
-	}
+    public String toString() {
+        return val + "";
+    }
 
-	Val cloneVal()
-	{
-		return new BoolVal(val);
-	}
+    Val cloneVal() {
+        return new BoolVal(val);
+    }
 
-	double floatVal()
-	{
-		if ( val )
-			return 1.0;
-		else
-			return 0.0;
-	}
+    double floatVal() {
+        if (val)
+            return 1.0;
+        else
+            return 0.0;
+    }
 
-	boolean isNumber()
-	{
-		return false;
-	}
+    boolean isNumber() {
+        return false;
+    }
 
-	boolean isZero()
-	{
-		return false;
-	}
+    boolean isZero() {
+        return false;
+    }
 }

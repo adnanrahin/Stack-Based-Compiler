@@ -3,32 +3,29 @@ package interpeter_final;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-class BoolTerm
-{
-	LinkedList<BoolPrimaryItem> boolPrimaryItemList;
+class BoolTerm {
+    LinkedList<BoolPrimaryItem> boolPrimaryItemList;
 
-	BoolTerm(LinkedList<BoolPrimaryItem> bpItemList)
-	{
-		boolPrimaryItemList = bpItemList;
-	}
+    BoolTerm(LinkedList<BoolPrimaryItem> bpItemList) {
+        boolPrimaryItemList = bpItemList;
+    }
 
-	void printParseTree(String indent)
-	{
-		IO.displayln(indent + indent.length() + " <boolTerm>");
-		for ( BoolPrimaryItem bp : boolPrimaryItemList )
-			bp.printParseTree(indent+" ");
-	}
+    void printParseTree(String indent) {
+        IO.displayln(indent + indent.length() + " <boolTerm>");
+        for (BoolPrimaryItem bp : boolPrimaryItemList)
+            bp.printParseTree(indent + " ");
+    }
 
-	Val Eval(HashMap<String,Val> state)
+    Val Eval(HashMap<String, Val> state)
 
-	// Evaluate a sequence of boolPrimaries operated by && using left associativity
+    // Evaluate a sequence of boolPrimaries operated by && using left associativity
 
-	{
-		Val boolTermVal = null;
+    {
+        Val boolTermVal = null;
 
-		for ( BoolPrimaryItem p : boolPrimaryItemList )
-			boolTermVal = p.Eval(state, boolTermVal);
-		return boolTermVal;
-	}
+        for (BoolPrimaryItem p : boolPrimaryItemList)
+            boolTermVal = p.Eval(state, boolTermVal);
+        return boolTermVal;
+    }
 }
 

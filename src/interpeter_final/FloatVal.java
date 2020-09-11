@@ -1,36 +1,29 @@
 package interpeter_final;
 
-class FloatVal extends Val
-{
-	double val;
+class FloatVal extends Val {
+    double val;
 
-	FloatVal(double f)
-	{
-		val = f;
-	}
+    FloatVal(double f) {
+        val = f;
+    }
 
-	public String toString()
-	{
-		return val+"";
-	}
+    public String toString() {
+        return val + "";
+    }
 
-	Val cloneVal()
-	{
-		return new FloatVal(val);
-	}
+    Val cloneVal() {
+        return new FloatVal(val);
+    }
 
-	double floatVal()
-	{
-		return val;
-	}
+    double floatVal() {
+        return val;
+    }
 
-	boolean isNumber()
-	{
-		return true;
-	}
+    boolean isNumber() {
+        return true;
+    }
 
-	boolean isZero()
-	{
-		return val == 0.0;
-	}
+    boolean isZero() {
+        return val == 0.0;
+    }
 }

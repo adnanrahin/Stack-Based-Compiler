@@ -2,23 +2,19 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class Floatp extends Primary
-{
-	double val;
+class Floatp extends Primary {
+    double val;
 
-	Floatp(double d)
-	{
-		val = d;
-	}
+    Floatp(double d) {
+        val = d;
+    }
 
-	void printParseTree(String indent)
-	{
-		super.printParseTree(indent);
-		IO.displayln(" " + val);
-	}
+    void printParseTree(String indent) {
+        super.printParseTree(indent);
+        IO.displayln(" " + val);
+    }
 
-	Val Eval(HashMap<String,Val> state)
-	{
-		return new FloatVal(val);
-	}
+    Val Eval(HashMap<String, Val> state) {
+        return new FloatVal(val);
+    }
 }

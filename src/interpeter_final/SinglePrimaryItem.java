@@ -2,26 +2,22 @@ package interpeter_final;
 
 import java.util.HashMap;
 
-class SinglePrimaryItem extends PrimaryItem
+class SinglePrimaryItem extends PrimaryItem {
 
-// Represents the first <primary> in <term>
+    // Represents the first <primary> in <term>
 
-{
-	// Primary primary; inherited from PrimaryItem
+    // Primary primary; inherited from PrimaryItem
 
-	SinglePrimaryItem(Primary p)
-	{
-		primary = p;
-	}
+    SinglePrimaryItem(Primary p) {
+        primary = p;
+    }
 
-	void printParseTree(String indent)
-	{
-		primary.printParseTree(indent);
-	}
+    void printParseTree(String indent) {
+        primary.printParseTree(indent);
+    }
 
-	Val Eval(HashMap<String,Val> state, Val termVal)
-	{
-		termVal = primary.Eval(state);
-		return termVal;
-	}
+    Val Eval(HashMap<String, Val> state, Val termVal) {
+        termVal = primary.Eval(state);
+        return termVal;
+    }
 }
