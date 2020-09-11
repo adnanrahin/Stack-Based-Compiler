@@ -1,0 +1,4 @@
+test()
+{
+	returnVal = A+2*J < 1*X-K && B <= 1.3 && C > 7.34E-2 || D && E && !(F || G) && H && !!returnVal;
+}

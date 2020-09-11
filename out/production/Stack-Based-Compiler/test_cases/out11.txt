@@ -1,0 +1,133 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+   3 <parameter list>
+    4 <parameter> x
+    4 <parameter> y
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <cond>
+      6 if
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> x
+         9 <=
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> y
+      6 <statement>
+       7 <assignment>
+        8 <var>
+         9 returnVal
+        8 =
+        8 <right side>
+         9 <expr right side>
+          10 <expr>
+           11 <boolTerm>
+            12 <boolPrimary>
+             13 <E>
+              14 <term>
+               15 <primary> 3
+      6 else
+      6 <statement>
+       7 <assignment>
+        8 <var>
+         9 returnVal
+        8 =
+        8 <right side>
+         9 <expr right side>
+          10 <expr>
+           11 <boolTerm>
+            12 <boolPrimary>
+             13 <E>
+              14 <term>
+               15 <primary>
+                16 <fun call primary>
+                 17 <fun call>
+                  18 <fun name> f
+                  18 <expr list>
+                   19 <expr>
+                    20 <boolTerm>
+                     21 <boolPrimary>
+                      22 <E>
+                       23 <term>
+                        24 <primary> 100
+           11 ||
+           11 <boolTerm>
+            12 <boolPrimary>
+             13 <E>
+              14 <term>
+               15 <primary>
+                16 !
+                16 <primary>
+                 17 <fun call primary>
+                  18 <fun call>
+                   19 <fun name> g
+                   19 <expr list>
+                    20 <expr>
+                     21 <boolTerm>
+                      22 <boolPrimary>
+                       23 <E>
+                        24 <term>
+                         25 <primary> 100
+ 1 <fun def>
+  2 <header>
+   3 <fun name> f
+   3 <parameter list>
+    4 <parameter> x
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 returnVal
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> x
+           11 >
+           11 <E>
+            12 <term>
+             13 <primary> 10
+ 1 <fun def>
+  2 <header>
+   3 <fun name> g
+   3 <parameter list>
+    4 <parameter> x
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 returnVal
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> x
+           11 !=
+           11 <E>
+            12 <term>
+             13 <primary> 10

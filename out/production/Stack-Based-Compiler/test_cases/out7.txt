@@ -1,0 +1,88 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> functionValue
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <fun call primary>
+               15 <fun call>
+                16 <fun name> function
+                16 <expr list>
+                 17 <expr>
+                  18 <boolTerm>
+                   19 <boolPrimary>
+                    20 <E>
+                     21 <term>
+                      22 <primary>
+                       23 <fun call primary>
+                        24 <fun call>
+                         25 <fun name> f
+                         25 <expr list>
+                          26 <expr>
+                           27 <boolTerm>
+                            28 <boolPrimary>
+                             29 <E>
+                              30 <term>
+                               31 <primary> 1
+                              30 +
+                              30 <term>
+                               31 <primary>
+                                32 <var>
+                                 33 <id var> x
+                          26 <expr>
+                           27 <boolTerm>
+                            28 <boolPrimary>
+                             29 <E>
+                              30 <term>
+                               31 <primary>
+                                32 <var>
+                                 33 <id var> y
+                               31 *
+                               31 <primary> 2
+                          26 <expr>
+                           27 <boolTerm>
+                            28 <boolPrimary>
+                             29 <E>
+                              30 <term>
+                               31 <primary> 0.038
+                             29 <=
+                             29 <E>
+                              30 <term>
+                               31 <primary> 10.9
+                            28 &&
+                            28 <boolPrimary>
+                             29 <E>
+                              30 <term>
+                               31 <primary>
+                                32 !
+                                32 <primary>
+                                 33 <var>
+                                  34 <id var> A
+                     21 +
+                     21 <term>
+                      22 <primary>
+                       23 <fun call primary>
+                        24 <fun call>
+                         25 <fun name> g
+                         25 <expr list>
+                          26 <expr>
+                           27 <boolTerm>
+                            28 <boolPrimary>
+                             29 <E>
+                              30 <term>
+                               31 <primary> 6
+                      22 *
+                      22 <primary> 10

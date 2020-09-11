@@ -1,0 +1,179 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> arrayTest
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> x1
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 10
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> x2
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary> 20
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> a1
+      6 =
+      6 <right side>
+       7 <array constructor>
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 10
+         9 <E>
+          10 <term>
+           11 <primary> 20
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <id var> a2
+      6 =
+      6 <right side>
+       7 <array constructor>
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 50
+         9 <E>
+          10 <term>
+           11 <primary> 100
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <array var>
+        8 <array name> a1
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 5
+         9 <E>
+          10 <term>
+           11 <primary> 15
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> x1
+            12 +
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> x2
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <array var>
+        8 <array name> a2
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 30
+         9 <E>
+          10 <term>
+           11 <primary> 80
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> x1
+             13 *
+             13 <primary>
+              14 <var>
+               15 <array var>
+                16 <array name> a1
+                16 <E list>
+                 17 <E>
+                  18 <term>
+                   19 <primary> 5
+                 17 <E>
+                  18 <term>
+                   19 <primary> 15
+    4 <statement>
+     5 <print>
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> x1
+    4 <statement>
+     5 <print>
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <id var> x2
+    4 <statement>
+     5 <print>
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <array var>
+              14 <array name> a1
+              14 <E list>
+               15 <E>
+                16 <term>
+                 17 <primary> 5
+               15 <E>
+                16 <term>
+                 17 <primary> 15
+    4 <statement>
+     5 <print>
+      6 <expr>
+       7 <boolTerm>
+        8 <boolPrimary>
+         9 <E>
+          10 <term>
+           11 <primary>
+            12 <var>
+             13 <array var>
+              14 <array name> a2
+              14 <E list>
+               15 <E>
+                16 <term>
+                 17 <primary> 30
+               15 <E>
+                16 <term>
+                 17 <primary> 80

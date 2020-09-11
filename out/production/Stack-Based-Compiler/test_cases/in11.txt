@@ -1,0 +1,17 @@
+test(x, y)
+{
+	if ( x <= y )
+		returnVal = 3;
+	else
+		returnVal = f(100) || !g(100);
+}
+
+f(x)
+{
+	returnVal = x > 10;
+}
+
+g(x)
+{
+	returnVal = x != 10;
+}

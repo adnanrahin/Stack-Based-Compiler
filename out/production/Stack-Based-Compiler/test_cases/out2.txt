@@ -1,0 +1,71 @@
+0 <fun def list>
+ 1 <fun def>
+  2 <header>
+   3 <fun name> test
+  2 <body>
+   3 <s list>
+    4 <statement>
+     5 <assignment>
+      6 <var>
+       7 <array var>
+        8 <array name> a
+        8 <E list>
+         9 <E>
+          10 <term>
+           11 <primary> 1
+         9 <E>
+          10 <term>
+           11 <primary> 2
+         9 <E>
+          10 <term>
+           11 <primary> 3
+      6 =
+      6 <right side>
+       7 <expr right side>
+        8 <expr>
+         9 <boolTerm>
+          10 <boolPrimary>
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> cs316
+             13 *
+             13 <primary>
+              14 -
+              14 <primary> 6.9
+             13 /
+             13 <primary>
+              14 -
+              14 <primary> 12
+             13 *
+             13 <primary>
+              14 <var>
+               15 <id var> abc
+            12 +
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> test1
+             13 /
+             13 <primary> 0.069
+             13 *
+             13 <primary> 123
+             13 /
+             13 <primary>
+              14 <var>
+               15 <id var> abcd
+           11 !=
+           11 <E>
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> A
+            12 +
+            12 <term>
+             13 <primary>
+              14 <var>
+               15 <id var> B
+            12 -
+            12 <term>
+             13 <primary> 8300.0

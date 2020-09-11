@@ -1,0 +1,4 @@
+test()
+{
+	functionValue = function(f(1+x, y*2, 3.8E-2 <= 10.9 && !A) + g(6) * 10);
+}

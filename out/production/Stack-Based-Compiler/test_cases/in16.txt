@@ -1,0 +1,8 @@
+recursiveFact(n)
+{		
+	if ( n == 0 )
+		returnVal = 1;
+	else
+		returnVal = n * recursiveFact(n-1);
+}
+

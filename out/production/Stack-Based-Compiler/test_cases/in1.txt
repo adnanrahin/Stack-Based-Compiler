@@ -1,0 +1,4 @@
+test(cs316, abc, test1, abcd, A, B, C)
+{
+	cs316 = cs316*-6.9/-12*abc + test1/6.9e-2*123/abcd - ---5 + (A-B+C);
+}
